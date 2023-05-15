@@ -32,7 +32,7 @@ const Contact = () => {
                     </div>
                     <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
                         <div class="mb-8">
-                            <img className="object-center object-cover rounded-full h-36 w-36" src="https://scontent.cdninstagram.com/v/t51.2885-15/45364185_333020220820864_3975515841322828100_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=104&_nc_ohc=BiMz-J0e0Z8AX8EmuAL&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTkxMzMxMDI4MDQ3MDE1MzcyMQ%3D%3D.2-ccb7-5&oh=00_AfAl2ece09xjXvmb1MVXD0M-UJEEWMKyIMprJJw6hiI8XQ&oe=64677D32&_nc_sid=978cb9" alt="photoRivera Need to specify how to reconcile divergent br Need to specify how to reconcile divergent br Need to specify how to reconcile divergent br"/>
+                            <img className="object-center object-cover rounded-full h-36 w-36" src="https://scontent.cdninstagram.com/v/t51.2885-15/45364185_333020220820864_3975515841322828100_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=104&_nc_ohc=BiMz-J0e0Z8AX8EmuAL&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTkxMzMxMDI4MDQ3MDE1MzcyMQ%3D%3D.2-ccb7-5&oh=00_AfAl2ece09xjXvmb1MVXD0M-UJEEWMKyIMprJJw6hiI8XQ&oe=64677D32&_nc_sid=978cb9" alt="photoRivera"/>
                         </div>
                         <div class="text-center">
                             <p class="text-xl text-gray-700 font-bold mb-2">Miguel Ángel Rivera</p>
