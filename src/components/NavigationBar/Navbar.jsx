@@ -1,8 +1,9 @@
-import React from 'react'
+import React from "react";
+import NavbarSearch from "./NavbarSearch";
+import NavbarUser from "./NavbarUser";
 
 export const Navbar = () => {
   return (
-    
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -20,32 +21,38 @@ export const Navbar = () => {
                   href="/"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
+                  Inicio
+                </a>
+
+                <a
+                  href="/dashboard"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
                   Dashboard
-                </a>
-
-                <a
-                  href="/contact"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Team
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Projects
                 </a>
 
                 <a
                   href="/calendar"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Calendar
+                  Calendario
                 </a>
+
+                <a
+                  href="/contact"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  DevTeam
+                </a>
+                <div class="flex items-center ml-auto">
+                  <NavbarSearch />
+                </div>
               </div>
             </div>
           </div>
+          <div class='ml-auto flex items-baseline'>
+                  <NavbarUser/>
+                </div>
           <div className="-mr-2 flex md:hidden">
             <button
               type="button"
@@ -79,35 +86,34 @@ export const Navbar = () => {
       <div className="hidden md:hidden">
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <a
-            href="#"
+            href="/"
+            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Inicio
+          </a>
+
+          <a
+            href="/dashboard"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             Dashboard
           </a>
 
           <a
-            href="#"
+            href="/calendar"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
-            Team
+            Calendario
           </a>
 
           <a
-            href="#"
+            href="/contact"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Projects
-            </a>
-      
-            <a
-              href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Calendar
-            </a>
-          </div>
+          >
+            DevTeam
+          </a>
         </div>
-      </nav>
-    
-  )
-}
+      </div>
+    </nav>
+  );
+};
