@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 function Calendar() {
-  const [message, setMessage] = useState('');
+  
+  const [message, setMessage] = useState("");
+
 
   useEffect(() => {
-    axios.get('http://localhost:5000/')
+    axios.get("http://localhost:5000")
       .then(response => {
         setMessage(response.data);
       })
@@ -14,9 +17,11 @@ function Calendar() {
       });
   }, []);
 
+  
   return (
     <div>
       <p>{message}</p>
+      <p>Pagina Privada</p>
     </div>
   );
 }

@@ -46,7 +46,7 @@ const Contact = () => {
                     </div>
                     <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
                         <div class="mb-8">
-                            <img className="object-center object-cover rounded-full h-36 w-36" src="https://i.imgur.com/gciVOFd.jpg" alt="photoArango"/>
+                            <img className="object-center object-cover rounded-full h-36 w-36" src="https://i.imgur.com/aBdEf4P.jpg" alt="photoArango"/>
                         </div>
                         <div class="text-center">
                             <p class="text-xl text-gray-700 font-bold mb-2">Juan Felipe Arango</p>
@@ -60,7 +60,7 @@ const Contact = () => {
                     </div>
                     <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
                         <div class="mb-8">
-                            <img className="object-center object-cover rounded-full h-36 w-36" src="https://i.imgur.com/kU3ITqQ.jpg" alt="photoCasallas"/>
+                            <img className="object-center object-cover rounded-full h-36 w-36" src="https://i.imgur.com/5NucAT6.jpg" alt="photoCasallas"/>
                         </div>
                         <div class="text-center">
                             <p class="text-xl text-gray-700 font-bold mb-2">Daniel Felipe Casallas</p>

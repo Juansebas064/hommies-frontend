@@ -44,14 +44,14 @@ export const Navbar = () => {
                 >
                   DevTeam
                 </a>
-                <div class="flex items-center ml-auto">
+                <div className="flex items-center ml-auto">
                   <NavbarSearch />
                 </div>
               </div>
             </div>
           </div>
-          <div class='ml-auto flex items-baseline'>
-                  <NavbarUser/>
+          <div className='ml-auto flex items-baseline'>
+                  <NavbarUser isAuth={true}/>
                 </div>
           <div className="-mr-2 flex md:hidden">
             <button
@@ -115,5 +115,6 @@ export const Navbar = () => {
         </div>
       </div>
     </nav>
+  
   );
 };
