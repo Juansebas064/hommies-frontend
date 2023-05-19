@@ -31,7 +31,7 @@ function NavbarUser(isAuth) {
         </span>
       </button>
 
-      {isOpen && !isAuth &&(
+      {isOpen && isAuth &&(
         <div className="absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-200 rounded-md shadow-lg">
           <a
             href="/login"
@@ -48,22 +48,7 @@ function NavbarUser(isAuth) {
         </div>
       )}
 
-      {isOpen && isAuth &&(
-        <div className="absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-200 rounded-md shadow-lg">
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          >
-            Configuración del perfil
-          </a>
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-red-700 hover:bg-red-200/100 hover:duration-500"
-          >
-            Cerrar sesión
-          </a>
-        </div>
-      )}
+    
     </div>
   );
 }
