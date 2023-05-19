@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter , Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/NavigationBar/Navbar.jsx";
 import Register from "./components/Register.jsx";
 import Home from "./components/Home.jsx";
@@ -12,23 +12,23 @@ import { Dashboard } from "./components/Dashboard.jsx";
 
 function App() {
 
-  
+
 
   return (
     <>
       <Navbar />
       <BrowserRouter>
         <Routes>
-          <Route index element={<Home/>}/>
-          <Route path="/" element= {<Home/> }/>
-          <Route path="/contact" element={<Contact/>}/>
-          <Route path="/register" element={<Register/>}/>
-          <Route path="/login" element={<LoginUser/>}/>
-          <Route element={<ProtectedRoute/>}>
-            <Route path="/dashboard" element={<Dashboard/>}/>
-            <Route path="/calendar" element={<Calendar/>}/>
+          <Route index element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LoginUser />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/calendar" element={<Calendar />} />
           </Route>
-          <Route path="*" element={<h1>Not found</h1>}/>
+          <Route path="*" element={<h1>Not found</h1>} />
         </Routes>
       </BrowserRouter>
     </>
