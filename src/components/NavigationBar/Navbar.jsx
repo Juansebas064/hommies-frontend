@@ -4,7 +4,7 @@ import NavbarUser from "./NavbarUser";
 
 export const Navbar = () => {
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-gray-800 sticky top-0 min-w-min">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -44,15 +44,13 @@ export const Navbar = () => {
                 >
                   DevTeam
                 </a>
-                <div className="flex items-center ml-auto">
-                  <NavbarSearch />
-                </div>
               </div>
             </div>
           </div>
-          <div className='ml-auto flex items-baseline'>
-                  <NavbarUser isAuth={true}/>
-                </div>
+          <div className='ml-auto flex items-center'>
+            <NavbarSearch />
+            <NavbarUser isAuth={true} />
+          </div>
           <div className="-mr-2 flex md:hidden">
             <button
               type="button"
@@ -115,6 +113,6 @@ export const Navbar = () => {
         </div>
       </div>
     </nav>
-  
+
   );
 };

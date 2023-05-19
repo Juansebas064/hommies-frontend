@@ -7,7 +7,9 @@ import Calendar from "./components/Calendar.jsx";
 import LoginUser from "./components/Login.jsx"
 import Contact from "./components/Contact.jsx";
 import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
-import { Dashboard } from "./components/Dashboard.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
+
+import './App.css';
 
 
 function App() {
