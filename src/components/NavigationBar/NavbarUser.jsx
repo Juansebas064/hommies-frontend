@@ -8,10 +8,10 @@ function NavbarUser(isAuth) {
   };
 
   return (
-    <div className='relative inline-block text-left'>
+    <div className='relative inline-block text-left z-50'>
       <button
         onClick={toggleDropdown}
-        className="flex items-center text-gray-300 hover:text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+        className="flex items-center text-gray-300 hover:text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white  z-50"
       >
         <span>
           <svg
@@ -20,7 +20,7 @@ function NavbarUser(isAuth) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-10 h-10"
+            className="w-10 h-10 z-50"
           >
             <path
               strokeLinecap="round"
@@ -31,24 +31,24 @@ function NavbarUser(isAuth) {
         </span>
       </button>
 
-      {isOpen && isAuth &&(
-        <div className="absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-200 rounded-md shadow-lg">
+      {isOpen && isAuth && (
+        <div className="absolute right-0 z-50 mt-2 w-48 bg-white divide-y divide-gray-200 rounded-md shadow-lg">
           <a
             href="/login"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500 z-50"
           >
             Iniciar sesión
           </a>
           <a
             href="/register"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500 z-50"
           >
             Registrarse
           </a>
         </div>
       )}
 
-    
+
     </div>
   );
 }
