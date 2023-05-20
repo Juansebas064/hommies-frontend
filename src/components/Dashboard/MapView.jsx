@@ -1,30 +1,67 @@
-import React from "react"
-import { MapContainer, TileLayer, useMapEvents, Marker, Popup } from 'react-leaflet';
+import React, { useState } from "react"
+import { MapContainer, TileLayer, useMapEvents, Marker, Circle, Popup } from 'react-leaflet';
+import L from "leaflet";
 import { Icon } from "leaflet";
 
-const markers = [
-  {
-    key: "001",
-    coordinates: [4.074862, -76.192516]
-  }
-]
-
 export default function MapView() {
+  const [markers, setMarkers] = useState(
+    [
+      {
+        key: "001",
+        coordinates: [4.073579856688821, -76.19267984380872]
+      },
+      {
+        key: "002",
+        coordinates: [4.070518507343204, -76.19021188675627]
+      },
+      {
+        key: "003",
+        coordinates: [4.071706654800554, -76.2032169473978]
+      }
+    ]
+  )
+
   return (
+    // Contenedor principal del mapa
     <MapContainer center={[4.074862, -76.192516]} zoom={17} scrollWheelZoom={false}>
+      {/* Función para pintar los marcadores */}
       {markers.map(marker => (
         <Marker
           key={marker.key}
           position={[marker.coordinates[0], marker.coordinates[1]]}
-          onClick={() => console.log('Clicked')}
+          eventHandlers={{
+            click: () => {
+              console.log('Clicked')
+            },
+          }}
+
         />
       ))}
+      {/* Posición inicial en el mapa */}
+      <Circle center={[4.074862, -76.192516]} radius={20} />
+      {/* Atribución */}
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
+      <button
+        className="rounded-3xl w-[40px] h-[40px] absolute bottom-4 left-4 z-[400] bg-indigo-600 text-white p-0 text-4xl font-bold hover:scale-125 hover:duration-200"
+      >
+        +
+      </button>
+      <MapEventHandler />
     </MapContainer>
   )
+}
+
+
+function MapEventHandler() {
+  const map = useMapEvents({
+    click: (e) => {
+      console.log(e)
+    },
+  })
+  return null
 }
 
 
