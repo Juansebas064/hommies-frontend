@@ -125,10 +125,3 @@ const Login = () => {
 
 export default Login;
 
-
-{/* <button className="flex items-center justify-center border-2 border-gray-500 hover:bg-gray-50 w-full max-w-xs mx-auto mt-4 text-black rounded-lg px-2 py-2 font-normal">
-                        <span>
-                          <img className="w-8" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="" />
-                        </span>
-                        <span className="ml-4"> Continuar con Google</span>
-                      </button> */}
