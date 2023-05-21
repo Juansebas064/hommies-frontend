@@ -32,7 +32,10 @@ export default function MapView() {
 
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledMarker, setIsToggledMarker] = useState(false);
-  const [placeName, setPlaceName] = useState("Selecciona una ubicación")
+  const [isToggledDate, setIsToggledDate] = useState(false);
+  const [placeName, setPlaceName] = useState("Selecciona una ubicación");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [newEventDate, setNewEventDate] = useState("Selecciona una fecha");
 
   return (
     // Contenedor principal del mapa
@@ -69,7 +72,7 @@ export default function MapView() {
       />
 
       {/* Botón para añadir un evento */}
-      <ButtonAddEvent isToggled={isToggled} isToggledMarker={isToggledMarker} setIsToggled={setIsToggled} setIsToggledMarker={setIsToggledMarker} placeName={placeName} setPlaceName={setPlaceName} />
+      <ButtonAddEvent isToggled={isToggled} isToggledMarker={isToggledMarker} isToggledDate={isToggledDate} setIsToggledDate={setIsToggledDate} setIsToggled={setIsToggled} setIsToggledMarker={setIsToggledMarker} placeName={placeName} setPlaceName={setPlaceName} selectedDate={selectedDate} setSelectedDate={setSelectedDate} placeNameDate={newEventDate} setPlaceNameDate={setNewEventDate} />
 
       {/* Componente para actualizar la lista de marcadores */}
       {isToggledMarker && <AddMarker setMarkers={setMarkers} isToggledMarker={isToggledMarker} setIsToggledMarker={setIsToggledMarker} setPlaceName={setPlaceName} />}
