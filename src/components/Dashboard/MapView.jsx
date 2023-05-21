@@ -60,7 +60,7 @@ export default function MapView() {
       />
       <button
         className="rounded-3xl w-[40px] h-[40px] absolute bottom-4 left-4 z-[400] bg-indigo-600 text-white p-0 text-4xl font-bold hover:scale-125 hover:duration-200"
-        onClick={handleToggle}
+        
       >
         +
       </button>
@@ -83,7 +83,7 @@ export default function MapView() {
                 placeholder="Selecciona una ubicación"
                 className="w-[90%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
               />
-              <button className="absolute w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200">
+              <button className="absolute w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200" onClick={handleToggle}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
