@@ -13,15 +13,15 @@ import { Icon } from "leaflet";
 export default function MapView() {
   const [markers, setMarkers] = useState([
     {
-      key: "001",
+      key: 1,
       coordinates: [4.073579856688821, -76.19267984380872],
     },
     {
-      key: "002",
+      key: 2,
       coordinates: [4.070518507343204, -76.19021188675627],
     },
     {
-      key: "003",
+      key: 3,
       coordinates: [4.071706654800554, -76.2032169473978],
     },
   ]);
@@ -34,8 +34,26 @@ export default function MapView() {
   };
 
   const handleToggleMarker = () => {
-    setIsToggledMarker(!setIsToggledMarker);
+    setIsToggledMarker(!isToggledMarker);
   };
+
+  function AddMarker() {
+    const map = useMapEvents({
+      click: (e) => {
+        console.log(e);
+        if (isToggledMarker) {
+          L.marker([e.latlng.lat, e.latlng.lng]).addTo(map)
+          // setMarkers(() => {
+          //   [...markers, {
+          //     key: markers[markers.length - 1] + 1,
+          //     coordinates: [e.latlng.lat, e.latlng.lng]
+          //   }]
+          // })
+          setIsToggledMarker(false)
+        }
+      },
+    });
+  }
 
   return (
     // Contenedor principal del mapa
@@ -114,19 +132,12 @@ export default function MapView() {
         </div>
       )}
 
-      <MapEventHandler />
+      {isToggledMarker && <AddMarker />}
     </MapContainer>
   );
 }
 
-function MapEventHandler() {
-  const map = useMapEvents({
-    click: (e) => {
-      console.log(e);
-    },
-  });
-  return null;
-}
+
 
 // import React, { Component } from "react";
 // import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
