@@ -95,12 +95,14 @@ const Login = () => {
                       Continuar
                     </button>
                     <div className="text-center mt-4 ">- O continua con -</div>
-                    <div>
-                      
+
+                    <button className=" rounded-full flex items-center justify-center border-2 border-gray-500 hover:bg-gray-50 w-13 max-w-xs mx-auto mt-4 text-black px-1 py-1 font-normal">
                       
                       <GoogleOAuthProvider clientId="650698705793-eetbgpi48lld1tb4eol6n8g355raapeg.apps.googleusercontent.com">
                         <GoogleLogin
-                        
+                          type = 'icon'
+                          shape = 'circle'
+                          size = 'large'
                           onSuccess={(credentialResponse) => {
                             console.log(credentialResponse);
                           }}
@@ -108,10 +110,10 @@ const Login = () => {
                             console.log("Login Failed");
                           }}
                         />
-                       
                       </GoogleOAuthProvider>
-                     
-                    </div>
+                      
+                    </button>
+
                   </div>
                 </div> 
               </div>
@@ -139,17 +141,10 @@ const Login = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
 };
 
 export default Login;
-
-
-{/* <button className="flex items-center justify-center border-2 border-gray-500 hover:bg-gray-50 w-full max-w-xs mx-auto mt-4 text-black rounded-lg px-2 py-2 font-normal">
-                        <span>
-                          <img className="w-8" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="" />
-                        </span>
-                        <span className="ml-4"> Continuar con Google</span>
-                      </button> */}
