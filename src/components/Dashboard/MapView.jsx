@@ -1,40 +1,54 @@
-import React, { useState } from "react"
-import { MapContainer, TileLayer, useMapEvents, Marker, Circle, Popup } from 'react-leaflet';
+import React, { useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  useMapEvents,
+  Marker,
+  Circle,
+  Popup,
+} from "react-leaflet";
 import L from "leaflet";
 import { Icon } from "leaflet";
 
 export default function MapView() {
-  const [markers, setMarkers] = useState(
-    [
-      {
-        key: "001",
-        coordinates: [4.073579856688821, -76.19267984380872]
-      },
-      {
-        key: "002",
-        coordinates: [4.070518507343204, -76.19021188675627]
-      },
-      {
-        key: "003",
-        coordinates: [4.071706654800554, -76.2032169473978]
-      }
-    ]
-  )
+  const [markers, setMarkers] = useState([
+    {
+      key: "001",
+      coordinates: [4.073579856688821, -76.19267984380872],
+    },
+    {
+      key: "002",
+      coordinates: [4.070518507343204, -76.19021188675627],
+    },
+    {
+      key: "003",
+      coordinates: [4.071706654800554, -76.2032169473978],
+    },
+  ]);
+
+  const [isToggled, setIsToggled] = useState(false);
+
+  const handleToggle = () => {
+    setIsToggled(!isToggled);
+  };
 
   return (
     // Contenedor principal del mapa
-    <MapContainer center={[4.074862, -76.192516]} zoom={17} scrollWheelZoom={false}>
+    <MapContainer
+      center={[4.074862, -76.192516]}
+      zoom={17}
+      scrollWheelZoom={false}
+    >
       {/* Función para pintar los marcadores */}
-      {markers.map(marker => (
+      {markers.map((marker) => (
         <Marker
           key={marker.key}
           position={[marker.coordinates[0], marker.coordinates[1]]}
           eventHandlers={{
             click: () => {
-              console.log('Clicked')
+              console.log("Clicked");
             },
           }}
-
         />
       ))}
       {/* Posición inicial en el mapa */}
@@ -46,24 +60,35 @@ export default function MapView() {
       />
       <button
         className="rounded-3xl w-[40px] h-[40px] absolute bottom-4 left-4 z-[400] bg-indigo-600 text-white p-0 text-4xl font-bold hover:scale-125 hover:duration-200"
+        onClick={handleToggle}
       >
         +
       </button>
+      
+      {isToggled && (
+        <div className="rounded-xl w-[350px] h-[350px] absolute bottom-20 left-4 z-[400] bg-gray-200 shadow-md before:duration-200">
+          hola
+        </div>
+      )
+      
+
+      }
+
+
+
       <MapEventHandler />
     </MapContainer>
-  )
+  );
 }
-
 
 function MapEventHandler() {
   const map = useMapEvents({
     click: (e) => {
-      console.log(e)
+      console.log(e);
     },
-  })
-  return null
+  });
+  return null;
 }
-
 
 // import React, { Component } from "react";
 // import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
