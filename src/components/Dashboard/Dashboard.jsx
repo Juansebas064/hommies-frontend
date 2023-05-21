@@ -4,7 +4,7 @@ import Activities from './Activities'
 
 export default function Dashboard() {
   return (
-    <div className="flex p-0">
+    <div className="flex flex-col lg:flex-row mx-auto p-0">
       <MapView />
       <Activities />
     </div>

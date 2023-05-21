@@ -1,5 +1,5 @@
 import React from "react";
-import RegLogo from '../assets/Auth/undraw-mobile-encryption.svg';
+import RegLogo from "../assets/Auth/undraw-mobile-encryption.svg";
 
 const Register = () => {
   return (
@@ -8,7 +8,10 @@ const Register = () => {
         <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
           <div class="md:flex w-full">
             <div class="hidden md:block w-1/2 bg-indigo-500 py-10 px-10 items-center justify-center">
-              <img class="items-center justify-center flex sticky" src={RegLogo}/>
+              <img
+                class="items-center justify-center flex sticky"
+                src={RegLogo}
+              />
             </div>
             <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
               <div class="text-center mb-10">
