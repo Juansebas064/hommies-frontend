@@ -6,7 +6,7 @@ import { GoogleLogin } from '@react-oauth/google';
 const Login = () => {
   return (
     // Contenedor principal
-    < div className="flex flex-col items-center py-5" >
+    < div className="flex flex-col justify-center items-center py-5 h-[90vh]" >
 
       {/* Contenedor del formulario (card) */}
       < div className="px-10 pt-10 pb-0 bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-[80%] mx-5 max-w-[500px] overflow-hidden" >
