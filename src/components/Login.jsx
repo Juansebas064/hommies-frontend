@@ -125,8 +125,7 @@ const Login = () => {
           <a
             href="/register"
             className="text-semibold font-bold text-indigo-500 hover:text-indigo-700"
-          >
-            Crea una
+          > Crea una
           </a>
         </p>
       </div>
