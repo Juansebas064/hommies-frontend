@@ -6,10 +6,10 @@ import { GoogleLogin } from '@react-oauth/google';
 const Login = () => {
   return (
     // Contenedor principal
-    < div className="flex flex-col justify-center items-center py-5 h-[90vh]" >
+    <div className="flex flex-col justify-center items-center py-5 h-[90vh]" >
 
       {/* Contenedor del formulario (card) */}
-      < div className="px-10 pt-10 pb-0 bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-[80%] mx-5 max-w-[500px] overflow-hidden" >
+      <div className="px-10 pt-10 pb-0 bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-[80%] mx-5 max-w-[500px] overflow-hidden" >
 
         {/* Title */}
         <h1 className="font-bold text-3xl text-gray-900 text-center mb-7" >
@@ -123,10 +123,9 @@ const Login = () => {
         <p className="font-bold text-semibold text-gray-900">
           ¿No tienes cuenta?
           <a
-            href="#"
+            href="/register"
             className="text-semibold font-bold text-indigo-500 hover:text-indigo-700"
           >
-            {" "}
             Crea una
           </a>
         </p>
