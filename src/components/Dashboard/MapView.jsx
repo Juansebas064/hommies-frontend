@@ -52,13 +52,14 @@ export default function MapView() {
             position={[marker.coordinates[0], marker.coordinates[1]]}
 
           // Dejé comentada esta parte porque puede servir más adelante
-
           // eventHandlers={{
           //   click: () => {
           //     console.log("Clicked");
           //   },
           // }}
-          />
+          >
+            <Popup>{marker.key}</Popup>
+          </Marker>
         ))
       }
 
