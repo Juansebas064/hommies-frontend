@@ -8,6 +8,7 @@ import LoginUser from "./components/Login.jsx"
 import Contact from "./components/Contact.jsx";
 import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import ProfileConfig from "./components/Profile/ProfileConfig.jsx";
 
 import './App.css';
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginUser />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile/config" element={<ProfileConfig />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/calendar" element={<Calendar />} />
           </Route>
