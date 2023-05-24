@@ -119,7 +119,7 @@ const Login = () => {
       </div>
 
       {/* No tienes cuenta??? */}
-      <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl overflow-hidden mt-8 px-12 py-3">
+      <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl overflow-hidden mt-8 px-4 py-3">
         <p className="font-bold text-semibold text-gray-900">
           ¿No tienes cuenta?
           <a
