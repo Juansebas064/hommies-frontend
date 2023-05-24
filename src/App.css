@@ -12,5 +12,6 @@
   .leaflet-container {
     margin: 1.5%;
     width: 80%;
+    height: 83vh;
   }
 }
