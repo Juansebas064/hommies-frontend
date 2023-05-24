@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/NavigationBar/Navbar.jsx";
 import Register from "./components/Register.jsx";
-import Home from "./components/Home.jsx";
+import Home from "./components/Home/Home.jsx";
 import Calendar from "./components/Calendar.jsx";
 import LoginUser from "./components/Login.jsx"
 import Contact from "./components/Contact.jsx";
@@ -29,8 +29,9 @@ function App() {
           <Route path="/login" element={<LoginUser />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile/config" element={<ProfileConfig />} />
+          <Route path="/calendar" element={<Calendar />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/calendar" element={<Calendar />} />
+            
           </Route>
           <Route path="*" element={<h1>Not found</h1>} />
         </Routes>
