@@ -8,6 +8,7 @@ import {
   Popup,
 } from "react-leaflet";
 import ButtonAddEvent from "./ButtonAddEvent";
+import { getPlaceName } from "../../utils/PlaceName.js"
 
 import L from "leaflet";
 import { Icon } from "leaflet";
@@ -77,6 +78,7 @@ export default function MapView() {
 
       {/* Componente para actualizar la lista de marcadores */}
       {isToggledMarker && <AddMarker setMarkers={setMarkers} isToggledMarker={isToggledMarker} setIsToggledMarker={setIsToggledMarker} setPlaceName={setPlaceName} />}
+
     </MapContainer>
   );
 }
@@ -101,15 +103,5 @@ function AddMarker({ setMarkers, isToggledMarker, setIsToggledMarker, setPlaceNa
   });
 }
 
-const getPlaceName = async (lat, lng) => {
-  try {
-    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
-    const data = await response.json();
-    const placeName = data.display_name;
-    // console.log(placeName)
-    return placeName
-  } catch (error) {
-    console.log('Error')
-    return "Custom"
-  }
-};
+
+
