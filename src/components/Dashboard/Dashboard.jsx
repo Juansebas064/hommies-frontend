@@ -1,6 +1,6 @@
 import React from 'react'
 import MapView from './MapView'
-import Activities from './Activities'
+import Activities from './Events'
 
 export default function Dashboard() {
   return (
