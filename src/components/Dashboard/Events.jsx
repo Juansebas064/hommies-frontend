@@ -20,7 +20,7 @@ export default function Activities() {
   // Hacer la petición de la información a la base de datos
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://192.168.1.14:5000/data'); // Ruta de la API en el backend
+      const response = await axios.get('http://localhost:5000/api/evento/consultar'); // Ruta de la API en el backend
       setEventColumns(response.data); // Almacenar los datos en el estado local
       console.log(response.data)
     } catch (error) {
