@@ -1,31 +1,41 @@
 import React from "react";
 import RegLogo from "../assets/Auth/undraw-mobile-encryption.svg";
+import {useForm} from "react-hook-form";
+
+
 
 const Register = () => {
+
+  const { register, formState: { errors }, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+
   return (
-    <div>
-      <div class="min-w-screen min-h-screen bg-gray-100/50 flex items-center justify-center px-40 py-5">
-        <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
-          <div class="md:flex w-full">
-            <div class="hidden md:block w-1/2 bg-indigo-500 py-10 px-10 items-center justify-center">
+      <div className="min-w-screen min-h-screen bg-gray-100/50 flex items-center justify-center px-40 py-5">
+        <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
+          <div className="md:flex w-full">
+            <div className="hidden md:block w-1/2 bg-indigo-500 py-10 px-10 items-center justify-center">
               <img
-                class="items-center justify-center flex sticky"
+                className="items-center justify-center flex sticky"
                 src={RegLogo}
               />
             </div>
-            <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
-              <div class="text-center mb-10">
-                <h1 class="font-bold text-3xl text-gray-900">Registro</h1>
+            <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
+              <div className="text-center mb-10">
+                <h1 className="font-bold text-3xl text-gray-900">Registro</h1>
                 <p>Ingresa tu información para registrarte</p>
               </div>
-              <div>
-                <div class="flex -mx-3">
-                  <div class="w-1/2 px-3 mb-5">
-                    <label for="" class="text-xs font-semibold px-1">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex -mx-3">
+                  <div className="w-1/2 px-3 mb-5">
+                    <label className="text-xs font-semibold px-1">
                       Nombre
                     </label>
-                    <div class="flex">
-                      <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -43,17 +53,21 @@ const Register = () => {
                       </div>
                       <input
                         type="text"
-                        class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="Alejandro"
-                      />
+                        {...register('nombre', {
+                          required: true
+                        })}                        
+                      /> 
                     </div>
+                    {errors.nombre?.type === 'required' && <p>Campo nombre es requerido *</p>}
                   </div>
-                  <div class="w-1/2 px-3 mb-5">
-                    <label for="" class="text-xs font-semibold px-1">
+                  <div className="w-1/2 px-3 mb-5">
+                    <label className="text-xs font-semibold px-1">
                       Apellido
                     </label>
-                    <div class="flex">
-                      <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -71,19 +85,23 @@ const Register = () => {
                       </div>
                       <input
                         type="text"
-                        class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="Gonzales"
+                        {...register('apellido', {
+                          required: true
+                        })}
                       />
                     </div>
+                    {errors.nombre?.type === 'required' && <p>Campo apellido es requerido *</p>}
                   </div>
                 </div>
-                <div class="flex -mx-3">
-                  <div class="w-full px-3 mb-5">
-                    <label for="" class="text-xs font-semibold px-1">
+                <div className="flex -mx-3">
+                  <div className="w-full px-3 mb-5">
+                    <label className="text-xs font-semibold px-1">
                       Nickname
                     </label>
-                    <div class="flex">
-                      <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -101,19 +119,23 @@ const Register = () => {
                       </div>
                       <input
                         type="text"
-                        class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="alejogonzales05"
+                        {...register('nickname', {
+                          required: true
+                        })}
                       />
                     </div>
+                    {errors.nombre?.type === 'required' && <p>Campo nickname es requerido *</p>}
                   </div>
                 </div>
-                <div class="flex -mx-3">
-                  <div class="w-full px-3 mb-5">
-                    <label for="" class="text-xs font-semibold px-1">
+                <div className="flex -mx-3">
+                  <div className="w-full px-3 mb-5">
+                    <label className="text-xs font-semibold px-1">
                       E-mail
                     </label>
-                    <div class="flex">
-                      <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -131,19 +153,21 @@ const Register = () => {
                       </div>
                       <input
                         type="email"
-                        class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        className= {"w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-${isValid ? 'green-500' : 'red-500'}"}
                         placeholder="alejogonzales@example.com"
+                        {...register('email')}
                       /> 
                     </div>
                   </div>
                 </div>
-                <div class="flex -mx-3">
-                  <div class="w-full px-3 mb-12">
-                    <label for="" class="text-xs font-semibold px-1">
+                
+                <div className="flex -mx-3">
+                  <div className="w-full px-3 mb-12">
+                    <label className="text-xs font-semibold px-1">
                       Password
                     </label>
-                    <div class="flex">
-                      <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -161,26 +185,26 @@ const Register = () => {
                       </div>
                       <input
                         type="password"
-                        class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="************"
+                        {...register('contraseña')}
                       />
                     </div>
                   </div>
                 </div>
-                <div class="flex -mx-3">
-                  <div class="w-full px-3 mb-5">
-                    <button class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
+                <div className="flex -mx-3">
+                  <div className="w-full px-3 mb-5">
+                    <button type="submit" className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
                       REGISTRAR
                     </button>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
-export default Register;
+export default Register; 
