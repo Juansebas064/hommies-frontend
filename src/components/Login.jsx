@@ -2,6 +2,7 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import {useForm} from "react-hook-form";
 
 const Login = () => {
 
@@ -37,13 +38,34 @@ const Login = () => {
       });
     }
 
+
+  //Obtencíon de datos con react hook form
+  const { register, formState: { errors }, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+        
+    try {
+      const response = await axios.post('http://localhost:5000/login/validar', data);
+      // Aquí puedes manejar la respuesta del servidor
+      console.log(response.data);
+    } catch (error) {
+      // Aquí puedes manejar los errores que ocurran durante la solicitud
+      console.error("No existe");
+    }
+    console.log(data);
+  };
+  //
+
+  
+
   return (
     // Contenedor principal
     <div className="flex flex-col justify-center items-center py-5 h-[90vh]" >
 
       {/* Contenedor del formulario (card) */}
+      
       <div className="px-10 pt-10 pb-0 bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-[80%] mx-5 max-w-[500px] overflow-hidden" >
-
+      <form onSubmit={handleSubmit(onSubmit)}>
         {/* Title */}
         <h1 className="font-bold text-3xl text-gray-900 text-center mb-7" >
           Hommies
@@ -77,8 +99,12 @@ const Login = () => {
                 type="text"
                 className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="alejogonzales05"
+                {...register('nickname', {
+                  required: true
+                })}
               />
             </div>
+            {errors.nickname?.type === 'required' && <p>Campo nickname es requerido *</p>}
           </div>
         </div>
 
@@ -118,14 +144,18 @@ const Login = () => {
                 type="password"
                 className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="************"
+                {...register('password', {
+                  required: true
+                })}
               />
             </div>
+            {errors.password?.type === 'required' && <p>Campo contraseña es requerido *</p>}
           </div>
         </div>
 
         {/* Botones */}
         <div className="w-full px-3 mb-5">
-          <button className="block w-full max-w-xs mx-auto mt-5 bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
+          <button type= "submit"  className="block w-full max-w-xs mx-auto mt-5 bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
             Continuar
           </button>
           <div className="text-center mt-4 ">
@@ -147,8 +177,9 @@ const Login = () => {
             </GoogleOAuthProvider>
           </button>
         </div>
+        </form>
       </div>
-
+      
       {/* No tienes cuenta??? */}
       <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl overflow-hidden mt-8 px-4 py-3">
         <p className="font-bold text-semibold text-gray-900">

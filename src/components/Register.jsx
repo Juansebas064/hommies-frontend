@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import RegLogo from "../assets/Auth/undraw-mobile-encryption.svg";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
@@ -8,12 +8,13 @@ import {useForm} from "react-hook-form";
 
 const Register = () => {
 
+  //Obtencíon de datos con react hook form
   const { register, formState: { errors }, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
   };
-
+  //
 
   return (
       <div className="min-w-screen min-h-screen bg-gray-100/50 flex items-center justify-center px-40 py-5">
