@@ -1,9 +1,42 @@
 //import React from "react";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
-
+import axios from 'axios';
 
 const Login = () => {
+
+
+  const handleLoginSuccess = (response) => {
+    console.log(response);
+
+    axios.post('http://localhost:5000/api/login/verify/google', {
+
+      data: response})
+
+        .then((response) => {
+         
+        
+          if (response.data == true) {
+            console.log("la respuesta es: " + response.data);
+
+          window.location.href = '/dashboard';
+
+
+          }else {
+
+            console.log("la respuesta es: " + response.data);
+            
+
+            window.location.href = '/register';
+
+          }
+
+      })
+       .catch((error) => {
+        console.error(error);
+      });
+    }
+
   return (
     // Contenedor principal
     <div className="flex flex-col justify-center items-center py-5 h-[90vh]" >
@@ -106,9 +139,7 @@ const Login = () => {
                 type='icon'
                 shape='circle'
                 size='large'
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
+                onSuccess={handleLoginSuccess}
                 onError={() => {
                   console.log("Login Failed");
                 }}
