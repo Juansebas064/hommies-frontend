@@ -1,5 +1,7 @@
 import React from "react";
 import RegLogo from "../assets/Auth/undraw-mobile-encryption.svg";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import {useForm} from "react-hook-form";
 
 
@@ -155,7 +157,6 @@ const Register = () => {
                         type="email"
                         className= {"w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-${isValid ? 'green-500' : 'red-500'}"}
                         placeholder="alejogonzales@example.com"
-                        {...register('email')}
                       /> 
                     </div>
                   </div>
@@ -199,6 +200,21 @@ const Register = () => {
                     </button>
                   </div>
                 </div>
+
+                <div className="flex">Crea una cuenta con</div>
+                <GoogleOAuthProvider clientId="650698705793-eetbgpi48lld1tb4eol6n8g355raapeg.apps.googleusercontent.com" className="flex">
+                  <GoogleLogin
+                    type="icon"
+                    shape="circle"
+                    size="large"
+                    onSuccess={(credentialResponse) => {
+                      console.log(credentialResponse);
+                    }}
+                    onError={() => {
+                      console.log("Login Failed");
+                    }}
+                  />
+                </GoogleOAuthProvider>
               </form>
             </div>
           </div>
