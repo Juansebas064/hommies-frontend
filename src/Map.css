@@ -1,8 +1,7 @@
 .leaflet-container {
   position: relative;
   height: 65vh;
-  margin: 1.5% auto;
-  width: 95%;
+  width: 100%;
   border-radius: 14px;
   z-index: 0;
   box-shadow: 0px 0px 31px -10px rgba(133, 130, 133, 1);
@@ -10,8 +9,8 @@
 
 @media (min-width: 1024px) {
   .leaflet-container {
-    margin: 1.5%;
+    margin: 30px;
     width: 80%;
-    height: 83vh;
+    height: 80vh;
   }
 }
