@@ -94,7 +94,7 @@ const Register = () => {
                         })}
                       />
                     </div>
-                    {errors.nombre?.type === 'required' && <p>Campo apellido es requerido *</p>}
+                    {errors.apellido?.type === 'required' && <p>Campo apellido es requerido *</p>}
                   </div>
                 </div>
                 <div className="flex -mx-3">
@@ -128,7 +128,7 @@ const Register = () => {
                         })}
                       />
                     </div>
-                    {errors.nombre?.type === 'required' && <p>Campo nickname es requerido *</p>}
+                    {errors.nickname?.type === 'required' && <p>Campo nickname es requerido *</p>}
                   </div>
                 </div>
                 <div className="flex -mx-3">
@@ -157,8 +157,14 @@ const Register = () => {
                         type="email"
                         className= {"w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-${isValid ? 'green-500' : 'red-500'}"}
                         placeholder="alejogonzales@example.com"
+                        {...register('email', {
+                          required: true,
+                          pattern: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+                        })}
                       /> 
                     </div>
+                    {errors.email?.type === 'pattern' && <p>Inserte un email válido *</p>}
+                    {errors.email?.type === 'required' && <p>Campo email es requerido *</p>}
                   </div>
                 </div>
                 
@@ -188,9 +194,14 @@ const Register = () => {
                         type="password"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="************"
-                        {...register('contraseña')}
+                        {...register('password', {
+                          required: true,
+                          pattern: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+                        })}
                       />
                     </div>
+                    {errors.password?.type === 'pattern' && <p>Inserte una contraseña válida *</p>}
+                    {errors.password?.type === 'required' && <p>Campo contraseña es requerido *</p>}
                   </div>
                 </div>
                 <div className="flex -mx-3">
@@ -200,21 +211,26 @@ const Register = () => {
                     </button>
                   </div>
                 </div>
+                <div className="text-center mt-4 ">
+                  - O crea una cuenta con -
+                </div>
 
-                <div className="flex">Crea una cuenta con</div>
-                <GoogleOAuthProvider clientId="650698705793-eetbgpi48lld1tb4eol6n8g355raapeg.apps.googleusercontent.com" className="flex">
-                  <GoogleLogin
-                    type="icon"
-                    shape="circle"
-                    size="large"
-                    onSuccess={(credentialResponse) => {
-                      console.log(credentialResponse);
-                    }}
-                    onError={() => {
-                      console.log("Login Failed");
-                    }}
-                  />
-                </GoogleOAuthProvider>
+                <button className=" rounded-full flex items-center justify-center border-1 border-gray-200 hover:bg-gray-200 w-13 max-w-xs mx-auto mt-4 text-black px-1 font-normal">
+                  <GoogleOAuthProvider clientId="650698705793-eetbgpi48lld1tb4eol6n8g355raapeg.apps.googleusercontent.com">
+                    <GoogleLogin
+                      type="icon"
+                      shape="circle"
+                      size="large"
+                      onSuccess={(credentialResponse) => {
+                        console.log(credentialResponse);
+                      }}
+                      onError={() => {
+                        console.log("Login Failed");
+                      }}
+                    />
+                  </GoogleOAuthProvider>
+                </button>
+                
               </form>
             </div>
           </div>
