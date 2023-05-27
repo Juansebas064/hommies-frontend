@@ -9,6 +9,7 @@ import Contact from "./components/Contact.jsx";
 import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import ProfileConfig from "./components/Profile/ProfileConfig.jsx";
+import ProfilePreferences from "./components/Profile/ProfilePreferences.jsx";
 
 import './Map.css';
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile/config" element={<ProfileConfig />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/profile/preferences" element={< ProfilePreferences/>}/>
           <Route element={<ProtectedRoute />}>
 
           </Route>
