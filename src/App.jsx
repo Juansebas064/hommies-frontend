@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import ProfileConfig from "./components/Profile/ProfileConfig.jsx";
 import ProfilePreferences from "./components/Profile/ProfilePreferences.jsx";
+import RecoverPassword from "./components/RecoverPassword.jsx";
 
 import './Map.css';
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginUser />} />
+          <Route path="/recoverpassword" element={< RecoverPassword/>}/>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile/config" element={<ProfileConfig />} />
           <Route path="/calendar" element={<Calendar />} />

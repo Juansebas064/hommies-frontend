@@ -116,8 +116,8 @@ const Login = () => {
                 <label className="text-sm font-semibold px-1">
                   Contraseña
                 </label>
-                <a
-                  href="#"
+                <a 
+                  href="/recoverpassword"
                   className="text-sm font-semibold text-indigo-500 hover:text-indigo-700"
                 >
                   Recuperar contraseña
