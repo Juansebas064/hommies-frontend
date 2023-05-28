@@ -13,7 +13,7 @@ const RecoverPassword = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="font-bold text-3xl text-gray-900 text-center">¿Olvidaste tu contraseña? !Recupérala ya!</h2>
+        <h2 className="font-bold text-3xl text-gray-900 text-center">¿Olvidaste tu contraseña? ¡Recupérala ya!</h2>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
