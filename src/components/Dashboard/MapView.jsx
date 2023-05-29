@@ -8,7 +8,7 @@ import {
   Popup,
 } from "react-leaflet";
 import ButtonAddEvent from "./ButtonAddEvent";
-import { getPlaceName } from "../../utils/PlaceName.js"
+import { getPlaceName } from "../../utils/placeName.js"
 
 import L from "leaflet";
 import { Icon } from "leaflet";

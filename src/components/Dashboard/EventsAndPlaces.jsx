@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import EventDetails from "./EventDetails";
+import getEventStatus from "../../utils/getEventStatus.js"
 
 export default function EventsAndPlaces() {
 
@@ -9,8 +11,26 @@ export default function EventsAndPlaces() {
 
   // Pestaña activa (eventos o lugares)
   const [activeTab, setActiveTab] = useState('events')
+  // Fin declaración estados
 
-  // Realizar la solicitud al backend al renderizar el componente
+
+  const eventStatus = {
+    past: {
+      text: 'Terminado',
+      color: 'text-gray-500'
+    },
+    ongoing: {
+      text: 'En progreso',
+      color: 'text-green-500'
+    },
+    not_started: {
+      text: 'Sin empezar',
+      color: 'text-blue-500'
+    }
+  }
+
+
+  // Ejecutar fetchData() al renderizar componente
   useEffect(() => {
     fetchData();
   }, []);
@@ -26,6 +46,7 @@ export default function EventsAndPlaces() {
     }
   };
 
+  // Detalles del evento al hacer click sobre él
   function handleEventDetails(event) {
     console.log(event)
   }
@@ -36,16 +57,20 @@ export default function EventsAndPlaces() {
 
       {/* Contenedor de botones */}
       <div className="flex mx-3 lg:w-full lg:mx-0 mt-3 lg:mt-0 font-bold rounded-[14px] overflow-hidden text-sm">
+
+        {/* Botón eventos */}
         <button className={`flex-grow py-[12px] border-b-gray-200 ${activeTab === 'events' ? 'bg-indigo-500 text-white' : 'bg-gray-200 '}`} onClick={() => setActiveTab('events')}>
           Eventos
         </button>
+
+        {/* Botón lugares */}
         <button className={`flex-grow py-[12px] border-b-gray-200 ${activeTab === 'places' ? 'bg-indigo-500 text-white' : 'bg-gray-200 '}`} onClick={() => setActiveTab('places')}>
           Lugares
         </button>
       </div>
 
       {
-        // Lista de eventos o de lugares
+        // Sección de lista de eventos / lista de lugares
         activeTab == 'events' ?
           <div className="flex-grow flex flex-col items-center text-sm py-2">
             {/* Mostrar los datos obtenidos del backend */}
@@ -54,19 +79,32 @@ export default function EventsAndPlaces() {
                 {events.rows.map((column) => (
                   <li
                     key={column.codigo_evento}
-                    className="hover:cursor-pointer hover:border-indigo-500 text-gray-800 border-[2px] rounded-[14px] border-gray-300 p-[8px] my-3 mx-3 lg:mx-1 lg:hover:scale-[1.03] lg:transition-transform lg:ease-in-out lg:duration-150 grid grid-cols-2"
+                    className="hover:cursor-pointer hover:border-indigo-500 text-gray-800 border-[2px] rounded-[14px] border-gray-300 py-3 px-[8px] my-3 mx-3 lg:mx-1 lg:hover:scale-[1.03] lg:transition-transform lg:ease-in-out lg:duration-150 grid grid-cols-2"
                     onClick={handleEventDetails}>
 
+                    {/* Nombre del evento */}
                     <p className="text-base font-bold text-center col-span-2 mb-1">
                       {`${column.nombre}`}
                     </p>
-                    <p className="text-center col-span-2 mb-3 overflow-clip">
-                      {`Estado...`}
+
+                    {/* Estado del evento */}
+                    <p className={
+                      `${eventStatus[getEventStatus(column.fecha.substring(0, 10), column.hora_inicio.substring(0, 5), column.hora_final.substring(0, 5))].color} mb-1 text-center`
+                    }>
+
+                      {`● ${eventStatus[getEventStatus(column.fecha.substring(0, 10), column.hora_inicio.substring(0, 5), column.hora_final.substring(0, 5))].text}`}
                     </p>
+
+                    {/* Temáticas */}
+                    <p className="text-center">Temáticas</p>
+
+                    {/* Fecha del evento */}
                     <p className="text-sm text-center lg:text-center">
                       <span className="mr-[6px]">{calendarSVG}</span>
                       <span className="align-middle">{`${column.fecha.substring(0, 10)}`}</span>
                     </p>
+
+                    {/* Hora del evento */}
                     <p className="text-sm text-center lg:text-center">
                       <span className="mr-[6px]">{clockSVG}</span>
                       <span className="align-end">{`${column.hora_inicio.substring(0, 5)} - ${column.hora_final.substring(0, 5)}`}</span>
@@ -88,15 +126,6 @@ export default function EventsAndPlaces() {
 
       <EventDetails />
     </div >
-  )
-}
-
-function EventDetails() {
-
-  return (
-    <div className="hidden">
-
-    </div>
   )
 }
 
