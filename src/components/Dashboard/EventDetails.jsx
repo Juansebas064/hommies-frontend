@@ -14,7 +14,7 @@ export default function EventDetails({ selectedEvent, setSelectedEvent, eventSta
             setSelectedEvent(null)
             document.getElementById('event-list').hidden = false
           }}
-          className="text-base font-bold absolute bg-red-500 text-white top-3 right-3 py-[3px] px-[11px] rounded-full cursor-pointer hover:bg-red-400">
+          className="text-base font-bold absolute bg-red-500 text-white top-3 right-3 py-[1px] px-[8px] rounded-3xl cursor-pointer hover:bg-red-400">
           X
         </span>
         {/* Nombre del evento */}

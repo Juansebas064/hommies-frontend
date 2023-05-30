@@ -42,7 +42,7 @@ export default function EventsAndPlaces() {
   // Hacer la petición de la información a la base de datos
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://192.168.1.14:5000/api/evento/consultar'); // Ruta de la API en el backend
+      const response = await axios.get('http://localhost/api/evento/consultar'); // Ruta de la API en el backend
       console.log(response.data)
       setEvents(response.data); // Almacenar los datos en el estado local
     } catch (error) {
