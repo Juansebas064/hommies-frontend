@@ -6,14 +6,18 @@ import getEventStatus from "../../utils/getEventStatus.js"
 export default function EventsAndPlaces() {
 
   // Estados: 
-  // Actividades en la ciudad
+  // Actividades en la ciudad (datos de la bd)
   const [events, setEvents] = useState(null);
 
   // Pestaña activa (eventos o lugares)
   const [activeTab, setActiveTab] = useState('events')
+
+  // Mostrar detaller del evento
+  const [selectedEvent, setSelectedEvent] = useState(null)
   // Fin declaración estados
 
 
+  // Clases y texto para mostrar los estados de los eventos
   const eventStatus = {
     past: {
       text: 'Terminado',
@@ -38,7 +42,7 @@ export default function EventsAndPlaces() {
   // Hacer la petición de la información a la base de datos
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/evento/consultar'); // Ruta de la API en el backend
+      const response = await axios.get('http://192.168.1.14:5000/api/evento/consultar'); // Ruta de la API en el backend
       console.log(response.data)
       setEvents(response.data); // Almacenar los datos en el estado local
     } catch (error) {
@@ -47,8 +51,9 @@ export default function EventsAndPlaces() {
   };
 
   // Detalles del evento al hacer click sobre él
-  function handleEventDetails(event) {
-    console.log(event)
+  function handleShowEventDetails(evento) {
+    document.getElementById('event-list').hidden = true
+    setSelectedEvent(evento)
   }
 
   return (
@@ -72,49 +77,46 @@ export default function EventsAndPlaces() {
       {
         // Sección de lista de eventos / lista de lugares
         activeTab == 'events' ?
-          <div className="flex-grow flex flex-col items-center text-sm py-2">
+          <div className="relative flex-grow flex flex-col items-center text-sm py-2 mb-4">
             {/* Mostrar los datos obtenidos del backend */}
             {events ? (
-              <ul className="w-full sm:grid sm:grid-cols-2 lg:block">
-                {events.rows.map((column) => (
-                  <li
-                    key={column.codigo_evento}
-                    className="hover:cursor-pointer hover:border-indigo-500 text-gray-800 border-[2px] rounded-[14px] border-gray-300 py-3 px-[8px] my-3 mx-3 lg:mx-1 lg:hover:scale-[1.03] lg:transition-transform lg:ease-in-out lg:duration-150 grid grid-cols-2"
-                    onClick={handleEventDetails}>
-
-                    {/* Nombre del evento */}
-                    <p className="text-base font-bold text-center col-span-2 mb-1">
-                      {`${column.nombre}`}
-                    </p>
-
-                    {/* Estado del evento */}
-                    <p className={
-                      `${eventStatus[getEventStatus(column.fecha.substring(0, 10), column.hora_inicio.substring(0, 5), column.hora_final.substring(0, 5))].color} mb-1 text-center`
-                    }>
-
-                      {`● ${eventStatus[getEventStatus(column.fecha.substring(0, 10), column.hora_inicio.substring(0, 5), column.hora_final.substring(0, 5))].text}`}
-                    </p>
-
-                    {/* Temáticas */}
-                    <p className="text-center">Temáticas</p>
-
-                    {/* Fecha del evento */}
-                    <p className="text-sm text-center lg:text-center">
-                      <span className="mr-[6px]">{calendarSVG}</span>
-                      <span className="align-middle">{`${column.fecha.substring(0, 10)}`}</span>
-                    </p>
-
-                    {/* Hora del evento */}
-                    <p className="text-sm text-center lg:text-center">
-                      <span className="mr-[6px]">{clockSVG}</span>
-                      <span className="align-end">{`${column.hora_inicio.substring(0, 5)} - ${column.hora_final.substring(0, 5)}`}</span>
-                    </p>
-
-
-                  </li>
-                ))}
-              </ul>
+              <>
+                <ul className="w-full sm:grid sm:grid-cols-2 lg:block" id="event-list">
+                  {events.rows.map((evento) => (
+                    <li
+                      key={evento.codigo_evento}
+                      className="hover:cursor-pointer hover:border-indigo-500 text-gray-800 border-[2px] rounded-[14px] border-gray-300 py-3 px-[8px] my-3 mx-3 lg:mx-1 lg:hover:scale-[1.03] lg:transition-transform lg:ease-in-out lg:duration-150 grid grid-cols-2"
+                      onClick={() => handleShowEventDetails(evento)}>
+                      {/* Nombre del evento */}
+                      <p className="text-base font-bold text-center col-span-2 mb-1">
+                        {`${evento.nombre}`}
+                      </p>
+                      {/* Estado del evento */}
+                      <p className={
+                        `${eventStatus[getEventStatus(evento.fecha.substring(0, 10), evento.hora_inicio.substring(0, 5), evento.hora_final.substring(0, 5))].color} mb-1 text-center`
+                      }>
+                        {`● ${eventStatus[getEventStatus(evento.fecha.substring(0, 10), evento.hora_inicio.substring(0, 5), evento.hora_final.substring(0, 5))].text}`}
+                      </p>
+                      {/* Temáticas */}
+                      <p className="text-center">Temáticas</p>
+                      {/* Fecha del evento */}
+                      <p className="text-sm text-center lg:text-center">
+                        <span className="mr-[6px]">{calendarSVG}</span>
+                        <span className="align-middle">{`${evento.fecha.substring(0, 10)}`}</span>
+                      </p>
+                      {/* Hora del evento */}
+                      <p className="text-sm text-center lg:text-center">
+                        <span className="mr-[6px]">{clockSVG}</span>
+                        <span className="align-end">{`${evento.hora_inicio.substring(0, 5)} - ${evento.hora_final.substring(0, 5)}`}</span>
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+                {/* Detalles del evento al hacer click sobre uno */}
+                <EventDetails selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} eventStatus={eventStatus} calendarSVG={calendarSVG} clockSVG={clockSVG} />
+              </>
             ) : (
+              // Panel de lugares
               <p className="text-center">No hay eventos para mostrar</p>
             )}
           </div>
@@ -124,7 +126,6 @@ export default function EventsAndPlaces() {
           </div>
       }
 
-      <EventDetails />
     </div >
   )
 }
