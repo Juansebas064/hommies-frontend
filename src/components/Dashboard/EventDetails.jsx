@@ -44,12 +44,12 @@ export default function EventDetails({ selectedEvent, setSelectedEvent, eventSta
 
         {/* Fecha del evento */}
         <p className="text-sm text-center lg:text-center">
-          <span className="mr-[6px]">{calendarSVG}</span>
+          <span className="mr-[6px]">{calendarSVG(20)}</span>
           <span className="align-middle">{`${selectedEvent.fecha.substring(0, 10)}`}</span>
         </p>
         {/* Hora del evento */}
         <p className="text-sm text-center lg:text-center">
-          <span className="mr-[6px]">{clockSVG}</span>
+          <span className="mr-[6px]">{clockSVG(20)}</span>
           <span className="align-end">{`${selectedEvent.hora_inicio.substring(0, 5)} - ${selectedEvent.hora_final.substring(0, 5)}`}</span>
         </p>
       </div>
