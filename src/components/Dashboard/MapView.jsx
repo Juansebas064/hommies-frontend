@@ -64,20 +64,21 @@ export default function MapView() {
             key={marker.key}
             position={[marker.coordinates[0], marker.coordinates[1]]}
 
-            
-            eventHandlers={{
-              click: () => {
-                onclick={openModal}
-               
-            },
 
-           }}
+          // eventHandlers={{
+          //   click: () => {
+          //     onclick = { openModal }
+          //   },
+          // }}
           >
-            {/*<Popup>{marker.key}</Popup>*/}
+            <Popup>
+              <h2 className="text-lg font-bold mb-4 text-center">Informacion del sitio</h2>
+              <p className="mb-4">Petición a backend en progreso...</p>
+            </Popup>
           </Marker>
         ))
       }
-      <SiteModalView isOpen={isModalOpen} onClose={closeModal}/>
+      <SiteModalView isOpen={isModalOpen} onClose={closeModal} />
       {/* Posición inicial en el mapa */}
       <Circle center={[4.074862, -76.192516]} radius={20} />
 
@@ -93,7 +94,7 @@ export default function MapView() {
       {/* Componente para actualizar la lista de marcadores */}
       {isToggledMarker && <AddMarker setMarkers={setMarkers} isToggledMarker={isToggledMarker} setIsToggledMarker={setIsToggledMarker} setPlaceName={setPlaceName} />}
 
-    </MapContainer>
+    </MapContainer >
   );
 }
 
