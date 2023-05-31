@@ -10,7 +10,9 @@ const Register = () => {
 
   //Obtencíon de datos con react hook form
   const { register, formState: { errors }, handleSubmit } = useForm();
-
+  const inicio = (response) =>{
+    window.location.href = '/profile/preferences'
+  }
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -222,9 +224,7 @@ const Register = () => {
                       type="icon"
                       shape="circle"
                       size="large"
-                      onSuccess={(credentialResponse) => {
-                        console.log(credentialResponse);
-                      }}
+                      onSuccess={inicio}
                       onError={() => {
                         console.log("Login Failed");
                       }}

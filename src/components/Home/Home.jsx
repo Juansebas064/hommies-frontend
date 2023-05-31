@@ -18,6 +18,16 @@ const Home = () => {
             Red social de eventos
           </p>
         </motion.div>
+        <motion.div
+          initial={{ y: 300 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1.5 }}
+          className="w-full h-96 rounded-md px-6 bg-gradient-to-t from-indigo-300 to-indigo-200"
+        >
+          <p className="text-2xl font-semibold text-indigo-950 mt-8">
+          ¡Bienvenido a Hommies, la red social de eventos más emocionante! Aquí encontrarás un espacio vibrante y conectado, donde podrás descubrir y compartir experiencias únicas. Desde conciertos hasta festivales, pasando por conferencias inspiradoras y encuentros culturales, Hommies te mantendrá actualizado sobre los eventos más destacados. Conéctate con personas apasionadas como tú, crea tu perfil personalizado y recibe recomendaciones personalizadas. ¡Prepárate para vivir momentos inolvidables y construir recuerdos duraderos con Hommies!
+          </p>
+        </motion.div>
       </div>
     </div>
   );

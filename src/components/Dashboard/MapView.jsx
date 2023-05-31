@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SiteModalView from "./SiteModalView";
 import {
   MapContainer,
   TileLayer,
@@ -14,6 +15,17 @@ import L from "leaflet";
 import { Icon } from "leaflet";
 
 export default function MapView() {
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
 
   // Marcadores iniciales (los que el usuario tenga guardados)
   const [markers, setMarkers] = useState([
@@ -52,18 +64,20 @@ export default function MapView() {
             key={marker.key}
             position={[marker.coordinates[0], marker.coordinates[1]]}
 
-          // Dejé comentada esta parte porque puede servir más adelante
-          // eventHandlers={{
-          //   click: () => {
-          //     console.log("Clicked");
-          //   },
-          // }}
+            
+            eventHandlers={{
+              click: () => {
+                onclick={openModal}
+               
+            },
+
+           }}
           >
-            <Popup>{marker.key}</Popup>
+            {/*<Popup>{marker.key}</Popup>*/}
           </Marker>
         ))
       }
-
+      <SiteModalView isOpen={isModalOpen} onClose={closeModal}/>
       {/* Posición inicial en el mapa */}
       <Circle center={[4.074862, -76.192516]} radius={20} />
 

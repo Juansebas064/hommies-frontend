@@ -1,5 +1,6 @@
-import Datepicker from "tailwind-datepicker-react"
+import Datepicker from "tailwind-datepicker-react";
 import { useState } from "react";
+
 export default function ButtonAddEvent({
   isToggled,
   isToggledMarker,
@@ -28,21 +29,18 @@ export default function ButtonAddEvent({
   const handleToggleDate = () => {
     setIsToggledDate(!isToggledDate);
   };
-  
-  
+
   const [currentDate, setCurrentDate] = useState("");
 
   const setDate = () => {
-    var tempDate = new Date()
-    var year =+ tempDate.getFullYear().toLocaleString();
-    var month =+ tempDate.getDate().toLocaleString();
-    var day =+ tempDate.getDay().toLocaleString();
+    var tempDate = new Date();
+    var year = +tempDate.getFullYear().toLocaleString();
+    var month = +tempDate.getDate().toLocaleString();
+    var day = +tempDate.getDay().toLocaleString();
 
-    return year+"-"+month+"-"+day
- 
-  }
-  
-  
+    return year + "-" + month + "-" + day;
+  };
+
   const optionsDatepick = {
     title: "Selecciona una fecha",
     autoHide: true,
@@ -66,22 +64,24 @@ export default function ButtonAddEvent({
       prev: () => <span>Anterior</span>,
       next: () => <span>Siguiente</span>,
     },
-    datepickerClassNames: "top-4 z-[405] bg-gray-200 ",
+    datepickerClassNames: "top-4 z-[405] bg-gray-200 text-xs",
     defaultDate: new Date("2023-01-01"),
     language: "en",
-  }
+  };
 
-  const [show, setShow] = useState(false)
-	const handleChangeDate = (selectedDate) => {
-		console.log(selectedDate)
-	}
-	const handleClose = (state) => {
-		setShow(state)
-	}
+  const [show, setShow] = useState(false);
+  const handleChangeDate = (selectedDate) => {
+    console.log(selectedDate);
+  };
+  const handleClose = (state) => {
+    setShow(state);
+  };
 
   const setLabelDate = (date) => {
     setNewEventDate(date);
   };
+
+  const [activeTab, setActiveTab] = useState("events");
 
   const sendForm = () => {};
 
@@ -121,63 +121,157 @@ export default function ButtonAddEvent({
       {isToggled && (
         <div className="rounded-xl w-[350px] h-[350px] absolute bottom-20 left-4 z-[400] bg-gray-200 shadow-md before:duration-200 items-center justify-center px-3 py-1">
           <div className="flex flex-col -mx-3">
-            <div className="w-full px-3 mb-4 mt-3 items-center relative">
-              <div className="w-full items-center text-center justify-center pb-3">
-                <label className="font-semibold text-indigo-700 text-sm shadow-lg shadow-indigo-300">
-                  Crear una actividad
-                </label>
-              </div>
+            <div className="flex mx-3 lg:w-full lg:mx-0 mt-3 lg:mt-0 font-bold rounded-[14px] overflow-hidden text-sm">
+              <button
+                className={`flex-grow py-1 border-b-gray-200 text-xs ${
+                  activeTab === "events"
+                    ? "bg-indigo-500 text-white"
+                    : "bg-gray-200 "
+                }`}
+                onClick={() => setActiveTab("events")}
+              >
+                Crear evento
+              </button>
+              <button
+                className={`flex-grow py-1 border-b-gray-200 text-xs ${
+                  activeTab === "places"
+                    ? "bg-indigo-500 text-white"
+                    : "bg-gray-200 "
+                }`}
+                onClick={() => setActiveTab("places")}
+              >
+                Crear lugares
+              </button>
+            </div>
+            {activeTab == "events" ? (
+              <div className="w-full px-3 mb-4 mt-3 items-center relative">
+                <div className="w-full items-center text-center justify-center pb-3">
+                  <label className="font-semibold text-indigo-700 text-sm shadow-lg shadow-indigo-300 m">
+                    Crear una actividad
+                  </label>
+                
 
-              <label className="mb-2 text-xs font-semibold px-1">
-                Nombre del evento
-              </label>
-              <input
-                type="text"
-                placeholder="Nombre del evento"
-                className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                id="inputName"
-              />
-              <label className="mb-2 text-xs font-semibold px-1">
-                Ubicación
-              </label>
-              <div className="flex items-center">
+                <label className="mb-2 text-xs font-semibold px-1">
+                  Nombre del evento
+                </label>
                 <input
                   type="text"
-                  placeholder={placeName}
-                  className="w-[88%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                  disabled={true}
-                  id="inputUbi"
+                  placeholder="Nombre del evento"
+                  className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                  id="inputName"
                 />
-                <button
-                  className="relative w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200"
-                  onClick={handleToggleMarker}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-8 h-8"
+                <label className="mb-2 text-xs font-semibold px-1">
+                  Ubicación
+                </label>
+                <div className="flex items-center">
+                  <input
+                    type="text"
+                    placeholder={placeName}
+                    className="w-[88%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    disabled={false}
+                    id="inputUbi"
+                  />
+                  <button
+                    className="relative w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200"
+                    onClick={handleToggleMarker} disabled={true}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <label className="mb-2 text-xs font-semibold px-1">Fecha</label>
-              <div>
-                    < Datepicker options={optionsDatepick} onChange={handleChangeDate} show={show} setShow={handleClose} className="bg-gray-200" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-8 h-8"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                      />
+                    </svg>
+                  </button>
                 </div>
-              {/*
+                <label className="mb-2 text-xs font-semibold px-1">Fecha</label>
+                <div>
+                  <Datepicker
+                    options={optionsDatepick}
+                    onChange={handleChangeDate}
+                    show={show}
+                    setShow={handleClose}
+                    className="bg-gray-200"
+                  />
+                </div>
+                <button className="bg-indigo-500 rounded-xl mt-3 w-1/3 font-bold text-white text-sm hover:w-2/3 hover:duration-100 hover:bg-indigo-700">
+                        Crear evento
+                  </button>
+              </div>
+              </div>
+            ) : (
+              <div className="w-full px-3 mb-4 mt-3 items-center relative">
+                <div className="w-full items-center text-center justify-center pb-3">
+                  <label className="mb-3 font-semibold text-indigo-700 text-sm shadow-lg shadow-indigo-300">
+                    Crear un lugar
+                  </label>
+
+                  <label className="mb-3 mt-3 text-xs font-semibold px-1">
+                    Nombre del lugar
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Nombre del lugar"
+                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    id="inputName"
+                  />
+                  <label className="mb-2 text-xs font-semibold px-1">
+                    Ubicación
+                  </label>
+                  <div className="flex items-center">
+                    <input
+                      type="text"
+                      placeholder={placeName}
+                      className="w-[88%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                      disabled={true}
+                      id="inputUbi"
+                    />
+                    <button
+                      className="relative w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200"
+                      onClick={handleToggleMarker}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-8 h-8"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                        />
+                      </svg>
+                    </button>
+                    
+                  </div>
+                  <button className="bg-indigo-500 rounded-xl mt-3 w-1/3 font-bold text-white text-sm hover:w-2/3 hover:duration-100 hover:bg-indigo-700">
+                        Crear lugar
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/*
               <input
                 type="text"
                 placeholder=""
@@ -204,9 +298,7 @@ export default function ButtonAddEvent({
                   />
                 </svg>
               </button>
-      */}
-
-            </div>
+              */}
           </div>
         </div>
       )}
