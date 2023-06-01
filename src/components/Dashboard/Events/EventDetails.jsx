@@ -1,4 +1,4 @@
-import getEventStatus from "../../utils/getEventStatus.js"
+import getEventStatus from "../../../utils/getEventStatus.js"
 
 export default function EventDetails({ selectedEvent, setSelectedEvent, eventStatus, calendarSVG, clockSVG }) {
 
