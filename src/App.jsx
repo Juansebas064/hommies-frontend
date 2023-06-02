@@ -12,8 +12,6 @@ import ProfileConfig from "./components/Profile/ProfileConfig.jsx";
 import ProfilePreferences from "./components/Profile/ProfilePreferences.jsx";
 import RecoverPassword from "./components/RecoverPassword.jsx";
 
-import './Map.css';
-
 
 function App() {
 
@@ -29,11 +27,11 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginUser />} />
-          <Route path="/recoverpassword" element={< RecoverPassword/>}/>
+          <Route path="/recoverpassword" element={< RecoverPassword />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile/config" element={<ProfileConfig />} />
           <Route path="/calendar" element={<Calendar />} />
-          <Route path="/profile/preferences" element={< ProfilePreferences/>}/>
+          <Route path="/profile/preferences" element={< ProfilePreferences />} />
           <Route element={<ProtectedRoute />}>
 
           </Route>

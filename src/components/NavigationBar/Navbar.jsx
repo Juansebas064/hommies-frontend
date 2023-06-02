@@ -4,9 +4,9 @@ import NavbarUser from "./NavbarUser";
 
 export const Navbar = () => {
   return (
-    <nav className="bg-gray-800 sticky top-0 left-0 right-0 z-10 min-w-min">
+    <nav className="bg-gray-800 sticky top-0 left-0 right-0 z-50 min-w-min">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-[10vh]">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <img
