@@ -6,9 +6,13 @@ import { useForm } from "react-hook-form";
 const Login = () => {
 
 
+
   const handleLoginSuccess = (response) => {
     console.log(response);
 
+
+
+//devuelve el JWT 
     axios.post('http://localhost:5000/api/login/verify/google', {
 
       data: response
@@ -16,12 +20,13 @@ const Login = () => {
 
       .then((response) => {
 
+        console.log(response.data);
+        if (response.data.isLoged == true) {
 
-        if (response.data == true) {
-          console.log("la respuesta es: " + response.data);
+          localStorage.setItem('token',response.data.token);
+          console.log("la respuesta es: " + response.data.token);
 
-          window.location.href = '/dashboard';
-
+           window.location.href = '/dashboard';
 
         } else {
 
@@ -45,13 +50,45 @@ const Login = () => {
   const onSubmit = async (data) => {
 
     try {
-      const response = await axios.post('http://localhost:5000/login/validar', data);
+      const response = await axios.post('http://localhost:5000/api/create/JWT', data);
       // Aquí puedes manejar la respuesta del servidor
-      window.location.href = '/dashboard';
+
+
+      console.log(response.data);
+        if (response.data.isLoged == true) {
+
+          localStorage.setItem('token',response.data.token);
+          console.log("la respuesta es: " + response.data.token);
+
+           window.location.href = '/dashboard';
+
+        } else {
+
+          console.log("la respuesta es: " + response.data);
+
+
+          window.location.href = '/register';
+
+        }
+     // window.location.href = '/dashboard';
       console.log(response.data);
     } catch (error) {
       // Aquí puedes manejar los errores que ocurran durante la solicitud
-      console.error("No existe");
+      console.error(error);
+
+/*
+    axios.post('http://localhost:5000/api/session/createToken',{
+
+      withCredentials: true})
+      .then((response) => {
+        console.log(
+          "desde el front verificamos que: " + response.data
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
     }
     console.log(data);
   };
@@ -59,6 +96,9 @@ const Login = () => {
 
 
 
+*/
+  }
+}
   return (
     // Contenedor principal
     <div className="flex flex-col justify-center items-center py-5 h-[90vh]" >

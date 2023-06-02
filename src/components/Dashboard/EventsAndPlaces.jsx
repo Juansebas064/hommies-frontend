@@ -30,6 +30,8 @@ export default function EventsAndPlaces() {
     }
   };
 
+  
+
   return (
     // Card
     <div className="w-[95%] lg:basis-1/3 lg:mr-[30px] lg:my-[30px] lg:ml-1 mt-4 mx-auto flex-shrink flex flex-col justify-center bg-transparent">
