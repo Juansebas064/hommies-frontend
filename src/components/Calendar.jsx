@@ -8,7 +8,12 @@ function Calendar() {
 
 
   useEffect(() => {
-    axios.get("http://localhost:5000/asd")
+    axios.get("http://localhost:5000/asd", {
+
+      withCredentials: true
+
+    })
+    
       .then(response => {
         setMessage(response.data);
       })

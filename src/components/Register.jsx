@@ -3,7 +3,7 @@ import RegLogo from "../assets/Auth/undraw-mobile-encryption.svg";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import {useForm} from "react-hook-form";
-
+import axios from "axios";
 
 
 const Register = () => {
@@ -17,6 +17,44 @@ const Register = () => {
     console.log(data);
   };
   //
+
+
+
+  //falta implementar la logica del JWT no tocar por ahora fronts :)))
+    const handleLoginSuccess = (response) => {
+      console.log(response);
+  
+      axios.post('http://localhost:5000/api/register/verify/google', {
+  
+        data: response,
+        withCredentials: true})
+  
+          .then((response) => {
+
+              //si es true es porque no esta registrado 
+            if(response.data.isLoged == false && responde.data.token == null) {
+
+              console.log("NO ESTAS REGISTRADO, PERO HASTA AQUI TE PUEDO LLEVAR JSAJJDSS");
+
+            } else {
+                // si es false es porque ya esta registrado y debe de ir a inicio de sesion normal
+              
+                console.log("ESTAS REGISTRADO Y TE VAS PAL LOGIN");
+
+                window.location.href = '/login';
+
+            }
+
+            console.log(response.data);
+  
+        })
+         .catch((error) => {
+          console.error(error);
+        });
+
+
+  };
+
 
   return (
       <div className="min-w-screen min-h-screen bg-gray-100/50 flex items-center justify-center px-40 py-5">

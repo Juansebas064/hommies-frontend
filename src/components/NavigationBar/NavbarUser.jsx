@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 
-function NavbarUser(isAuth) {
+function NavbarUser() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [isAuth, setIsAuth] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className='relative inline-block text-left z-50'>
+    <div className="relative inline-block text-left z-50">
       <button
         onClick={toggleDropdown}
         className="flex items-center text-gray-300 hover:text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white  z-50"
@@ -31,24 +33,43 @@ function NavbarUser(isAuth) {
         </span>
       </button>
 
-      {isOpen && isAuth && (
-        <div className="absolute right-0 z-50 mt-2 w-48 bg-white divide-y divide-gray-200 rounded-md shadow-lg">
-          <a
-            href="/login"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500 z-50"
-          >
-            Iniciar sesión
-          </a>
-          <a
-            href="/register"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500 z-50"
-          >
-            Registrarse
-          </a>
-        </div>
+      {isOpen && (
+        <>
+          {isAuth && (
+            <div className="absolute right-0 z-50 mt-2 w-48 bg-white divide-y divide-gray-200 rounded-md shadow-lg">
+              <a
+                href="/profile/config"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500 z-50"
+              >
+                Configuracion de perfil
+              </a>
+              <a
+                href="/register"
+                className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-200 hover:duration-500 z-50"
+              >
+                Cerrar sesión
+              </a>
+            </div>
+          )}
+
+          {!isAuth && (
+            <div className="absolute right-0 z-50 mt-2 w-48 bg-white divide-y divide-gray-200 rounded-md shadow-lg">
+              <a
+                href="/login"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500 z-50"
+              >
+                Iniciar sesión
+              </a>
+              <a
+                href="/register"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500 z-50"
+              >
+                Registrarse
+              </a>
+            </div>
+          )}
+        </>
       )}
-
-
     </div>
   );
 }
