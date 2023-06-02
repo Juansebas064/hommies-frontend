@@ -1,4 +1,3 @@
-import Datepicker from "tailwind-datepicker-react";
 import { useState } from "react";
 
 export default function ButtonAddEvent({
@@ -41,33 +40,7 @@ export default function ButtonAddEvent({
     return year + "-" + month + "-" + day;
   };
 
-  const optionsDatepick = {
-    title: "Selecciona una fecha",
-    autoHide: true,
-    todayBtn: false,
-    clearBtn: true,
-    maxDate: new Date("2030-01-01"),
-    minDate: new Date("1950-01-01"),
-    theme: {
-      background: "bg-gray-200 dark:bg-gray-200",
-      todayBtn: "",
-      clearBtn: "",
-      icons: "",
-      text: "",
-      disabledText: "bg-red-300",
-      input: "",
-      inputIcon: "",
-      selected: "",
-    },
-    icons: {
-      // () => ReactElement | JSX.Element
-      prev: () => <span>Anterior</span>,
-      next: () => <span>Siguiente</span>,
-    },
-    datepickerClassNames: "top-4 z-[405] bg-gray-200 text-xs",
-    defaultDate: new Date("2023-01-01"),
-    language: "en",
-  };
+  
 
   const [show, setShow] = useState(false);
   const handleChangeDate = (selectedDate) => {
@@ -198,13 +171,7 @@ export default function ButtonAddEvent({
                 </div>
                 <label className="mb-2 text-xs font-semibold px-1">Fecha</label>
                 <div>
-                  <Datepicker
-                    options={optionsDatepick}
-                    onChange={handleChangeDate}
-                    show={show}
-                    setShow={handleClose}
-                    className="bg-gray-200"
-                  />
+                  
                 </div>
                 <button className="bg-indigo-500 rounded-xl mt-3 w-1/3 font-bold text-white text-sm hover:w-2/3 hover:duration-100 hover:bg-indigo-700">
                         Crear evento

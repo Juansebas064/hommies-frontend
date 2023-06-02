@@ -11,6 +11,7 @@ import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import ProfileConfig from "./components/Profile/ProfileConfig.jsx";
 import ProfilePreferences from "./components/Profile/ProfilePreferences.jsx";
 import RecoverPassword from "./components/RecoverPassword.jsx";
+import Footer from "./components/Footer.jsx";
 
 import './Map.css';
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="*" element={<h1>Not found</h1>} />
         </Routes>
       </BrowserRouter>
+      <Footer/>
     </>
   );
 }
