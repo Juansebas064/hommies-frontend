@@ -2,48 +2,74 @@ import React, {useState} from "react";
 
 const ProfileConfig = () => {
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    // Aquí puedes realizar las acciones que desees sin recargar la página
-    console.log('Botón clicado');
-  };
-  
-  
-  const [userInfo, setUserInfo] = useState({
-    
-  });
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   // Aquí puedes realizar las acciones que desees sin recargar la página
+  //   console.log('Botón clicado');
+  // };
 
-  const [profileImage, setProfileImage] = useState('');
+  const [intereses, setIntereses] = useState([
+    {
+      tematica: 'Ejercicio',
+      marcado: false
+    },
+    {
+      tematica: 'Programación',
+      marcado: false
+    },
+    {
+      tematica: 'Videojuegos',
+      marcado: false
+    },
+    {
+      tematica: 'Bailar',
+      marcado: false
+    },
+    {
+      tematica: 'Caminar',
+      marcado: false
+    },
+    {
+      tematica: 'BMX',
+      marcado: false
+    },
+    {
+      tematica: 'Skateboarding',
+      marcado: false
+    },
+    {
+      tematica: 'Anime',
+      marcado: false
+    },
+    {
+      tematica: 'Política',
+      marcado: false
+    },
+    {
+      tematica: 'Nadar',
+      marcado: false
+    },
+    {
+      tematica: 'Arte',
+      marcado: false
+    },
+    {
+      tematica: 'Música',
+      marcado: false
+    },
+    {
+      tematica: 'Manualidades',
+      marcado: false
+    }
+  ])
+  // 'Bailar', 'Cantar', 'Deportes', 'Meditación', 'Diseño gráfico', 'Skateboarding', 'Tocarla', 'Ambientalismo'
 
-  const handleNameChange = (e) => {
-    setUserInfo({
-      ...userInfo,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleInterestsChange = (e) => {
-    const selectedInterests = Array.from(e.target.selectedOptions, (option) => option.value);
-    setUserInfo({
-      ...userInfo,
-      interests: selectedInterests,
-    });
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProfileImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const renderActivityHistory = () => {
-    return userInfo.activityHistory.map((activity) => (
-      <li key={activity.id}>{activity.activity}</li>
-    ));
-  };
+  function handleEditarIntereses (index) {
+    const nuevosIntereses = intereses.slice();
+    nuevosIntereses[index].marcado = !nuevosIntereses[index].marcado;
+    setIntereses(nuevosIntereses);
+    console.log('Clicked: ', nuevosIntereses);
+  }
 
   return (
     <div className="container mx-auto px-0 py-28">
@@ -104,8 +130,8 @@ const ProfileConfig = () => {
                       </svg>
                     </div>
                     <input
-                      value={userInfo.lastName}
-                      onChange={handleNameChange}
+                      // value={userInfo.lastName}
+                      // onChange={handleNameChange}
                       type="text"
                       className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     />
@@ -120,8 +146,8 @@ const ProfileConfig = () => {
                     <select
                       id="gender"
                       name="gender"
-                      value={userInfo.gender}
-                      onChange={handleNameChange}
+                      // value={userInfo.gender}
+                      // onChange={handleNameChange}
                       className="w-full pl-3 pr-3 py-3 bg-gray-50 border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:border-indigo-500 block"
                       >
                       <option value="Male">Male</option>
@@ -129,112 +155,24 @@ const ProfileConfig = () => {
                       <option value="Other">Other</option>
                     </select>
                 </div>
-                <div className="w-full px-32 mb-3">
+                <div className="w-full px-28 mb-3">
                   <label className="font-semibold text-sm px-1">Cambia tus intereses</label>
                 </div>
                 
-                <div className="p-2 grid grid-cols-4 gap-4 border-4 border-gray-400 py-5 rounded-md">
+                <div className="grid grid-cols-4 gap-4 border-4 border-gray-400 py-5 rounded-md">
 
-                  
-                    <button onClick={handleClick} className="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300" >Anime</button>
-                  
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Rock</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Bailar</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Fiesta</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Beber</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Ejercicio</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Caminar</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Juegos</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Tecnologia</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Minimalismo</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Charlar</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Frio</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Calor</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Satanismo</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Cristianismo</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Ateismo</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Gerontofilia</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Coprofilia</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Anales</label>
-                  </div>
-                  <div className='flex flex-col justify-between bg-gray-300 '>
-                    <input type="checkbox" id="cb4" value="cb4"
-                      className='appearance-none h-1 w-full bg-gray-400 checked:bg-yellow-300 checked:shadow-[0_0px_5px_yellow] transition-all duration-300 peer'/>
-                    <label  className='p-1 flex flex-row justify-center px-2 peer-checked:text-yellow-300 select-none text-white'>Orales</label>
-                  </div>
-                  
-                  
+                  <div className='w-[30vw] my-10 mx-auto flex justify-center flex-wrap'>
+                    {intereses.map((elemento, index) => (
+                    <button
+                      
+                      key={index}
+                      name={elemento.tematica}
+                      className={`rounded-full px-2 py-1 my-1 mx-1 ${elemento.marcado ? 'bg-indigo-500 text-white' : 'bg-gray-200'}`}
+                      onClick={() => handleEditarIntereses(index)}>
+                      {elemento.tematica}
+                    </button>
+                    ))}
+                  </div>   
                 </div>
 
                 <button type="submit" className="block w-full max-w-xs mx-auto mt-7 bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
