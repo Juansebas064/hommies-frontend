@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import EventsList from "./Events/EventsList";
-import PlacesList from "./Places/PlacesList";
 import EventsFilters from "./Events/EventsFilters";
 
 export default function EventsAndPlaces() {
@@ -45,17 +44,11 @@ export default function EventsAndPlaces() {
     <div className="lg:basis-[30%] lg:pb-3 lg:h-[89vh] px-3 mx-3 mt-7 lg:mt-0 lg:pt-4 flex flex-col justify-start bg-transparent overflow-hidden">
 
       {/* Contenedor de botones */}
-      <div className="flex lg:w-full lg:mx-0 font-bold rounded-[14px] overflow-hidden text-sm h-[45px]">
+      <div className="flex lg:w-full lg:mx-0 font-bold rounded-[14px] overflow-hidden text-sm h-[45px] justify-center">
 
         {/* Botón eventos */}
-        <button className={`flex-grow border-b-gray-200 ${activeTab === 'events' ? 'bg-indigo-500 text-white' : 'bg-gray-200 '}`} onClick={() => setActiveTab('events')}>
-          Eventos
-        </button>
-
-        {/* Botón lugares */}
-        <button className={`flex-grow border-b-gray-200 ${activeTab === 'places' ? 'bg-indigo-500 text-white' : 'bg-gray-200 '}`} onClick={() => setActiveTab('places')}>
-          Lugares
-        </button>
+        <p>Aqui se mostraran los eventos en los que estás inscrito y los que terminaron
+        </p>
       </div>
 
       {
@@ -77,8 +70,7 @@ export default function EventsAndPlaces() {
               }
             </div>
           </>
-          :
-          <PlacesList />
+          : null
       }
 
     </div >
@@ -95,4 +87,3 @@ export default function EventsAndPlaces() {
 
     }
 }
-

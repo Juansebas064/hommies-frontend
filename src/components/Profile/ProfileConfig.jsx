@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import History from './History'
 
 const ProfileConfig = () => {
 
@@ -176,7 +177,9 @@ const ProfileConfig = () => {
         <div className="px-16 pt-10 pb-4  bg-gray-100 text-gray-500 rounded-3xl shadow-xl">
           
                 <h3 className="font-bold text-3xl text-gray-900 text-center mb-7">Historial de actividades</h3>
-                <p className="text-gray-600">Laborum saepe laudantium in, voluptates ex placeat quo harum aliquam totam, doloribus eum impedit atque! Temporibus...</p>
+                <div>
+                  <History/>
+                </div>
         </div>
       </div>
     </div>
