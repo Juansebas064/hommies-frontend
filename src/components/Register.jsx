@@ -4,17 +4,59 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import {useForm} from "react-hook-form";
 import axios from "axios";
+import { data } from "autoprefixer";
 
 
 const Register = () => {
 
   //Obtencíon de datos con react hook form
   const { register, formState: { errors }, handleSubmit } = useForm();
-  const inicio = (response) =>{
-    window.location.href = '/profile/preferences'
-  }
-  const onSubmit = (data) => {
-    console.log(data);
+
+
+  //SE REGISTRA EL USUARIO A LA BASE DE DATOS POR REGISTRO NORMAL
+  const onSubmit = async(dataJson) => {
+    console.log(dataJson);
+
+
+   await axios.post('http://localhost:5000/api/register/user', {
+
+      data: dataJson})
+    .then((dataJson)=> {
+
+      
+      console.log(dataJson.data);
+
+
+      //si la persona ya tiene una cuenta 
+      if(dataJson.data.token == null) {
+
+
+        console.log("LA PERSONA YA TIENEN UNA CUENTA, SERA REDIRECICONADO A LOGIN");
+
+        window.location.href = '/login';
+
+
+        //si no la tiene
+      } else {
+
+
+        console.log("LA PERSONA NO TIENE CUENTA, PERO YA SE INGRESO A LA BASE DE DATOS, POR LO TANTO SEGUIRA CON LOS INTERESES CON TOKEN DE SESION");
+
+        localStorage.setItem('token',dataJson.data.token);
+        window.location.href = '/profile/preferences';
+
+
+      }
+
+
+
+    })
+
+    .catch((error) => {
+      console.error(error);
+    });
+
+
   };
   //
 
@@ -32,14 +74,20 @@ const Register = () => {
           .then((response) => {
 
               //si es true es porque no esta registrado 
-            if(response.data.isLoged == false && responde.data.token == null) {
+            if(response.data.token != null) {
 
-              console.log("NO ESTAS REGISTRADO, PERO HASTA AQUI TE PUEDO LLEVAR JSAJJDSS");
+              console.log("NO ESTAS REGISTRADO, VAS PARA LA BASE DE DATOS Y REDIRECCIONADO A PREFERENCIAS");
+
+              localStorage.setItem('token',response.data.token);
+
+              window.location.href = '/profile/preferences';
 
             } else {
                 // si es false es porque ya esta registrado y debe de ir a inicio de sesion normal
               
                 console.log("ESTAS REGISTRADO Y TE VAS PAL LOGIN");
+
+                //localStorage.setItem('token',response.data.token); //como no s ha iniciado sesion no se debe setear
 
                 window.location.href = '/login';
 
@@ -262,7 +310,7 @@ const Register = () => {
                       type="icon"
                       shape="circle"
                       size="large"
-                      onSuccess={inicio}
+                      onSuccess={handleLoginSuccess}
                       onError={() => {
                         console.log("Login Failed");
                       }}

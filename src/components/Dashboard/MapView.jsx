@@ -9,11 +9,10 @@ import {
   Popup,
 } from "react-leaflet";
 import ButtonAddEvent from "./ButtonAddEvent";
-import { getPlaceName } from "../../utils/placeName.js"
+import { getPlaceName } from "../../utils/placeName.js";
 
 
 export default function MapView() {
-
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -24,20 +23,19 @@ export default function MapView() {
     setModalOpen(false);
   };
 
-
   // Marcadores iniciales (los que el usuario tenga guardados)
   const [markers, setMarkers] = useState([
     {
       key: 1,
-      coordinates: [4.073579856688821, -76.19267984380872]
+      coordinates: [4.073579856688821, -76.19267984380872],
     },
     {
       key: 2,
-      coordinates: [4.070518507343204, -76.19021188675627]
+      coordinates: [4.070518507343204, -76.19021188675627],
     },
     {
       key: 3,
-      coordinates: [4.071706654800554, -76.2032169473978]
+      coordinates: [4.071706654800554, -76.2032169473978],
     },
   ]);
 
@@ -93,25 +91,28 @@ export default function MapView() {
   );
 }
 
-function AddMarker({ setMarkers, isToggledMarker, setIsToggledMarker, setPlaceName }) {
+function AddMarker({
+  setMarkers,
+  isToggledMarker,
+  setIsToggledMarker,
+  setPlaceName,
+}) {
   useMapEvents({
     click: async (e) => {
       console.log(e);
       if (isToggledMarker) {
-        setMarkers(previousState => (
-          [...previousState, {
+        setMarkers((previousState) => [
+          ...previousState,
+          {
             key: previousState[previousState.length - 1].key + 1,
-            coordinates: [e.latlng.lat, e.latlng.lng]
-          }]
-        ))
-        setIsToggledMarker(false)
-        const placeName = await getPlaceName(e.latlng.lat, e.latlng.lng)
-        console.log(placeName)
-        setPlaceName(placeName)
+            coordinates: [e.latlng.lat, e.latlng.lng],
+          },
+        ]);
+        setIsToggledMarker(false);
+        const placeName = await getPlaceName(e.latlng.lat, e.latlng.lng);
+        console.log(placeName);
+        setPlaceName(placeName);
       }
     },
   });
 }
-
-
-

@@ -30,11 +30,18 @@ export default function EventsAndPlaces() {
     }
   };
 
+<<<<<<< HEAD
+  const haveToken = localStorage.getItem('token');
+
+
+  if (haveToken != null) {
+=======
   // Ejecutar fetchEvents() al renderizar componente
   useEffect(() => {
     fetchEvents();
   }, []);
   // Fin funciones del componente
+>>>>>>> 080d2a48502de8acfddecd67b2a97165ce8d1039
 
   return (
     // Card
@@ -79,5 +86,16 @@ export default function EventsAndPlaces() {
 
     </div >
   )
+    } else {
+
+       
+  return (
+    <div>
+      <p>inicie sesion pues ombe</p>
+      <p>no has iniciado sesion</p>
+    </div>
+  );
+
+    }
 }
 
