@@ -7,6 +7,25 @@ function Calendar() {
   const [message, setMessage] = useState("");
 
 
+  const haveToken = localStorage.getItem('token');
+
+
+
+
+  if(haveToken == null) {
+
+
+     
+  return (
+    <div>
+      <p>no has iniciado sesion perro hp</p>
+      <p>juas juas juas</p>
+    </div>
+  );
+
+
+  }else {
+
   useEffect(() => {
     axios.get("http://localhost:5000/asd", {
 
@@ -29,6 +48,8 @@ function Calendar() {
       <p>Pagina Privada</p>
     </div>
   );
+
+  }
 }
 
 export default Calendar;

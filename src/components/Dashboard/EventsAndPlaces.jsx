@@ -30,7 +30,10 @@ export default function EventsAndPlaces() {
     }
   };
 
-  
+  const haveToken = localStorage.getItem('token');
+
+
+  if (haveToken != null) {
 
   return (
     // Card
@@ -71,4 +74,16 @@ export default function EventsAndPlaces() {
 
     </div >
   )
+    } else {
+
+       
+  return (
+    <div>
+      <p>inicie sesion pues ombe</p>
+      <p>no has iniciado sesion</p>
+    </div>
+  );
+
+    }
 }
+

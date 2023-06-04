@@ -7,6 +7,8 @@ const Login = () => {
 
 
 
+
+
   const handleLoginSuccess = (response) => {
     console.log(response);
 
@@ -21,16 +23,16 @@ const Login = () => {
       .then((response) => {
 
         console.log(response.data);
-        if (response.data.isLoged == true) {
+        if (response.data.token != null) {
 
           localStorage.setItem('token',response.data.token);
-          console.log("la respuesta es: " + response.data.token);
+          console.log("la respuesta entro y es: " + response.data.token);
 
-           window.location.href = '/dashboard';
+            window.location.href = '/dashboard';
 
         } else {
 
-          console.log("la respuesta es: " + response.data);
+          console.log("la respuesta no entro y es: " + response.data);
 
 
           window.location.href = '/register';
@@ -54,8 +56,9 @@ const Login = () => {
       // Aquí puedes manejar la respuesta del servidor
 
 
-      console.log(response.data);
-        if (response.data.isLoged == true) {
+      console.log(response.data.token);
+        if (response.data.token != null) {
+          //si entra qui redirecciona a dashboard porque todo estuvo bien 
 
           localStorage.setItem('token',response.data.token);
           console.log("la respuesta es: " + response.data.token);
@@ -63,11 +66,12 @@ const Login = () => {
            window.location.href = '/dashboard';
 
         } else {
+          //si entra aqui es porque tiene algo malo en contraseña, usuario O no esta registrado
 
-          console.log("la respuesta es: " + response.data);
+          console.log("la respuesta es: " + response.data.token);
 
 
-          window.location.href = '/register';
+          console.log("tienes algo mal en la contraseña, o usuario O no estas registrado");
 
         }
      // window.location.href = '/dashboard';
@@ -76,27 +80,6 @@ const Login = () => {
       // Aquí puedes manejar los errores que ocurran durante la solicitud
       console.error(error);
 
-/*
-    axios.post('http://localhost:5000/api/session/createToken',{
-
-      withCredentials: true})
-      .then((response) => {
-        console.log(
-          "desde el front verificamos que: " + response.data
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    }
-    console.log(data);
-  };
-  //
-
-
-
-*/
   }
 }
   return (
