@@ -26,7 +26,7 @@ export default function Dashboard() {
   // };
 
   return (
-    <div className="flex flex-col lg:flex-row mx-auto p-0">
+    <div className="flex flex-col lg:flex-row w-full p-0 h-full border-2 border-black m-0">
       <MapView />
       <EventsAndPlaces />
     </div>
