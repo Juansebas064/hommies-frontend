@@ -40,7 +40,7 @@ export default function ButtonAddEvent({
     return year + "-" + month + "-" + day;
   };
 
-  
+
 
   const [show, setShow] = useState(false);
   const handleChangeDate = (selectedDate) => {
@@ -56,7 +56,7 @@ export default function ButtonAddEvent({
 
   const [activeTab, setActiveTab] = useState("events");
 
-  const sendForm = () => {};
+  const sendForm = () => { };
 
   return (
     <>
@@ -96,21 +96,19 @@ export default function ButtonAddEvent({
           <div className="flex flex-col -mx-3">
             <div className="flex mx-3 lg:w-full lg:mx-0 mt-3 lg:mt-0 font-bold rounded-[14px] overflow-hidden text-sm">
               <button
-                className={`flex-grow py-1 border-b-gray-200 text-xs ${
-                  activeTab === "events"
-                    ? "bg-indigo-500 text-white"
-                    : "bg-gray-200 "
-                }`}
+                className={`flex-grow py-1 border-b-gray-200 text-xs ${activeTab === "events"
+                  ? "bg-indigo-500 text-white"
+                  : "bg-gray-200 "
+                  }`}
                 onClick={() => setActiveTab("events")}
               >
-                Crear evento
+                Crear eventos
               </button>
               <button
-                className={`flex-grow py-1 border-b-gray-200 text-xs ${
-                  activeTab === "places"
-                    ? "bg-indigo-500 text-white"
-                    : "bg-gray-200 "
-                }`}
+                className={`flex-grow py-1 border-b-gray-200 text-xs ${activeTab === "places"
+                  ? "bg-indigo-500 text-white"
+                  : "bg-gray-200 "
+                  }`}
                 onClick={() => setActiveTab("places")}
               >
                 Crear lugares
@@ -119,71 +117,71 @@ export default function ButtonAddEvent({
             {activeTab == "events" ? (
               <div className="w-full px-3 mb-4 mt-3 items-center relative">
                 <div className="w-full items-center text-center justify-center pb-3">
-                  <label className="font-semibold text-indigo-700 text-sm shadow-lg shadow-indigo-300 m">
-                    Crear una actividad
-                  </label>
-                
+                  <p className="font-semibold text-indigo-700 text-sm mb-3">
+                    Crear un evento
+                  </p>
 
-                <label className="mb-2 text-xs font-semibold px-1">
-                  Nombre del evento
-                </label>
-                <input
-                  type="text"
-                  placeholder="Nombre del evento"
-                  className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                  id="inputName"
-                />
-                <label className="mb-2 text-xs font-semibold px-1">
-                  Ubicación
-                </label>
-                <div className="flex items-center">
+
+                  <label className="mb-2 text-xs font-semibold px-1">
+                    Nombre del evento
+                  </label>
                   <input
                     type="text"
-                    placeholder={placeName}
-                    className="w-[88%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                    disabled={false}
-                    id="inputUbi"
+                    placeholder="Nombre del evento"
+                    className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    id="inputName"
                   />
-                  <button
-                    className="relative w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200"
-                    onClick={handleToggleMarker} disabled={true}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-8 h-8"
+                  <label className="mb-2 text-xs font-semibold px-1">
+                    Ubicación
+                  </label>
+                  <div className="flex items-center">
+                    <input
+                      type="text"
+                      placeholder={placeName}
+                      className="w-[88%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                      disabled={false}
+                      id="inputUbi"
+                    />
+                    <button
+                      className="relative w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200"
+                      onClick={handleToggleMarker} disabled={true}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                      />
-                    </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-8 h-8"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <label className="mb-2 text-xs font-semibold px-1">Fecha</label>
+                  <div>
+
+                  </div>
+                  <button className="bg-indigo-500 rounded-xl mt-3 w-1/3 font-bold text-white text-sm hover:w-2/3 hover:duration-100 hover:bg-indigo-700">
+                    Crear evento
                   </button>
                 </div>
-                <label className="mb-2 text-xs font-semibold px-1">Fecha</label>
-                <div>
-                  
-                </div>
-                <button className="bg-indigo-500 rounded-xl mt-3 w-1/3 font-bold text-white text-sm hover:w-2/3 hover:duration-100 hover:bg-indigo-700">
-                        Crear evento
-                  </button>
-              </div>
               </div>
             ) : (
               <div className="w-full px-3 mb-4 mt-3 items-center relative">
                 <div className="w-full items-center text-center justify-center pb-3">
-                  <label className="mb-3 font-semibold text-indigo-700 text-sm shadow-lg shadow-indigo-300">
+                  <p className="mb-3 font-semibold text-indigo-700 text-sm">
                     Crear un lugar
-                  </label>
+                  </p>
 
                   <label className="mb-3 mt-3 text-xs font-semibold px-1">
                     Nombre del lugar
@@ -229,10 +227,10 @@ export default function ButtonAddEvent({
                         />
                       </svg>
                     </button>
-                    
+
                   </div>
                   <button className="bg-indigo-500 rounded-xl mt-3 w-1/3 font-bold text-white text-sm hover:w-2/3 hover:duration-100 hover:bg-indigo-700">
-                        Crear lugar
+                    Crear lugar
                   </button>
                 </div>
               </div>
