@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 function NavbarUser() {
-  const [isOpen, setIsOpen] = useState(false);
+  const isAuth = localStorage.getItem('token')
 
-  const [isAuth, setIsAuth] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -38,14 +38,15 @@ function NavbarUser() {
           {isAuth && (
             <div className="absolute right-0 z-50 mt-2 w-48 bg-white divide-y divide-gray-200 rounded-md shadow-lg">
               <a
-                href="/profile/config"
+                href="/profile"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-400 hover:duration-500 z-50"
               >
-                Configuracion de perfil
+                Perfil
               </a>
               <a
-                href="/register"
+                href="/login"
                 className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-200 hover:duration-500 z-50"
+                onClick={() => localStorage.removeItem('token')}
               >
                 Cerrar sesión
               </a>

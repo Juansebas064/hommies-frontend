@@ -8,8 +8,9 @@ import LoginUser from "./components/Login.jsx"
 import Contact from "./components/Contact.jsx";
 import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import Profile from "./components/Profile/Profile.jsx";
 import ProfileConfig from "./components/Profile/ProfileConfig.jsx";
-import ProfilePreferences from "./components/Profile/ProfilePreferences.jsx";
+import ProfilePreferences from "./components/Register/ProfilePreferences.jsx";
 import RecoverPassword from "./components/RecoverPassword.jsx";
 import Footer from "./components/Footer.jsx";
 
@@ -29,17 +30,35 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginUser />} />
           <Route path="/recoverpassword" element={< RecoverPassword />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile/config" element={<ProfileConfig />} />
           <Route path="/calendar" element={<Calendar />} />
-          <Route path="/profile/preferences" element={< ProfilePreferences />} />
-          <Route element={<ProtectedRoute />}>
-
+          <Route path="/profile" element={
+            <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+              <Profile />
+            </ProtectedRoute>
+          }>
+          </Route>
+          <Route path="/profile/config" element={
+            <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+              <ProfileConfig />
+            </ProtectedRoute>
+          }>
+          </Route>
+          <Route path="/profile/preferences" element={
+            <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+              < ProfilePreferences />
+            </ProtectedRoute>
+          }>
+          </Route>
+          <Route path="/dashboard" element={
+            <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+              <Dashboard />
+            </ProtectedRoute>
+          }>
           </Route>
           <Route path="*" element={<h1>Not found</h1>} />
         </Routes>
       </BrowserRouter>
-      <Footer/>
+      <Footer />
     </>
   );
 }

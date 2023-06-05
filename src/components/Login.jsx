@@ -14,7 +14,7 @@ const Login = () => {
 
 
 
-//devuelve el JWT 
+    //devuelve el JWT 
     axios.post('http://localhost:5000/api/login/verify/google', {
 
       data: response
@@ -25,10 +25,10 @@ const Login = () => {
         console.log(response.data);
         if (response.data.token != null) {
 
-          localStorage.setItem('token',response.data.token);
+          localStorage.setItem('token', response.data.token);
           console.log("la respuesta entro y es: " + response.data.token);
 
-            window.location.href = '/dashboard';
+          window.location.href = '/dashboard';
 
         } else {
 
@@ -57,34 +57,34 @@ const Login = () => {
 
 
       console.log(response.data.token);
-        if (response.data.token != null) {
-          //si entra qui redirecciona a dashboard porque todo estuvo bien 
+      if (response.data.token != null) {
+        //si entra qui redirecciona a dashboard porque todo estuvo bien 
 
-          localStorage.setItem('token',response.data.token);
-          console.log("la respuesta es: " + response.data.token);
+        localStorage.setItem('token', response.data.token);
+        console.log("la respuesta es: " + response.data.token);
 
-           window.location.href = '/dashboard';
+        window.location.href = '/dashboard';
 
-        } else {
-          //si entra aqui es porque tiene algo malo en contraseña, usuario O no esta registrado
+      } else {
+        //si entra aqui es porque tiene algo malo en contraseña, usuario O no esta registrado
 
-          console.log("la respuesta es: " + response.data.token);
+        console.log("la respuesta es: " + response.data.token);
 
 
-          console.log("tienes algo mal en la contraseña, o usuario O no estas registrado");
+        console.log("tienes algo mal en la contraseña, o usuario O no estas registrado");
 
-        }
-     // window.location.href = '/dashboard';
+      }
+      // window.location.href = '/dashboard';
       console.log(response.data);
     } catch (error) {
       // Aquí puedes manejar los errores que ocurran durante la solicitud
       console.error(error);
 
+    }
   }
-}
   return (
     // Contenedor principal
-    <div className="flex flex-col justify-center items-center py-5 h-[90vh]" >
+    <div className="flex flex-col justify-center items-center py-5" >
 
       {/* Contenedor del formulario (card) */}
 
@@ -139,7 +139,7 @@ const Login = () => {
                 <label className="text-sm font-semibold px-1">
                   Contraseña
                 </label>
-                <a 
+                <a
                   href="/recoverpassword"
                   className="text-sm font-semibold text-indigo-500 hover:text-indigo-700"
                 >
@@ -186,7 +186,8 @@ const Login = () => {
               - O continua con -
             </div>
 
-            <button className=" rounded-full flex items-center justify-center border-1 border-gray-200 hover:bg-gray-200 w-13 max-w-xs mx-auto mt-4 text-black px-1 font-normal">
+            {/* Botón de Google */}
+            <button className="rounded-full flex items-center justify-center border-1 border-gray-200 hover:bg-gray-200 w-13 max-w-xs mx-auto mt-4 text-black px-1 font-normal">
 
               <GoogleOAuthProvider clientId="650698705793-eetbgpi48lld1tb4eol6n8g355raapeg.apps.googleusercontent.com">
                 <GoogleLogin

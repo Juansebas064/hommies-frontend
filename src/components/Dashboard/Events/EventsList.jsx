@@ -2,16 +2,20 @@ import { useEffect, useState } from "react";
 import getEventStatus from "../../../utils/getEventStatus"
 import { clockSVG, calendarSVG } from "../../../utils/svgs"
 import EventDetails from "./EventDetails";
+import { fetchEvents } from "../../../utils/fetchEvents";
 
 
-export default function EventsList({ events, activeFilter }) {
+export default function EventsList({ activeFilter }) {
 
   // Estados: 
   // Mostrar detalles del evento
   const [selectedEvent, setSelectedEvent] = useState(null)
 
+  // Estado para eventos
+  const [events, setEvents] = useState(null)
+
   // Lista de eventos filtrada
-  const [filteredEvents, setFilteredEvents] = useState(events)
+  const [filteredEvents, setFilteredEvents] = useState(null)
   // Fin declaración de estados
 
 
@@ -39,16 +43,30 @@ export default function EventsList({ events, activeFilter }) {
   // La lista filtrada se creará cuando se actualice el estado activeFilter
   useEffect(() => {
     createFilteredEventsList()
-  }, [activeFilter])
+  }, [events, activeFilter])
+
+  useEffect(() => {
+    async function eventsResponse() {
+      const eventsResponse = await fetchEvents()
+      setEvents(eventsResponse)
+      setFilteredEvents(eventsResponse)
+    }
+    eventsResponse()
+  }, []);
 
   return (
-    <>
-      <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block lg:overflow-y-auto h-auto" id="event-list">
-        {filteredEvents.map((evento) => <EventItem evento={evento} key={evento.codigo_evento} handleShowEventDetails={handleShowEventDetails} />)}
-      </ul>
-      {/* Detalles del evento al hacer click sobre uno */}
-      <EventDetails selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} eventStatus={eventStatus} />
-    </>
+    events ?
+      <>
+        <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block lg:overflow-y-auto h-auto" id="event-list">
+          {filteredEvents.map((evento) => <EventItem evento={evento} key={evento.codigo_evento} handleShowEventDetails={handleShowEventDetails} />)}
+        </ul>
+        {/* Detalles del evento al hacer click sobre uno */}
+        <EventDetails selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} eventStatus={eventStatus} />
+      </>
+      :
+      <div className="flex-grow flex flex-col items-center justify-center text-[30px] min-h-[150px] text-sm">
+        <p className="text-center">No hay eventos para mostrar</p>
+      </div>
   )
 }
 
