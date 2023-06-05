@@ -55,9 +55,7 @@ export default function EventsAndPlaces() {
             <EventsFilters activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
             {/* Contenedor eventos */}
-            <div className="relative flex flex-col items-center text-sm lg:px-0 overflow-hidden">
-              < EventsList activeFilter={activeFilter} />
-            </div>
+            < EventsList activeFilter={activeFilter} />
           </>
           :
           <PlacesList />

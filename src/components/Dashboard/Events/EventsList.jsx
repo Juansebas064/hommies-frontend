@@ -57,9 +57,11 @@ export default function EventsList({ activeFilter }) {
   return (
     events ?
       <>
-        <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block lg:overflow-y-auto h-auto" id="event-list">
-          {filteredEvents.map((evento) => <EventItem evento={evento} key={evento.codigo_evento} handleShowEventDetails={handleShowEventDetails} />)}
-        </ul>
+        <div className="relative flex flex-col items-center text-sm lg:px-0 overflow-hidden">
+          <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block lg:overflow-y-auto h-auto" id="event-list">
+            {filteredEvents.map((evento) => <EventItem evento={evento} key={evento.codigo_evento} handleShowEventDetails={handleShowEventDetails} />)}
+          </ul>
+        </div>
         {/* Detalles del evento al hacer click sobre uno */}
         <EventDetails selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} eventStatus={eventStatus} />
       </>

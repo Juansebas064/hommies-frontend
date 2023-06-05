@@ -13,7 +13,7 @@ function NavbarUser() {
     <div className="relative inline-block text-left z-50">
       <button
         onClick={toggleDropdown}
-        className="flex items-center text-gray-300 hover:text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white  z-50"
+        className="flex items-center text-gray-300 hover:text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none z-50"
       >
         <span>
           <svg

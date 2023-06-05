@@ -9,8 +9,9 @@
   margin: 0;
 }
 
-/* div {
-  border: 1px solid black;
+/* div,
+ul {
+  border: 1px solid white;
 } */
 
 @layer utilities {

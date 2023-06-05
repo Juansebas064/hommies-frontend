@@ -9,10 +9,11 @@ const ProfileConfig = () => {
   //   console.log('Botón clicado');
   // };
 
+  // Ejemplo de objeto con los intereses de la persona
   const [intereses, setIntereses] = useState([
     {
       tematica: 'Ejercicio',
-      marcado: false
+      marcado: true
     },
     {
       tematica: 'Programación',
@@ -24,7 +25,7 @@ const ProfileConfig = () => {
     },
     {
       tematica: 'Bailar',
-      marcado: false
+      marcado: true
     },
     {
       tematica: 'Caminar',
@@ -40,7 +41,7 @@ const ProfileConfig = () => {
     },
     {
       tematica: 'Anime',
-      marcado: false
+      marcado: true
     },
     {
       tematica: 'Política',
@@ -63,13 +64,12 @@ const ProfileConfig = () => {
       marcado: false
     }
   ])
-  // 'Bailar', 'Cantar', 'Deportes', 'Meditación', 'Diseño gráfico', 'Skateboarding', 'Tocarla', 'Ambientalismo'
 
+  // Función para modificar los intereses seleccionados al hacer click
   function handleEditarIntereses(index) {
     const nuevosIntereses = intereses.slice();
     nuevosIntereses[index].marcado = !nuevosIntereses[index].marcado;
     setIntereses(nuevosIntereses);
-    console.log('Clicked: ', nuevosIntereses);
   }
 
   return (
@@ -175,18 +175,6 @@ const ProfileConfig = () => {
             Cancelar
           </button>
         </form>
-      </div>
-
-      {/* Historial de actividades */}
-      <div className="px-10 pt-10 pb-4 text-gray-500">
-
-        <h3 className="font-bold text-3xl text-gray-900 text-center mb-7">Historial de actividades</h3>
-        <p className="text-center">
-          Aqui se mostraran los eventos en los que has estado inscrito
-        </p>
-        <div className="relative flex flex-col items-center text-sm lg:px-0 overflow-hidden">
-          <EventsList activeFilter='inscrito' />
-        </div>
       </div>
     </div >
   );

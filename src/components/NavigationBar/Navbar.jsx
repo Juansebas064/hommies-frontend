@@ -5,7 +5,7 @@ import NavbarUser from "./NavbarUser";
 export const Navbar = () => {
   return (
     <nav className="bg-gray-800 sticky top-0 left-0 right-0 z-50 min-w-min">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <div className="max-w-7xl mx-auto px-4 z-10">
         <div className="flex justify-between items-center h-[10vh]">
           <div className="flex items-center">
             <div className="flex-shrink-0">
@@ -54,7 +54,7 @@ export const Navbar = () => {
           <div className="-mr-2 flex md:hidden">
             <button
               type="button"
-              className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+              className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700"
               aria-expanded="false"
               onClick={() => {
                 const mm = document.getElementById('mobile-menu')
