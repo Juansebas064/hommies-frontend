@@ -28,7 +28,7 @@ const ProfilePreferences = () => {
               <div className="flex w-full items-center justify-center mt-6">
                 <div
                   class="grid w-[500px] grid-cols-3 space-x-2 rounded-xl bg-gray-200 p-2"
-                  
+
                 >
                   <div>
                     <input
@@ -36,7 +36,7 @@ const ProfilePreferences = () => {
                       name="option"
                       id="1"
                       class="peer hidden"
-                      
+
                     />
                     <label
                       for="1"
@@ -77,9 +77,6 @@ const ProfilePreferences = () => {
                   </div>
                 </div>
               </div>
-
-
-              
             </div>
           </div>
         </div>
