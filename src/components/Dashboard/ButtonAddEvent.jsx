@@ -89,7 +89,7 @@ export default function ButtonAddEvent({
       </button>
 
       {isToggled && (
-        <div className="rounded-xl w-[350px] h-[500px] absolute bottom-20 left-4 z-[400] bg-gray-200 shadow-md before:duration-200 items-center justify-center px-3 py-1">
+        <div className="rounded-xl w-[350px] h-[450px] absolute bottom-20 left-4 z-[400] bg-gray-200 shadow-md before:duration-200 items-center justify-center px-3 py-1">
           <div className="flex flex-col -mx-3">
             <div className="flex mx-3 lg:w-full lg:mx-0 mt-3 lg:mt-0 font-bold rounded-[14px] overflow-hidden text-sm">
               <button

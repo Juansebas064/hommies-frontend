@@ -103,6 +103,10 @@ export default function EventDetails({
           </p>
 
 
+          <button className="flex h-12 font-bold text-white rounded-3xl mt-6 bg-indigo-500 flex-grow items-center text-center justify-center overflow-auto col-span-2 hover:h-15 hover:bg-indigo-400" onClick>
+          Quiero unirme
+          </button>
+
         </div>
 
         <details className="block w-full max-w-xs mx-auto mb-7 bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
@@ -110,9 +114,6 @@ export default function EventDetails({
               <p>Smith</p>
               <p>Casariz</p>
         </details>
-          <button className="flex h-12 font-bold text-white rounded-3xl mt-6 bg-indigo-500 flex-grow items-center text-center justify-center overflow-auto col-span-2 hover:h-15 hover:bg-indigo-400" onClick>
-          Quiero unirme
-          </button>
         </div>
 
         
