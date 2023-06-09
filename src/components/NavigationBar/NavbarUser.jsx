@@ -4,6 +4,8 @@ import { UserDataContext } from "../Profile/UserDataProvider";
 function NavbarUser() {
   const { userData } = useContext(UserDataContext)
 
+  const profilePicture = localStorage.getItem('profilePicture') ? localStorage.getItem('profilePicture') : userData ? userData.foto : null
+
   const isAuth = localStorage.getItem('token')
 
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +20,7 @@ function NavbarUser() {
         onClick={toggleDropdown}
         className="flex items-center text-gray-300 hover:text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none z-50"
       >
-        {!userData ? <span>
+        {!profilePicture ? <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -35,7 +37,7 @@ function NavbarUser() {
           </svg>
         </span>
           :
-          <img src={userData.foto} alt="" className="rounded-full min-w-[45px] min-h-[45px] w-[45px]" />
+          <img src={profilePicture} alt="" className="rounded-full min-w-[45px] min-h-[45px] w-[45px]" />
         }
       </button>
 
@@ -52,7 +54,10 @@ function NavbarUser() {
               <a
                 href="/login"
                 className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-200 hover:duration-500 z-50"
-                onClick={() => localStorage.removeItem('token')}
+                onClick={() => {
+                  localStorage.removeItem('token')
+                  localStorage.removeItem('profilePicture')
+                }}
               >
                 Cerrar sesión
               </a>

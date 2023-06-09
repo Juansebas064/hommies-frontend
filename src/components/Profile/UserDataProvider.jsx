@@ -12,12 +12,10 @@ function UserDataProvider({ children }) {
 
   // Consultar la información del usuario en la bd 
   async function getUserDataFromDB() {
-    try {
-      const response = await fetchUserData()
+    const response = await fetchUserData()
+    if (response) {
       setUserData(response.data)
-      console.log('Ejecutada')
-    } catch (error) {
-      console.log('Ejecutada con error')
+      localStorage.setItem('profilePicture', response.data.foto)
     }
   }
 
