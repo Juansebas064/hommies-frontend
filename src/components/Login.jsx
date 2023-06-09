@@ -1,13 +1,13 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { useContext } from 'react';
 import { useForm } from "react-hook-form";
+import { UserDataContext } from './Profile/UserDataProvider';
 
 const Login = () => {
 
-
-
-
+  const { getUserDataFromDB } = useContext(UserDataContext)
 
   const handleLoginSuccess = (response) => {
     console.log(response);
@@ -29,6 +29,7 @@ const Login = () => {
           console.log("la respuesta entro y es: " + response.data.token);
 
           window.location.href = '/dashboard';
+          getUserDataFromDB()
 
         } else {
 

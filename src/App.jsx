@@ -13,6 +13,7 @@ import ProfileConfig from "./components/Profile/ProfileConfig.jsx";
 import ProfilePreferences from "./components/Register/ProfilePreferences.jsx";
 import RecoverPassword from "./components/RecoverPassword.jsx";
 import Footer from "./components/Footer.jsx";
+import { UserDataProvider } from "./components/Profile/UserDataProvider.jsx";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
 
 
   return (
-    <>
+    <UserDataProvider>
       <Navbar />
       <BrowserRouter>
         <Routes>
@@ -59,7 +60,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <Footer />
-    </>
+    </UserDataProvider>
   );
 }
 

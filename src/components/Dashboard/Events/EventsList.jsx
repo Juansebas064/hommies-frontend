@@ -33,7 +33,6 @@ export default function EventsList({ activeFilter }) {
           getEventStatus(evento.fecha.substring(0, 10), evento.hora_inicio.substring(0, 5), evento.hora_final.substring(0, 5)) === activeFilter
         ))
         setFilteredEvents(filteredList)
-        console.log(filteredEvents)
       }
     } else {
       setFilteredEvents(events)

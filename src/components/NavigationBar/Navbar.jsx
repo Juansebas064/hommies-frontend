@@ -11,13 +11,13 @@ export const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <img
-                className="h-10 w-10"
+                className="h-12 w-12"
                 src={HommiesLogo}
                 alt="Hommies"
               />
             </div>
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4 flex-shrink">
+              <div className="ml-2 flex items-baseline flex-shrink">
                 <a
                   href="/"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"

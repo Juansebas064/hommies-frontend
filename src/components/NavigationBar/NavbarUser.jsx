@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useContext, useState } from "react";
+import { UserDataContext } from "../Profile/UserDataProvider";
 
 function NavbarUser() {
+  const { userData } = useContext(UserDataContext)
+
   const isAuth = localStorage.getItem('token')
 
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +18,7 @@ function NavbarUser() {
         onClick={toggleDropdown}
         className="flex items-center text-gray-300 hover:text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none z-50"
       >
-        <span>
+        {!userData ? <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -31,6 +34,9 @@ function NavbarUser() {
             />
           </svg>
         </span>
+          :
+          <img src={userData.foto} alt="" className="rounded-full min-w-[45px] min-h-[45px] w-[45px]" />
+        }
       </button>
 
       {isOpen && (
