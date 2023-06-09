@@ -4,7 +4,8 @@ import { decodeToken } from "react-jwt";
 export async function fetchUserData() {
   const token = localStorage.getItem('token')
   if (token) {
-    const id = `${decodeToken(token)}`
+    const { id } = decodeToken(token)
+    console.log('ID tomada del token: ' + id)
     try {
       const userData = await axios.post('http://localhost:5000/api/persona/consultar', { id })
       return userData
