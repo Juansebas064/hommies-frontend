@@ -1,9 +1,10 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { UserDataContext } from './Profile/UserDataProvider';
+import ErrorLogin from './VentanaModal';
 
 const Login = () => {
 
@@ -63,12 +64,16 @@ const Login = () => {
       else {
         console.log("la respuesta es: " + response.data.token);
         console.log("tienes algo mal en la contraseña, o usuario O no estas registrado");
+        cambiarEstadoErrorLogin(true);
       }
     } catch (error) {
       // Aquí puedes manejar los errores que ocurran durante la solicitud
       console.error(error);
     }
   }
+
+
+  const [estadoErrorLogin, cambiarEstadoErrorLogin] = useState(false);
 
   return (
     // Contenedor principal
@@ -129,7 +134,7 @@ const Login = () => {
                 </label>
                 <a
                   href="/recoverpassword"
-                  className="text-sm font-semibold text-indigo-500 hover:text-indigo-700"
+                  className="text-sm font-semibold text-indigo-500 hover:text-indigo-700 text-right"
                 >
                   Recuperar contraseña
                 </a>
@@ -167,9 +172,20 @@ const Login = () => {
 
           {/* Botones */}
           <div className="w-full px-3 mb-5">
-            <button type="submit" className="block w-full max-w-xs mx-auto mt-5 bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
+            <button
+              type="submit"
+              className="block w-full max-w-xs mx-auto mt-5 bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
+            >
               Continuar
             </button>
+
+            <ErrorLogin
+              estado={estadoErrorLogin}
+              cambiarEstado={cambiarEstadoErrorLogin}>
+              <h1 className="text-center text-xl font-semibold mt-9 mb-3">¡Error al intentar iniciar sesión!</h1>
+              <p className='text-center mb-5'>Por favor veririfca que la informacion de tu Nickname y/o contraseña estén bien.</p>
+            </ErrorLogin>
+
             <div className="text-center mt-4 ">
               - O continua con -
             </div>
@@ -193,6 +209,7 @@ const Login = () => {
         </form>
       </div>
 
+
       {/* No tienes cuenta??? */}
       <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl overflow-hidden mt-8 px-4 py-3">
         <p className="font-bold text-semibold text-gray-900">
@@ -204,9 +221,11 @@ const Login = () => {
           </a>
         </p>
       </div>
+
     </div>
+
+
   )
 };
 
 export default Login;
-
