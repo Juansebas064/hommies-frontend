@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import EventsList from "../Dashboard/Events/EventsList";
+import { useEffect, useState, useContext } from "react";
+import { UserDataContext } from "./UserDataProvider";
 
 const ProfileConfig = () => {
 
@@ -72,6 +72,15 @@ const ProfileConfig = () => {
     setIntereses(nuevosIntereses);
   }
 
+  const {userData, getUserDataFromDB} = useContext(UserDataContext);
+
+  const [genero, setGenero] = useState("o");
+
+  useEffect(()=>{
+    if (userData) {
+      setGenero(userData.genero)
+    } }, [userData]);
+
   return (
 
     // Contenedor principal
@@ -105,6 +114,7 @@ const ProfileConfig = () => {
               <input
                 type="text"
                 className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                placeholder = {userData ? userData.nombre:"..."}
               />
             </div>
           </div>
@@ -132,6 +142,7 @@ const ProfileConfig = () => {
               <input
                 type="text"
                 className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                placeholder = {userData ? userData.apellido:"..."}
               />
             </div>
           </div>
@@ -143,10 +154,12 @@ const ProfileConfig = () => {
               id="gender"
               name="gender"
               className="w-full pl-3 pr-3 py-3 bg-gray-50 border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:border-indigo-500 block"
+              value={genero}
+              onChange={e => setGenero(e.target.value)}
             >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
+              <option value="m">Hombre</option>
+              <option value="f">Mujer</option>
+              <option value="o">Otro</option>
             </select>
           </div>
           <div className="w-full text-center mb-3">
