@@ -7,82 +7,69 @@ import { UserDataContext } from './Profile/UserDataProvider';
 
 const Login = () => {
 
+  // Función para consultar info del usuario en la bd cuando se haga login
   const { getUserDataFromDB } = useContext(UserDataContext)
-
-  const handleLoginSuccess = (response) => {
-    console.log(response);
-
-
-
-    //devuelve el JWT 
-    axios.post('http://localhost:5000/api/login/verify/google', {
-
-      data: response
-    })
-
-      .then((response) => {
-
-        console.log(response.data);
-        if (response.data.token != null) {
-
-          localStorage.setItem('token', response.data.token);
-          console.log("la respuesta entro y es: " + response.data.token);
-
-          window.location.href = '/dashboard';
-          getUserDataFromDB()
-
-        } else {
-
-          console.log("la respuesta no entro y es: " + response.data);
-
-
-          window.location.href = '/register';
-
-        }
-
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
 
   //Obtencíon de datos con react hook form
   const { register, formState: { errors }, handleSubmit } = useForm();
 
-  const onSubmit = async (data) => {
 
-    try {
-      const response = await axios.post('http://localhost:5000/api/create/JWT', data);
-      // Aquí puedes manejar la respuesta del servidor
+  // Login con Google
+  const handleLoginSuccess = (response) => {
 
+    console.log(response);
+    //devuelve el JWT 
+    axios.post('http://localhost:5000/api/login/verify/google', {
 
-      console.log(response.data.token);
+      data: response
+    }).then((response) => {
+
+      console.log(response.data);
+
       if (response.data.token != null) {
-        //si entra qui redirecciona a dashboard porque todo estuvo bien 
 
         localStorage.setItem('token', response.data.token);
-        console.log("la respuesta es: " + response.data.token);
-
+        console.log("la respuesta entro y es: " + response.data.token);
         window.location.href = '/dashboard';
-
-      } else {
-        //si entra aqui es porque tiene algo malo en contraseña, usuario O no esta registrado
-
-        console.log("la respuesta es: " + response.data.token);
-
-
-        console.log("tienes algo mal en la contraseña, o usuario O no estas registrado");
+        getUserDataFromDB()
 
       }
-      // window.location.href = '/dashboard';
-      console.log(response.data);
+      else {
+        console.log("la respuesta no entro y es: " + response.data);
+        window.location.href = '/register';
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+
+  // Verificar login con nickname y contraseña
+  const onSubmit = async (data) => {
+    try {
+
+      // Petición para buscar el usuario en la bd y generar el token JWT
+      const response = await axios.post('http://localhost:5000/api/create/JWT', data);
+
+      // Si se generó el token:
+      if (response.data.token) {
+
+        localStorage.setItem('token', response.data.token); // Token a localStorage
+        getUserDataFromDB() // Obtención de los datos del usuario
+        window.location.href = '/dashboard'; // Redirección a dashboard
+
+      }
+      // Si no se generó el token
+      else {
+        console.log("la respuesta es: " + response.data.token);
+        console.log("tienes algo mal en la contraseña, o usuario O no estas registrado");
+      }
     } catch (error) {
       // Aquí puedes manejar los errores que ocurran durante la solicitud
       console.error(error);
-
     }
   }
+
   return (
     // Contenedor principal
     <div className="flex flex-col justify-center items-center py-5" >
