@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { UserDataContext } from './Profile/UserDataProvider';
-import ErrorLogin from './ModalErrorLogin';
+import ErrorLogin from './VentanaModal';
 
 const Login = () => {
 
