@@ -23,28 +23,28 @@ export const Navbar = () => {
               <div className="ml-3 flex items-baseline flex-shrink">
                 <a
                   href="/"
-                  className={`hover:text-white ${activePath === '/' ? 'text-white border-b-2 border-white rounded-none' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
+                  className={`hover:text-white ${activePath === '/' ? 'text-white bg-gray-700 rounded-md' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
                 >
                   Inicio
                 </a>
 
                 <a
                   href="/dashboard"
-                  className={`hover:text-white ${activePath === '/dashboard' ? 'text-white border-b-2 border-white rounded-none' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
+                  className={`hover:text-white ${activePath === '/dashboard' ? 'text-white bg-gray-700 rounded-md' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
                 >
                   Dashboard
                 </a>
 
                 <a
                   href="/calendar"
-                  className={`hover:text-white ${activePath === '/calendar' ? 'text-white border-b-2 border-white rounded-none' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
+                  className={`hover:text-white ${activePath === '/calendar' ? 'text-white bg-gray-700 rounded-md' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
                 >
                   Calendario
                 </a>
 
                 <a
                   href="/contact"
-                  className={`hover:text-white ${activePath === '/contact' ? 'text-white border-b-2 border-white rounded-none' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
+                  className={`hover:text-white ${activePath === '/contact' ? 'text-white bg-gray-700 rounded-md' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
                 >
                   DevTeam
                 </a>
