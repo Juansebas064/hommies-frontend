@@ -2,103 +2,95 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-const AddEvent = () => {
+const AddEvent = ({ setIsToggled }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  const onSubmit = async (dataJson) => {
-    console.log(dataJson);
+  const onSubmit = async (datosNuevoEvento) => {
 
-    await axios
-      .post("http://localhost:5000/api/evento/crear", {
-        data: dataJson,
+    await axios.post("http://localhost:5000/api/evento/agregar", datosNuevoEvento, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        console.log(response);
+        setIsToggled(false)
       })
-      .then((dataJson) => {
-        console.log(dataJson.data);
-
-        console.log("Se creó el evento");
-      })
-
       .catch((error) => {
         console.error(error);
       });
   };
 
-  const [selectedNewDate, setSelectedNewDate] = useState();
-
-  const handleDateChange = (event) => {
-    setSelectedNewDate(event.target.value);
-  };
-
-  const [selectedTimeStart, setSelectedTimeStart] = useState('');
-
-  const handleTimeStartChange = (e) => {
-    const { value } = e.target;
-    setSelectedTimeStart(value);
-  };
-
-  const [selectedTimeEnd, setSelectedTimeEnd] = useState('');
-
-  const handleTimeEndChange = (e) => {
-    const { value } = e.target;
-    setSelectedTimeEnd(value);
-  };
   return (
     <div className="w-full px-3 mb-4 mt-3 items-center relative">
       <div className="w-full items-center text-center justify-center pb-3">
-        <label className="font-semibold text-indigo-700 text-sm shadow-lg shadow-indigo-300">
-          Crear una actividad
-        </label>
+        <h1 className="font-semibold text-indigo-700 text-base shadow-lg shadow-indigo-300 mb-6 w-fit text-center mx-auto">
+          Crear un evento
+        </h1>
+
+        {/* Inicio del formulario */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-2 ">
-            <label className="mb-2 text-xs font-semibold px-1">
-              Nombre del evento
-            </label>
-          </div>
+
+          {/* Nombre del evento */}
+          <label className="text-sm font-semibold px-1">
+            Nombre del evento
+          </label>
+
           <input
-            type="text"
+            className={`w-full px-4 py-2 mb-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 text-sm`}
             placeholder="Nombre del evento"
-            className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-            id="inputName"
-            {...register("eventName", {
+            {...register('nombre', {
               required: true,
-              maxLength: {
-                value: 50,
-                message: "El evento debe contener como máximo 50 caracteres",
-              },
             })}
           />
-          {errors.eventName?.type === "required" && (
-            <p>Campo nombre es requerido *</p>
+          {errors.nombre && (
+            <p className="mb-3">{errors.nombre.message} *</p>
           )}
-          <label className="mb-2 text-xs font-semibold px-1">Ubicación</label>
-          <div className="flex items-center">
-            <input
-              type="text"
-              placeholder="Selecciona una ubicación"
-              className="w-[88%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              id="inputUbi"
-              {...register("eventUbi", {
-                required: true,
-              })}
-            />
-            {errors.eventUbi?.type === "required" && (
-              <p>Campo lugar es requerido *</p>
-            )}
-            <button
-              className="relative w-[10%] rounded-md border-2 border-gray-200 outline-none"
-              disabled={true}
-            >
-              <svg
+
+          {/* Descripción */}
+          <label className="mb-2 text-sm font-semibold px-1">Descripción</label>
+          <textarea
+            type="text"
+            placeholder="Descripcion del evento"
+            className="w-full mb-2 text-sm px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+            {...register("descripcion", {
+              required: true,
+            })}
+          />
+          {errors.descripcion?.type === "required" && (
+            <p className="mb-3">Campo descripcion es requerido *</p>
+          )}
+
+          {/* Lugar y fecha */}
+          <div className="flex items-center justify-between mb-2">
+
+            <div className="flex-shrink">
+              {/* Lugar */}
+              <label className="text-sm font-semibold">Lugar</label>
+              <input
+                type="text"
+                placeholder="Escribe un lugar"
+                className="text-sm px-4 py-2 rounded-lg border-2 mr-2 border-gray-200 outline-none focus:border-indigo-500"
+                {...register("lugar", {
+                  required: true,
+                })}
+              />
+              {errors.lugar?.type === "required" && (
+                <p className="mb-3">Campo lugar es requerido *</p>
+              )}
+
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-8 h-8"
+                className="w-7 h-7 inline"
               >
                 <path
                   strokeLinecap="round"
@@ -110,62 +102,77 @@ const AddEvent = () => {
                   strokeLinejoin="round"
                   d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
                 />
-              </svg>
-            </button>
-          </div>
-          <label className="mb-2 text-xs font-semibold px-1">Fecha</label>
-          <div>
-            <input
-              className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 font-semibold"
-              type="date"
-              id="start"
-              value={selectedNewDate}
-              max="2023-12-31"
-              onChange={handleDateChange}
-              {...register("eventDate", {
-                required: true,
-              })}
-            />
-          </div>
-          {errors.eventDate?.type === "required" && (
-            <p>Campo fecha es requerido *</p>
-          )}
+              </svg> */}
+            </div>
 
-          <label className="mb-2 text-xs font-semibold px-1">Hora inicio</label>
-          <div className="flex items-center">
-            <input
-              type="time"
-              value={selectedTimeStart}
-              onChange={handleTimeStartChange}
-              className="w-full px-2 py-1 text-center border border-gray-300 rounded-md focus:outline-none"
-              {...register("eventTimeStart", {
-                required: true
-              })}
-            />
+            {/* Fecha */}
+            <div className="flex-grow">
+              <label className="text-sm font-semibold px-1">Fecha</label>
+              <input
+                className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 text-sm focus:border-indigo-500"
+                type="date"
+                min={new Date().toISOString().split("T")[0]}
+                max="2023-12-31"
+                {...register("fecha", {
+                  required: true
+                })}
+              />
+              {errors.eventDate?.type === "required" && (
+                <p className="mb-3">Campo fecha es requerido *</p>
+              )}
+            </div>
           </div>
-          {errors.eventTimeStart?.type === "required" && (
-            <p>Campo hora inicio es requerido *</p>
-          )}
 
-          <label className="mb-2 text-xs font-semibold px-1">Hora fin</label>
-          <div className="flex items-center">
-            <input
-              type="time"
-              value={selectedTimeEnd}
-              onChange={handleTimeEndChange}
-              className="w-full px-2 py-1 text-center border border-gray-300 rounded-md focus:outline-none"
-              {...register("eventTimeEnd", {
-                required: true
-              })}
-            />
+
+          {/* Hora de inicio y hora final */}
+
+          <div className="flex items-center justify-between">
+
+            {/* Hora de inicio */}
+            <div className="mr-2">
+              <label className="mb-2 text-sm font-semibold px-1">Hora inicio</label>
+              <input
+                type="text"
+                placeholder="Hora de inicio"
+                className="w-full px-4 py-2 text-center border border-gray-300 rounded-md focus:outline-none text-sm"
+                {...register("hora_inicio", {
+                  required: true,
+                  pattern: {
+                    value: /([0-1]?[0-9]|2[0-3]):[0-5][0-9]/,
+                    message: 'Formato de hora de inicio no válido'
+                  }
+                })}
+              />
+              {errors.hora_inicio?.type === "required" && (
+                <p>Campo hora inicio es requerido *</p>
+              )}
+            </div>
+
+            {/* Hora final */}
+            <div className="ml-2">
+              <label className="mb-2 text-sm font-semibold px-1">Hora inicio</label>
+              <input
+                type="text"
+                placeholder="Hora final"
+                className="w-full px-4 py-2 text-center border border-gray-300 rounded-md focus:outline-none text-sm"
+                {...register("hora_final", {
+                  required: true,
+                  pattern: {
+                    value: /([0-1]?[0-9]|2[0-3]):[0-5][0-9]/,
+                    message: 'Formato de hora de inicio no válido'
+                  }
+                })}
+              />
+              {errors.hora_final?.type === "required" && (
+                <p>Campo hora inicio es requerido *</p>
+              )}
+            </div>
           </div>
-          {errors.eventTimeEnd?.type === "required" && (
-            <p>Campo hora fin es requerido *</p>
-          )}
 
+          {/* Botón crear evento */}
           <button
             type="submit"
-            className="bg-indigo-500 rounded-xl mt-3 w-1/3 font-bold text-white text-sm hover:w-2/3 hover:duration-100 hover:bg-indigo-700"
+            className="bg-indigo-500 rounded-3xl mt-5 py-2 px-3 font-bold text-white text-sm hover:w hover:duration-100 hover:bg-indigo-700"
           >
             Crear evento
           </button>
