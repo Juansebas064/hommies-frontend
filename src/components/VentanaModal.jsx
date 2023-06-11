@@ -3,6 +3,7 @@ import {close} from "../utils/svgs";
 const ModalErrorLogin = ({children, estado, cambiarEstado}) => {
     
     return (
+        
         <>  
             {estado &&
                 <div className="fixed z-20 bg-[rgba(0,0,0,0.2)] h-full w-full left-0 top-0 overflow-auto flex justify-center items-center">
@@ -18,7 +19,6 @@ const ModalErrorLogin = ({children, estado, cambiarEstado}) => {
         </>
        
     )
-
 }
 
 export default ModalErrorLogin;
