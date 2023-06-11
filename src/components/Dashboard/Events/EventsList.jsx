@@ -44,12 +44,13 @@ export default function EventsList({ activeFilter }) {
     createFilteredEventsList()
   }, [events, activeFilter])
 
+  async function eventsResponse() {
+    const eventsResponse = await fetchEvents()
+    setEvents(eventsResponse)
+    setFilteredEvents(eventsResponse)
+  }
+
   useEffect(() => {
-    async function eventsResponse() {
-      const eventsResponse = await fetchEvents()
-      setEvents(eventsResponse)
-      setFilteredEvents(eventsResponse)
-    }
     eventsResponse()
   }, []);
 
@@ -62,7 +63,7 @@ export default function EventsList({ activeFilter }) {
           </ul>
         </div>
         {/* Detalles del evento al hacer click sobre uno */}
-        <EventDetails selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} eventStatus={eventStatus} />
+        <EventDetails selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} eventStatus={eventStatus} updateEvents={eventsResponse} />
       </>
       :
       <div className="flex-grow flex flex-col items-center justify-center text-[30px] min-h-[150px] text-sm">

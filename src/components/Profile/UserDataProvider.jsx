@@ -15,7 +15,7 @@ function UserDataProvider({ children }) {
     const response = await fetchUserData()
     if (response) {
       setUserData(response.data)
-      localStorage.setItem('profilePicture', response.data.foto)
+      localStorage.setItem('profilePicture', response.data.foto ? response.data.foto : 'https://cdn.pixabay.com/animation/2022/12/01/17/03/17-03-11-60_512.gif')
     }
   }
 

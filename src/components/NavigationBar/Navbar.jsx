@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import NavbarSearch from "./NavbarSearch";
 import NavbarUser from "./NavbarUser";
 import HommiesLogo from "../../assets/hommiesPublic.png"
 
 export const Navbar = () => {
+
+  const activePath = window.location.pathname
+
   return (
     <nav className="bg-gray-800 sticky top-0 left-0 right-0 z-50 min-w-min">
       <div className="max-w-7xl mx-auto px-4 z-10">
@@ -11,37 +14,37 @@ export const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <img
-                className="h-12 w-12"
+                className="h-14 w-14"
                 src={HommiesLogo}
                 alt="Hommies"
               />
             </div>
             <div className="hidden md:block">
-              <div className="ml-2 flex items-baseline flex-shrink">
+              <div className="ml-3 flex items-baseline flex-shrink">
                 <a
                   href="/"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  className={`hover:text-white ${activePath === '/' ? 'text-white border-b-2 border-white rounded-none' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
                 >
                   Inicio
                 </a>
 
                 <a
                   href="/dashboard"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  className={`hover:text-white ${activePath === '/dashboard' ? 'text-white border-b-2 border-white rounded-none' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
                 >
                   Dashboard
                 </a>
 
                 <a
                   href="/calendar"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  className={`hover:text-white ${activePath === '/calendar' ? 'text-white border-b-2 border-white rounded-none' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
                 >
                   Calendario
                 </a>
 
                 <a
                   href="/contact"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  className={`hover:text-white ${activePath === '/contact' ? 'text-white border-b-2 border-white rounded-none' : 'text-gray-300 rounded-md hover:bg-gray-700'} px-2 py-2 mx-1  text-sm font-medium`}
                 >
                   DevTeam
                 </a>
