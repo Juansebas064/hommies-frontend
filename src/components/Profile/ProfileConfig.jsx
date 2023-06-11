@@ -72,14 +72,19 @@ const ProfileConfig = () => {
     setIntereses(nuevosIntereses);
   }
 
-  const {userData, getUserDataFromDB} = useContext(UserDataContext);
+  const { userData, getUserDataFromDB } = useContext(UserDataContext);
 
   const [genero, setGenero] = useState("o");
 
-  useEffect(()=>{
+  useEffect(() => {
     if (userData) {
-      setGenero(userData.genero)
-    } }, [userData]);
+      if (userData.genero) {
+        setGenero(userData.genero)
+      } else {
+        setGenero('o')
+      }
+    }
+  }, [userData]);
 
   return (
 
@@ -114,7 +119,7 @@ const ProfileConfig = () => {
               <input
                 type="text"
                 className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                placeholder = {userData ? userData.nombre:"..."}
+                placeholder={userData ? userData.nombre : "..."}
               />
             </div>
           </div>
@@ -142,7 +147,7 @@ const ProfileConfig = () => {
               <input
                 type="text"
                 className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                placeholder = {userData ? userData.apellido:"..."}
+                placeholder={userData ? userData.apellido : "..."}
               />
             </div>
           </div>

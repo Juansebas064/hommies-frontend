@@ -37,7 +37,7 @@ function NavbarUser() {
           </svg>
         </span>
           :
-          <img src={profilePicture} alt="" className="rounded-full min-w-[45px] min-h-[45px] w-[45px]" />
+          <img src={profilePicture} alt="" className="rounded-full min-w-[45px] min-h-[45px] w-[45px] border-[2px] border-gray-400" />
         }
       </button>
 
