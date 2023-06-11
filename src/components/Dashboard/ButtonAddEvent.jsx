@@ -10,7 +10,6 @@ export default function ButtonAddEvent({
   setIsToggledMarker,
   placeName,
   setPlaceName,
-  setNewEventDate,
   coord
 }) {
   const handleToggle = () => {
@@ -24,36 +23,7 @@ export default function ButtonAddEvent({
     setIsToggledMarker(!isToggledMarker);
   };
 
-  const handleToggleDate = () => {
-    setIsToggledDate(!isToggledDate);
-  };
-
-  const [currentDate, setCurrentDate] = useState("");
-
-  const setDate = () => {
-    var tempDate = new Date();
-    var year = +tempDate.getFullYear().toLocaleString();
-    var month = +tempDate.getDate().toLocaleString();
-    var day = +tempDate.getDay().toLocaleString();
-
-    return year + "-" + month + "-" + day;
-  };
-
-
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = (state) => {
-    setShow(state);
-  };
-
-  const setLabelDate = (date) => {
-    setNewEventDate(date);
-  };
-
   const [activeTab, setActiveTab] = useState("events");
-
-  const sendForm = () => { };
 
   return (
     <>
@@ -89,12 +59,16 @@ export default function ButtonAddEvent({
       </button>
 
       {isToggled && (
-        <div className="rounded-xl w-[350px] h-[450px] absolute bottom-20 left-4 z-[400] bg-gray-200 shadow-md before:duration-200 items-center justify-center px-3 py-1">
+
+        // Card con los controles y el contenido
+        <div className="rounded-xl min-w-[250px] max-h-[40vh] sm:max-h-[50vh] lg:max-h-[350px] sm:w-[450px] absolute bottom-[15%] left-5 right-5 sm:left-12 z-[9999] bg-gray-200 shadow-md before:duration-200 items-center justify-center px-5 py-1 overflow-y-scroll">
           <div className="flex flex-col -mx-3">
-            <div className="flex mx-3 lg:w-full lg:mx-0 mt-3 lg:mt-0 font-bold rounded-[14px] overflow-hidden text-sm">
+
+            {/* Contenedor de botones crear evento y crear lugar */}
+            <div className="flex h-8 font-bold text-base rounded-[14px] overflow-hidden z-[9999]">
               <button
-                className={`flex-grow py-1 border-b-gray-200 text-xs ${activeTab === "events"
-                  ? "bg-indigo-500 text-white"
+                className={`flex-grow py-1 border-b-gray-200 z-[9999] ${activeTab === "events"
+                  ? "bg-indigo-500 text-white rounded-[14px]"
                   : "bg-gray-200 "
                   }`}
                 onClick={() => setActiveTab("events")}
@@ -102,8 +76,8 @@ export default function ButtonAddEvent({
                 Crear eventos
               </button>
               <button
-                className={`flex-grow py-1 border-b-gray-200 text-xs ${activeTab === "places"
-                  ? "bg-indigo-500 text-white"
+                className={`flex-grow py-1 border-b-gray-200 ${activeTab === "places"
+                  ? "bg-indigo-500 text-white rounded-[14px]"
                   : "bg-gray-200 "
                   }`}
                 onClick={() => setActiveTab("places")}
@@ -112,15 +86,15 @@ export default function ButtonAddEvent({
               </button>
             </div>
             <div className="overflow-auto">
-            {activeTab == "events" ? (
-              <AddEvent />
-            ) : (
-              <AddPlaces
-                handleToggleMarker={handleToggleMarker}
-                placeName={placeName}
-                coord={coord}
-              />
-            )}
+              {activeTab == "events" ? (
+                <AddEvent setIsToggled={setIsToggled} />
+              ) : (
+                <AddPlaces
+                  handleToggleMarker={handleToggleMarker}
+                  placeName={placeName}
+                  coord={coord}
+                />
+              )}
             </div>
           </div>
         </div>
