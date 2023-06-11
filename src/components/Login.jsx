@@ -1,7 +1,7 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { UserDataContext } from './Profile/UserDataProvider';
 import ErrorLogin from './VentanaModal';
@@ -9,18 +9,24 @@ import ErrorLogin from './VentanaModal';
 const Login = () => {
 
   // Función para consultar info del usuario en la bd cuando se haga login
-  const { getUserDataFromDB } = useContext(UserDataContext)
+  const { userData, getUserDataFromDB } = useContext(UserDataContext)
 
   //Obtencíon de datos con react hook form
   const { register, formState: { errors }, handleSubmit } = useForm();
 
+  // Redirección con base en si tiene o no el perfil completo
+  useEffect(() => {
+    if (userData) {
+      !userData.genero ? window.location.href = "/profile/preferences" : window.location.href = "/dashboard"
+    }
+  }, [userData])
 
   // Login con Google
-  const handleLoginSuccess = (response) => {
+  const handleLoginSuccess = async (response) => {
 
     console.log(response);
     //devuelve el JWT 
-    axios.post('http://localhost:5000/api/login/verify/google', {
+    await axios.post('http://localhost:5000/api/login/verify/google', {
 
       data: response
     }).then((response) => {
@@ -31,9 +37,7 @@ const Login = () => {
 
         localStorage.setItem('token', response.data.token);
         console.log("la respuesta entro y es: " + response.data.token);
-        window.location.href = '/dashboard';
         getUserDataFromDB()
-
       }
       else {
         console.log("la respuesta no entro y es: " + response.data);
@@ -57,8 +61,6 @@ const Login = () => {
 
         localStorage.setItem('token', response.data.token); // Token a localStorage
         getUserDataFromDB() // Obtención de los datos del usuario
-        window.location.href = '/dashboard'; // Redirección a dashboard
-
       }
       // Si no se generó el token
       else {
