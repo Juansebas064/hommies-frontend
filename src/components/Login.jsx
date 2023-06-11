@@ -185,7 +185,7 @@ const Login = () => {
               estado={estadoErrorLogin}
               cambiarEstado={cambiarEstadoErrorLogin}>
               <h1 className="text-center text-xl font-semibold mt-9 mb-3">¡Error al intentar iniciar sesión!</h1>
-              <p className='text-center mb-5'>Por favor veririfca que la informacion de tu Nickname y/o contraseña estén bien.</p>
+              <p className='text-center mb-5'>Por favor verifíca que la información de tu nickname y/o contraseña estén bien.</p>
             </ErrorLogin>
 
             <div className="text-center mt-4 ">
