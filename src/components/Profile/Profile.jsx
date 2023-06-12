@@ -1,6 +1,24 @@
+import { useContext, useEffect, useState } from "react";
 import EventsList from "../Dashboard/Events/EventsList";
+import { fetchUserData } from "../../utils/fetchUserData";
+import { UserDataContext } from "./UserDataProvider";
 
 export default function Profile() {
+  
+  const {userData, getUserDataFromDB} = useContext(UserDataContext);
+
+  const [nombre, setNombre] = useState("");
+  const [nickname, setNickname] = useState("");
+
+
+  useEffect(()=>{
+    if (userData) {
+      setNombre(userData.nombre + " " + userData.apellido)
+      setNickname(userData.nickname)
+      } }, [userData]);
+  
+
+
   return (
 
     // Contenedor principal
@@ -28,10 +46,10 @@ export default function Profile() {
             {/* Nickname */}
           </div>
           <p className="text-indigo-500 text-center pt-4 font-bold text-xl">
-            Nickname
+            {nickname}
           </p>
           <p className="text-black text-center pt-4 font-bold text-base">
-            Nombre completo
+            {nombre}
           </p>
           <button className="bg-indigo-500 rounded-xl mt-3 px-2 py-1 font-bold text-white text-sm hover:bg-indigo-700"
             onClick={() => window.location.href = '/profile/config'}
