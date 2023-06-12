@@ -81,8 +81,23 @@ export default function EventDetails({
 
 
   async function deleteEvent() {
-    console.log('Deleted')
+  try {
+    const response = await axios.post('http://localhost:5000/api/evento/eliminarEvento', {codigo_evento: selectedEvent.codigo_evento}, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      }
+    });
+
+    console.log(response.data.message); // Mensaje de éxito o error del backend
+
+    // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
+    updateEvents();
+    setSelectedEvent(null)
+  } catch (error) {
+    console.error(error);
   }
+}
 
 
   return (
