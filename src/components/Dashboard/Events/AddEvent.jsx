@@ -150,7 +150,7 @@ const AddEvent = ({ setIsToggled }) => {
 
             {/* Hora final */}
             <div className="ml-2">
-              <label className="mb-2 text-sm font-semibold px-1">Hora inicio</label>
+              <label className="mb-2 text-sm font-semibold px-1">Hora final</label>
               <input
                 type="text"
                 placeholder="Hora final"
