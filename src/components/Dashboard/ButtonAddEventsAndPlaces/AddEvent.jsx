@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { EventsContext } from "../Events/EventsProvider";
 
 const AddEvent = ({ setIsToggled }) => {
+
+  const { fetchEvents } = useContext(EventsContext)
+
   const {
     register,
     formState: { errors },
@@ -17,8 +21,9 @@ const AddEvent = ({ setIsToggled }) => {
         Authorization: localStorage.getItem('token')
       }
     })
-      .then((response) => {
+      .then(async (response) => {
         console.log(response);
+        fetchEvents()
         setIsToggled(false)
       })
       .catch((error) => {

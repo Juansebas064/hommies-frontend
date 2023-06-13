@@ -1,5 +1,5 @@
 //import React from "react";
-import RegLogo from "../assets/Auth/undraw-mobile-encryption.svg";
+import RegLogo from "../../assets/Auth/undraw-mobile-encryption.svg";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import { useForm } from "react-hook-form";

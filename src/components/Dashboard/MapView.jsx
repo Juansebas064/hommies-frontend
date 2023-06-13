@@ -7,12 +7,12 @@ import {
   Circle,
   Popup,
 } from "react-leaflet";
-import ButtonAddEvent from "./ButtonAddEvent";
+import ButtonAddEventAndPlace from "./ButtonAddEventsAndPlaces/ButtonAddEventAndPlace"
 import { getPlaceName } from "../../utils/placeName.js";
 
 export default function MapView() {
 
-  
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [coord, setCoord] = useState(null)
@@ -63,11 +63,11 @@ export default function MapView() {
           <Marker
             key={marker.key}
             position={[marker.coordinates[0], marker.coordinates[1]]}
-            // eventHandlers={{
-            //   click: () => {
-            //     onclick = { openModal }
-            //   },
-            // }}
+          // eventHandlers={{
+          //   click: () => {
+          //     onclick = { openModal }
+          //   },
+          // }}
           >
             <Popup >
               <div className="w-full h-auto flex items-center justify-center z-50">
@@ -90,7 +90,7 @@ export default function MapView() {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         {/* Botón para añadir un evento */}
-        <ButtonAddEvent
+        <ButtonAddEventAndPlace
           isToggled={isToggled}
           isToggledMarker={isToggledMarker}
           isToggledDate={isToggledDate}
@@ -101,7 +101,7 @@ export default function MapView() {
           setPlaceName={setPlaceName}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
-          placeNameDate={newEventDate}register
+          placeNameDate={newEventDate} register
           setPlaceNameDate={setNewEventDate}
           coord={coord}
         />

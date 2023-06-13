@@ -1,14 +1,14 @@
 import axios from "axios";
 
-export const fetchEvents = async () => {
+export default async function fetchPlacesFromDB() {
   try {
-    const response = await axios.get('http://localhost:5000/api/evento/obtenerC', {
+    const lugares = await axios.get('http://localhost:5000/api/lugar/consultar', {
       headers: {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('token')
       }
-    }); // Ruta de la API en el backend
-    return response.data.rows; // Almacenar los datos en el estado local
+    });
+    return lugares.data.rows; // Almacenar los datos en el estado local
   } catch (error) {
     console.error('Error al realizar la solicitud al backend:', error.message);
   }

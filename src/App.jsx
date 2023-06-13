@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/NavigationBar/Navbar.jsx";
-import Register from "./components/Register.jsx";
+import Register from "./components/Register/Register.jsx";
 import Home from "./components/Home/Home.jsx";
 import Calendar from "./components/Calendar.jsx";
 import LoginUser from "./components/Login.jsx"
@@ -14,52 +14,53 @@ import ProfilePreferences from "./components/Register/ProfilePreferences.jsx";
 import RecoverPassword from "./components/RecoverPassword.jsx";
 import Footer from "./components/Footer.jsx";
 import { UserDataProvider } from "./components/Profile/UserDataProvider.jsx";
+import { EventsProvider } from "./components/Dashboard/Events/EventsProvider.jsx";
 
 
 function App() {
 
-
-
   return (
     <UserDataProvider>
-      <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<LoginUser />} />
-          <Route path="/recoverpassword" element={< RecoverPassword />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/profile" element={
-            <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-              <Profile />
-            </ProtectedRoute>
-          }>
-          </Route>
-          <Route path="/profile/config" element={
-            <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-              <ProfileConfig />
-            </ProtectedRoute>
-          }>
-          </Route>
-          <Route path="/profile/preferences" element={
-            <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-              < ProfilePreferences />
-            </ProtectedRoute>
-          }>
-          </Route>
-          <Route path="/dashboard" element={
-            <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-              <Dashboard />
-            </ProtectedRoute>
-          }>
-          </Route>
-          <Route path="*" element={<h1>Not found</h1>} />
-        </Routes>
-      </BrowserRouter>
-      <Footer />
+      <EventsProvider>
+        <Navbar />
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<LoginUser />} />
+            <Route path="/recoverpassword" element={< RecoverPassword />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/profile" element={
+              <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+                <Profile />
+              </ProtectedRoute>
+            }>
+            </Route>
+            <Route path="/profile/config" element={
+              <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+                <ProfileConfig />
+              </ProtectedRoute>
+            }>
+            </Route>
+            <Route path="/profile/preferences" element={
+              <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+                < ProfilePreferences />
+              </ProtectedRoute>
+            }>
+            </Route>
+            <Route path="/dashboard" element={
+              <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+                <Dashboard />
+              </ProtectedRoute>
+            }>
+            </Route>
+            <Route path="*" element={<h1>Not found</h1>} />
+          </Routes>
+        </BrowserRouter>
+        <Footer />
+      </EventsProvider>
     </UserDataProvider>
   );
 }

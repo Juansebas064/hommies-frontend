@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import EventsList from "./Events/EventsList";
 import PlacesList from "./Places/PlacesList";
 import EventsFilters from "./Events/EventsFilters";
-import { fetchEvents } from "../../utils/fetchEvents";
 
 export default function EventsAndPlaces() {
 

@@ -1,32 +1,17 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useContext, useEffect } from 'react'
 import MapView from './MapView'
 import EventsAndPlaces from './EventsAndPlaces'
+import { EventsContext } from './Events/EventsProvider'
 
 export default function Dashboard() {
+  const { fetchEvents } = useContext(EventsContext)
 
-  // Estados: 
-  // Lugares de la ciudad (datos de la bd)
-  const [places, setPlaces] = useState(null);
-
-  // Ejecutar fetchPlaces() al renderizar componente
-  // useEffect(() => {
-  //   fetchPlaces();
-  // }, []);
-
-  // Hacer la petición de la información a la base de datos
-  // const fetchPlaces = async () => {
-  //   try {
-  //     const response = await axios.get('Route/to/fetch/places'); // Ruta de la API en el backend
-  //     // console.log(response.data)
-  //     setPlaces(response.data); // Almacenar los datos en el estado local
-  //   } catch (error) {
-  //     console.error('Error al realizar la solicitud al backend:', error);
-  //   }
-  // };
+  useEffect(() => {
+    fetchEvents()
+  }, [])
 
   return (
-    <div className="flex flex-col lg:flex-row w-full p-0 h-full border-2 border-black m-0">
+    <div className="flex flex-col lg:flex-row w-full p-0 h-full mx-auto">
       <MapView />
       <EventsAndPlaces />
     </div>

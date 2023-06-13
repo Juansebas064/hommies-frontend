@@ -19,16 +19,18 @@ function Calendar() {
   // }, []);
 
   return (
-    localStorage.getItem('token') ?
-      <div>
-        <p>{message}</p>
-        <p>¡Sesión iniciada!</p>
-      </div>
-      :
-      <div>
-        <p>{message}</p>
-        <p>Sesión no iniciada :c</p>
-      </div>
+    <div className='lg:h-[89vh]'>
+      {localStorage.getItem('token') ?
+        <div>
+          <p>{message}</p>
+          <p>¡Sesión iniciada!</p>
+        </div>
+        :
+        <div>
+          <p>{message}</p>
+          <p>Sesión no iniciada :c</p>
+        </div>}
+    </div>
   );
 }
 

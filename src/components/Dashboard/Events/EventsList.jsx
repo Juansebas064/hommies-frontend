@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import getEventStatus from "../../../utils/getEventStatus"
 import { clockSVG, calendarSVG } from "../../../utils/svgs"
 import EventDetails from "./EventDetails";
-import { fetchEvents } from "../../../utils/fetchEvents";
+import { EventsContext } from "./EventsProvider";
 
 
 export default function EventsList({ activeFilter }) {
+
+  // Traer los eventos
+  const { events, fetchEvents } = useContext(EventsContext)
 
   // Estados: 
   // Mostrar detalles del evento
   const [selectedEvent, setSelectedEvent] = useState(null)
 
-  // Estado para eventos
-  const [events, setEvents] = useState(null)
-
   // Lista de eventos filtrada
-  const [filteredEvents, setFilteredEvents] = useState(null)
+  const [filteredEvents, setFilteredEvents] = useState(events)
   // Fin declaración de estados
 
 
@@ -44,18 +44,8 @@ export default function EventsList({ activeFilter }) {
     createFilteredEventsList()
   }, [events, activeFilter])
 
-  async function eventsResponse() {
-    const eventsResponse = await fetchEvents()
-    setEvents(eventsResponse)
-    setFilteredEvents(eventsResponse)
-  }
-
-  useEffect(() => {
-    eventsResponse()
-  }, []);
-
   return (
-    events ?
+    events && filteredEvents ?
       <>
         <div className="relative flex flex-col items-center text-sm lg:px-0 overflow-hidden">
           <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block lg:overflow-y-auto h-auto" id="event-list">
@@ -63,7 +53,7 @@ export default function EventsList({ activeFilter }) {
           </ul>
         </div>
         {/* Detalles del evento al hacer click sobre uno */}
-        <EventDetails selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} eventStatus={eventStatus} updateEvents={eventsResponse} />
+        <EventDetails selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} eventStatus={eventStatus} updateEvents={fetchEvents} />
       </>
       :
       <div className="flex-grow flex flex-col items-center justify-center text-[30px] min-h-[150px] text-sm">
