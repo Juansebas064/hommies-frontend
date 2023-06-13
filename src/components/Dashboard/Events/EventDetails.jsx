@@ -237,11 +237,11 @@ export default function EventDetails({
         {/*Encabezado lugar del evento */}
         <p className="text-center font-bold col-span-2">Lugar</p>
         {/* Lugar del evento */}
-        <p className="text-sm text-center lg:text-center col-span-2">
-          <span className="mr-[6px]"> { } </span>
+        <p className="text-sm text-center col-span-2">
+          {selectedEvent.lugar.nombre}
         </p>
-        <p className="text-sm text-center lg:text-center col-span-2">
-          <span className="mr-[6px]">{ }</span>
+        <p className="text-sm text-center col-span-2">
+          {selectedEvent.lugar.descripcion}
         </p>
 
         {errors.hora_inicio && (
