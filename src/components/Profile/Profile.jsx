@@ -4,28 +4,31 @@ import { fetchUserData } from "../../utils/fetchUserData";
 import { UserDataContext } from "./UserDataProvider";
 
 export default function Profile() {
-  
-  const {userData, getUserDataFromDB} = useContext(UserDataContext);
+
+  const { userData, getUserDataFromDB } = useContext(UserDataContext);
 
   const [nombre, setNombre] = useState("");
   const [nickname, setNickname] = useState("");
 
 
-  useEffect(()=>{
+  useEffect(() => {
     if (userData) {
       setNombre(userData.nombre + " " + userData.apellido)
       setNickname(userData.nickname)
-      } }, [userData]);
-  
+    }
+  }, [userData]);
+
 
 
   return (
 
     // Contenedor principal
-    <div className="flex flex-col lg:flex-row justify-center m-8">
+    <div className="flex flex-col lg:flex-row lg:h-[89vh] justify-center">
 
       {/* Card información del perfil */}
-      <div className="basis-[50%] rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5">
+      <div className="basis-[50%] flex items-center justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8">
+
+        {/* Información */}
         <div className="flex flex-col items-center py-16">
           <div>
             {/* Foto del usuario */}
@@ -60,7 +63,7 @@ export default function Profile() {
       </div>
 
       {/* Historial de actividades */}
-      <div className="px-10 pb-4 text-gray-500">
+      <div className="px-10 pb-4 text-gray-500 m-8">
 
         <h3 className="font-bold text-3xl text-gray-900 text-center mb-3">Historial de actividades</h3>
         <p className="text-center">

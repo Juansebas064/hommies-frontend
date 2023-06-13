@@ -26,9 +26,6 @@ export default async function fetchEvents() {
       }
     })
 
-    console.log(lugares)
-    console.log(eventos)
-
     return eventos; // Almacenar los datos en el estado local
   } catch (error) {
     console.error('Error al ejecutar fetchEvents:', error.message);

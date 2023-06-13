@@ -12,7 +12,7 @@ export default async function modifyEventToDB(codigo_evento, modifiedEventData) 
         },
       }
     );
-
+    console.log(response.data.message);
     return response
   } catch (error) {
     console.error(error);

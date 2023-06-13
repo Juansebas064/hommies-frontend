@@ -93,9 +93,7 @@ export default function EventDetails({
   // Funcion para borrar un evento
   async function deleteEvent() {
     try {
-      response = await deleteEventFromDB(selectedEvent.codigo_evento)
-
-      console.log(response.data.message); // Mensaje de éxito o error del backend
+      const response = await deleteEventFromDB(selectedEvent.codigo_evento)
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
       updateEvents();
@@ -136,7 +134,7 @@ export default function EventDetails({
 
         {/* Descripción del evento */}
         <textarea
-          className={`text-center overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text ${modifyingEvent
+          className={`text-center resize-none overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text ${modifyingEvent
             ? "border-gray-300 border-[1px] rounded-md"
             : "border-0"
             }`}

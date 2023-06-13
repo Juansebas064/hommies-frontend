@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default async function deleteEvent(codigo_evento) {
   try {
     const response = await axios.post(
@@ -10,6 +12,7 @@ export default async function deleteEvent(codigo_evento) {
         },
       }
     );
+    console.log(response.data.message);
     return response
   } catch (error) {
     console.error(error);

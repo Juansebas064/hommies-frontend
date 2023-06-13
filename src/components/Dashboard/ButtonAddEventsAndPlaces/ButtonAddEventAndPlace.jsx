@@ -60,7 +60,7 @@ export default function ButtonAddEventAndPlace({
       {isToggled && (
 
         // Card con los controles y el contenido
-        <div className="rounded-xl min-w-[250px] max-h-[40vh] sm:max-h-[50vh] lg:max-h-[60vh] sm:w-[450px] absolute bottom-[15%] left-5 right-5 sm:left-12 z-[9999] bg-gray-200 shadow-md before:duration-200 items-center justify-center px-5 py-1 overflow-y-scroll">
+        <div className="rounded-xl min-w-[250px] max-h-[40vh] sm:max-h-[50vh] lg:max-h-[60vh] sm:w-[450px] absolute bottom-[15%] left-5 right-5 sm:left-12 z-[400] bg-gray-200 shadow-md before:duration-200 items-center justify-center px-5 py-1 overflow-y-scroll">
           <div className="flex flex-col -mx-3">
 
             {/* Contenedor de botones crear evento y crear lugar */}
