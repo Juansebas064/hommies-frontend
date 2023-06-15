@@ -15,6 +15,7 @@ import RecoverPassword from "./components/RecoverPassword.jsx";
 import Footer from "./components/Footer.jsx";
 import { UserDataProvider } from "./components/Profile/UserDataProvider.jsx";
 import { EventsProvider } from "./components/Dashboard/Events/EventsProvider.jsx";
+import { PlacesProvider } from "./components/Dashboard/Places/PlacesProvider.jsx"
 
 
 function App() {
@@ -22,44 +23,46 @@ function App() {
   return (
     <UserDataProvider>
       <EventsProvider>
-        <Navbar />
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<LoginUser />} />
-            <Route path="/recoverpassword" element={< RecoverPassword />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/profile" element={
-              <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-                <Profile />
-              </ProtectedRoute>
-            }>
-            </Route>
-            <Route path="/profile/config" element={
-              <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-                <ProfileConfig />
-              </ProtectedRoute>
-            }>
-            </Route>
-            <Route path="/profile/preferences" element={
-              <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-                < ProfilePreferences />
-              </ProtectedRoute>
-            }>
-            </Route>
-            <Route path="/dashboard" element={
-              <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-                <Dashboard />
-              </ProtectedRoute>
-            }>
-            </Route>
-            <Route path="*" element={<h1>Not found</h1>} />
-          </Routes>
-        </BrowserRouter>
-        <Footer />
+        <PlacesProvider>
+          <Navbar />
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<LoginUser />} />
+              <Route path="/recoverpassword" element={< RecoverPassword />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/profile" element={
+                <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+                  <Profile />
+                </ProtectedRoute>
+              }>
+              </Route>
+              <Route path="/profile/config" element={
+                <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+                  <ProfileConfig />
+                </ProtectedRoute>
+              }>
+              </Route>
+              <Route path="/profile/preferences" element={
+                <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+                  < ProfilePreferences />
+                </ProtectedRoute>
+              }>
+              </Route>
+              <Route path="/dashboard" element={
+                <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }>
+              </Route>
+              <Route path="*" element={<h1>Not found</h1>} />
+            </Routes>
+          </BrowserRouter>
+          <Footer />
+        </PlacesProvider>
       </EventsProvider>
     </UserDataProvider>
   );
