@@ -1,5 +1,5 @@
 import axios from "axios";
-import fetchPlacesFromDB from "../fetchPlacesFromDB";
+import fetchPlacesFromDB from "../Places/fetchPlacesFromDB";
 
 export default async function fetchEvents() {
   try {
