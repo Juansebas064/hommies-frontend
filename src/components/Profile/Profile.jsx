@@ -9,12 +9,18 @@ export default function Profile() {
 
   const [nombre, setNombre] = useState("");
   const [nickname, setNickname] = useState("");
-
+  const [correo, setCorreo] = useState("");
+  const [fechaNacimiento, setFechaNacimiento] = useState("")
+  const [ciudad, setCiudad] = useState("")
+  const [descripcion, setDescripcion] = useState("")
 
   useEffect(() => {
     if (userData) {
       setNombre(userData.nombre + " " + userData.apellido)
       setNickname(userData.nickname)
+      setCorreo(userData.correo_electronico)
+      setFechaNacimiento(userData.fecha_nacimiento)
+      setCiudad(userData.ciudad)
     }
   }, [userData]);
 
@@ -23,10 +29,10 @@ export default function Profile() {
   return (
 
     // Contenedor principal
-    <div className="flex flex-col lg:flex-row lg:h-[89vh] justify-center">
+    <div className="flex flex-col lg:flex-row lg:h-[96vh] justify-center">
 
       {/* Card información del perfil */}
-      <div className="basis-[50%] flex items-center justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8">
+      <div className="basis-[45%] flex items-center justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8">
 
         {/* Información */}
         <div className="flex flex-col items-center py-16">
@@ -48,11 +54,39 @@ export default function Profile() {
             </svg>
             {/* Nickname */}
           </div>
+          
           <p className="text-indigo-500 text-center pt-4 font-bold text-xl">
             {nickname}
           </p>
+          <p className="text-black text-center pt-4 pb-1 font-bold text-base">
+            Acerca de mi
+          </p>
+          <div className="text-black text-center h-28 w-96 bg-gray-100">
+          {descripcion}
+          </div>
           <p className="text-black text-center pt-4 font-bold text-base">
+            Nombre:
+          </p>
+          <p className="text-black text-center text-base">
             {nombre}
+          </p>
+          <p className="text-black text-center pt-4 font-bold text-base">
+            Correo electrónico:
+          </p>
+          <p className="text-black text-center text-base">
+            {correo}
+          </p>
+          <p className="text-black text-center pt-4 font-bold text-base">
+            Fecha de nacimiento:
+          </p>
+          <p className="text-black text-center text-base">
+            {fechaNacimiento}2
+          </p>
+          <p className="text-black text-center pt-2 font-bold text-base">
+            Ciudad:
+          </p>
+          <p className="text-black text-center text-base">
+            {ciudad}
           </p>
           <button className="bg-indigo-500 rounded-xl mt-3 px-2 py-1 font-bold text-white text-sm hover:bg-indigo-700"
             onClick={() => window.location.href = '/profile/config'}
@@ -73,4 +107,4 @@ export default function Profile() {
       </div>
     </div>
   );
-};
+}
