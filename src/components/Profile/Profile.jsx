@@ -29,7 +29,7 @@ export default function Profile() {
   return (
 
     // Contenedor principal
-    <div className="flex flex-col lg:flex-row lg:h-[96vh] justify-center">
+    <div className="flex flex-col lg:flex-row lg:h-[89vh] justify-center">
 
       {/* Card información del perfil */}
       <div className="basis-[45%] flex items-center justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8">
