@@ -79,7 +79,7 @@ const Login = () => {
 
   return (
     // Contenedor principal
-    <div className="flex flex-col justify-center items-center py-5 lg:h-[89vh]" >
+    <div className="flex flex-col justify-center items-center py-5 lg:min-h-[89vh]" >
 
       {/* Contenedor del formulario (card) */}
 
