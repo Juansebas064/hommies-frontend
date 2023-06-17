@@ -39,28 +39,33 @@ export default function PlacesList() {
 
     return (
       <li
-        className="box-border hover:cursor-pointer text-gray-800 hover:border-indigo-500 border-[2px] overflow-hidden rounded-[20px] border-gray-300 my-3 lg:mx-1 lg:hover:scale-[1.02] lg:transition-transform lg:ease-in-out lg:duration-150 relative min-h-[150px] flex justify-end"
-        onClick={() => handleShowPlaceDetails(lugar)}>
+        className="box-border text-gray-800 hover:border-indigo-500 border-[2px] overflow-hidden rounded-[20px] border-gray-300 my-3 lg:mx-1 relative min-h-[150px] flex">
 
         {/* Foto del lugar */}
         {/* https://computing.which.co.uk/hc/article_attachments/360003905180/location.JPG */}
-        <img src='https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/42/43/ed/place.jpg?w=1200&h=-1&s=1' alt="" className="z-[-1] rounded-[20px] object-cover absolute left-0 right-0" />
+        <img src='https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/42/43/ed/place.jpg?w=1200&h=-1&s=1' alt="" className="max-h-[150px] hover:cursor-pointer" onClick={() => handleShowPlaceDetails(lugar)} />
 
         {/* Resumen del lugar */}
-        <div className="bg-white flex flex-col justify-center max-w-[50%] flex-grow z-[1] ">
+        <div className="bg-white flex-grow flex flex-col justify-center z-[1] ">
 
           {/* Nombre del lugar */}
-          <p className={`text-base font-bold text-center col-span-2 mb-1`}>
+          <p className={`text-base font-bold text-center col-span-2 mb-1 hover:cursor-pointer hover:underline `} onClick={() => handleShowPlaceDetails(lugar)}>
             {`${lugar.nombre}`}
           </p>
 
           {/* Dirección del lugar */}
           <p className="text-center flex items-center justify-center">
-            <span className="align-top">{location(22)}</span>
-            {lugar.direccion}
+            <span className=" pb-[2px]">{location(22)}</span>
+            <span className="">{lugar.direccion}</span>
           </p>
+
           {/* Aforo */}
-          <p className="text-center">{lugar.aforo}</p>
+          <p className="text-center"><span className="font-semibold">Aforo:</span> {lugar.aforo}</p>
+
+          {/* Botón ver en el mapa */}
+          <button className="underline my-2 hover:text-indigo-500 p-0">
+            Ver en el mapa
+          </button>
         </div>
       </li>
     )
