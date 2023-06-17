@@ -39,14 +39,16 @@ export default function PlacesList() {
 
     return (
       <li
-        className="box-border text-gray-800 hover:border-indigo-500 border-[2px] overflow-hidden rounded-[20px] border-gray-300 my-3 lg:mx-1 relative min-h-[150px] flex">
+        className="box-border text-gray-800 hover:border-indigo-500 border-[2px] overflow-hidden rounded-[20px] border-gray-300 my-3 lg:mx-1 relative h-[170px]">
 
         {/* Foto del lugar */}
         {/* https://computing.which.co.uk/hc/article_attachments/360003905180/location.JPG */}
-        <img src='https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/42/43/ed/place.jpg?w=1200&h=-1&s=1' alt="" className="max-h-[150px] hover:cursor-pointer" onClick={() => handleShowPlaceDetails(lugar)} />
+        <div className="basis-[40%] object-cover absolute top-0 bottom-0">
+          <img src='https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/42/43/ed/place.jpg?w=1200&h=-1&s=1' alt="" className="h-full hover:cursor-pointer" onClick={() => handleShowPlaceDetails(lugar)} />
+        </div>
 
         {/* Resumen del lugar */}
-        <div className="bg-white flex-grow flex flex-col justify-center z-[1] ">
+        <div className="bg-white flex flex-col justify-center z-[1] h-full w-[60%] absolute right-0">
 
           {/* Nombre del lugar */}
           <p className={`text-base font-bold text-center col-span-2 mb-1 hover:cursor-pointer hover:underline `} onClick={() => handleShowPlaceDetails(lugar)}>
@@ -54,9 +56,8 @@ export default function PlacesList() {
           </p>
 
           {/* Dirección del lugar */}
-          <p className="text-center flex items-center justify-center">
-            <span className=" pb-[2px]">{location(22)}</span>
-            <span className="">{lugar.direccion}</span>
+          <p className="text-center flex items-center justify-center mx-3">
+            <span className="">{location(22)}{lugar.direccion}</span>
           </p>
 
           {/* Aforo */}
