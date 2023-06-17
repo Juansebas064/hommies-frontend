@@ -17,7 +17,7 @@ const Login = () => {
   // Redirección con base en si tiene o no el perfil completo
   useEffect(() => {
     if (userData) {
-      !userData.genero ? window.location.href = "/profile/preferences" : window.location.href = "/dashboard"
+      (!userData.genero || !userData.fecha_nacimiento || !userData.ciudad) ? window.location.href = "/profile/preferences" : window.location.href = "/dashboard"
     }
   }, [userData])
 
