@@ -15,7 +15,7 @@ function NavbarUser() {
   };
 
   return (
-    <div className="relative inline-block text-left z-50">
+    <div className="relative flex-shrink-0 z-50">
       <button
         onClick={toggleDropdown}
         className="flex items-center text-gray-300 hover:text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none z-50"
@@ -27,7 +27,7 @@ function NavbarUser() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-10 h-10 z-50"
+            className="h-[50px] z-50"
           >
             <path
               strokeLinecap="round"
@@ -37,7 +37,7 @@ function NavbarUser() {
           </svg>
         </span>
           :
-          <img src={profilePicture} alt="" className="rounded-full min-w-[45px] min-h-[45px] w-[45px] border-[2px] border-gray-400" />
+          <img src={profilePicture} alt="" className="rounded-full h-[50px] border-gray-400" />
         }
       </button>
 
