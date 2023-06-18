@@ -1,3 +1,19 @@
+/*
+ * En este archivo se encuentran diferentes íconos svg que se usan
+ * de manera frencuente en la aplicación. Todos son funciones y para
+ * llamarlos se les pasa como argumento el tamaño el pixeles.
+ * 
+ * Los svg disponibles en este archivo son:
+ * 
+ * close(size) -> Ícono de cerrar
+ * clockSVG(size) -> Ícono de reloj
+ * calendarSVG(size) -> Ícono de calendario
+ * buttonNext(size) -> Ícono de siguiente
+ * buttonPrevious(size) -> Ícono de anterior
+ * ellipsis(size) -> Ícono para menú (3 puntos)
+ * 
+ */
+
 export const close = (size) => (
   <svg
     height={`${size}`}
@@ -66,14 +82,36 @@ export const buttonPrevious = (size) => (
 )
 
 export const ellipsis = (size) => (
-  <svg xmlns="http://www.w3.org/2000/svg" 
+  <svg xmlns="http://www.w3.org/2000/svg"
     width={`${size}`}
     height={`${size}`}
-    fill="none" 
-    viewBox="0 0 24 24" 
+    fill="none"
+    viewBox="0 0 24 24"
     stroke="currentColor">
-  <path d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-</svg>
+    <path d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+  </svg>
+)
 
-
+export const location = (size) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={`${size}`}
+    height={`${size}`}
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="inline"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+    />
+  </svg>
 )

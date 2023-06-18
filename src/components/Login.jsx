@@ -17,7 +17,7 @@ const Login = () => {
   // Redirección con base en si tiene o no el perfil completo
   useEffect(() => {
     if (userData) {
-      !userData.genero ? window.location.href = "/profile/preferences" : window.location.href = "/dashboard"
+      (!userData.genero || !userData.fecha_nacimiento || !userData.ciudad) ? window.location.href = "/profile/preferences" : window.location.href = "/dashboard"
     }
   }, [userData])
 
@@ -79,7 +79,7 @@ const Login = () => {
 
   return (
     // Contenedor principal
-    <div className="flex flex-col justify-center items-center py-5 lg:h-[89vh]" >
+    <div className="flex flex-col justify-center items-center py-5 lg:min-h-[89vh]" >
 
       {/* Contenedor del formulario (card) */}
 

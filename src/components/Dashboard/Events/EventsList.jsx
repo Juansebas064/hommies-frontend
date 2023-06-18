@@ -69,7 +69,7 @@ function EventItem({ evento, handleShowEventDetails }) {
 
   return (
     <li
-      className="hover:cursor-pointer text-gray-800 hover:outline-indigo-500 outline outline-offset-[-4px] outline-[2px] rounded-[20px] outline-gray-300 py-3 px-[8px] my-3 lg:mx-1 lg:hover:scale-[1.02] lg:transition-transform lg:ease-in-out lg:duration-150 grid grid-cols-2"
+      className="hover:cursor-pointer text-gray-800 hover:outline-indigo-500 outline outline-offset-[-4px] outline-[2px] rounded-[20px] outline-gray-300 py-3 px-[8px] my-3 lg:mx-1 grid grid-cols-2"
       onClick={() => handleShowEventDetails(evento)}>
       {/* Nombre del evento */}
       <p className="text-base font-bold text-center col-span-2 mb-1">
