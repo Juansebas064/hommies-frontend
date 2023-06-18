@@ -22,6 +22,7 @@ export default function Profile() {
       setCorreo(userData.correo_electronico)
       setFechaNacimiento(userData.fecha_nacimiento)
       setCiudad(userData.ciudad)
+      setDescripcion(userData.descripcion)
     }
   }, [userData]);
 
@@ -49,10 +50,11 @@ export default function Profile() {
             Acerca de mi
           </p>
 
-          {descripcion !== '' ? (
+          {descripcion !== '' && descripcion !== null ? (
             <div className="text-black text-center bg-gray-100">
             {descripcion}
             {console.log(descripcion)}
+            h
             </div>
           ) : (
             <div className="bg-gray-100">No hay una descripcion disponible</div>
