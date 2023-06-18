@@ -14,6 +14,7 @@ export default function Profile() {
   const [ciudad, setCiudad] = useState("")
   const [descripcion, setDescripcion] = useState("")
 
+
   useEffect(() => {
     if (userData) {
       setNombre(userData.nombre + " " + userData.apellido)
@@ -61,9 +62,16 @@ export default function Profile() {
           <p className="text-black text-center pt-4 pb-1 font-bold text-base">
             Acerca de mi
           </p>
-          <div className="text-black text-center h-28 w-96 bg-gray-100">
-          {descripcion}
-          </div>
+
+          {descripcion !== '' ? (
+            <div className="text-black text-center bg-gray-100">
+            {descripcion}
+            {console.log(descripcion)}
+            </div>
+          ) : (
+            <div className="bg-gray-100">No hay una descripcion disponible</div>
+          )}
+          
           <p className="text-black text-center pt-4 font-bold text-base">
             Nombre:
           </p>
