@@ -120,24 +120,26 @@ export default function EventDetails({
     }
   }
 
+  // Funcion para inscribirse al evento
   async function inscribirseEvento() {
     try {
       const response = await inscripcionEvento(selectedEvent.codigo_evento)
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
       obtenerListaParticipantes()
+      
     } catch (error) {
       console.error(error)
     }
   }
 
+    // Funcion para salir del evento
   async function anularInscripcionEvento() {
     try {
       const response = await anularInscripcion(selectedEvent.codigo_evento)
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
-      updateEvents();
-      setSelectedEvent(null);
+      obtenerListaParticipantes()
     } catch (error) {
       console.error(error)
     }
@@ -328,7 +330,7 @@ export default function EventDetails({
 
         {/* Botón unirse al evento */}
         {esParticipante ? (
-          <button onClick={anularInscripcion} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
+          <button onClick={anularInscripcionEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
             Salir del evento
           </button>
 
