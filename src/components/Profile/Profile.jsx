@@ -75,7 +75,7 @@ export default function Profile() {
             Fecha de nacimiento:
           </p>
           <p className="text-black text-center text-base">
-            {fechaNacimiento}2
+            {fechaNacimiento}
           </p>
           <p className="text-black text-center pt-2 font-bold text-base">
             Ciudad:
