@@ -52,14 +52,13 @@ export default function Profile() {
 
           {descripcion !== '' && descripcion !== null ? (
             <div className="text-black text-center bg-gray-100">
-            {descripcion}
-            {console.log(descripcion)}
-            h
+              {descripcion}
+
             </div>
           ) : (
             <div className="bg-gray-100">No hay una descripcion disponible</div>
           )}
-          
+
           <p className="text-black text-center pt-4 font-bold text-base">
             Nombre:
           </p>
