@@ -1,4 +1,5 @@
 import  {useState} from "react";
+import axios from "axios";
 
 
 const RecoverPassword = () => {
@@ -8,6 +9,15 @@ const RecoverPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Lógica para enviar el correo electrónico de recuperación de contraseña
+    axios.post('http://localhost:5000/api/usuario/recuperar-cuenta', { email })
+    .then(response => {
+      console.log('Correo electrónico enviado con éxito');
+      // Aquí puedes realizar cualquier acción adicional después de enviar el correo electrónico
+    })
+    .catch(error => {
+      console.error('Error al enviar el correo electrónico', error);
+      // Aquí puedes manejar el error de envío de correo electrónico
+    });
   };
 
   return (
