@@ -10,7 +10,6 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import Profile from "./components/Profile/Profile.jsx";
 import ProfileConfig from "./components/Profile/ProfileConfig.jsx";
-import ProfilePreferences from "./components/Register/ProfilePreferences.jsx";
 import RecoverPassword from "./components/RecoverPassword.jsx";
 import Footer from "./components/Footer.jsx";
 import { UserDataProvider } from "./components/Profile/UserDataProvider.jsx";
@@ -43,12 +42,6 @@ function App() {
               <Route path="/profile/config" element={
                 <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
                   <ProfileConfig />
-                </ProtectedRoute>
-              }>
-              </Route>
-              <Route path="/profile/preferences" element={
-                <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
-                  < ProfilePreferences />
                 </ProtectedRoute>
               }>
               </Route>
