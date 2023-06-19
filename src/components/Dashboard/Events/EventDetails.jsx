@@ -322,9 +322,9 @@ export default function EventDetails({
 
         {/* Botón unirse al evento */}
         {encontrado ? (
-          <button onClick={anularInscripcion} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
-            Salir del evento
-          </button>
+            <button onClick={anularInscripcion} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
+              Salir del evento
+            </button>
           
           ) : (
             <button onClick={inscribirseEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
