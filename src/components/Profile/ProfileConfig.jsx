@@ -1,71 +1,28 @@
-import { useEffect, useState, useContext } from "react";
-import { UserDataContext } from "./UserDataProvider";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import React, { useEffect, useState, useContext } from "react";
+import { useForm } from 'react-hook-form'
+import { UserDataContext } from "../Profile/UserDataProvider";
+import modifyUserData from "../../utils/Profile/modifyUserData";
+import modifyUserInterests from "../../utils/Profile/modifyUserInterests";
+import intsListWithUserInterests from "../../utils/Interests/intsListWithUserInterests.js";
 
-const ProfileConfig = () => {
 
-  // Uso de react-hook-form
-  const { register, formState: { errors }, handleSubmit } = useForm();
+export default function ProfileConfig() {
 
   // Datos del usuario
-  const { userData, getUserDataFromDB } = useContext(UserDataContext);
+  const { userData, getUserDataFromDB } = useContext(UserDataContext)
 
-  // Ejemplo de objeto con los intereses de la persona
-  const [intereses, setIntereses] = useState([
-    {
-      tematica: 'Ejercicio',
-      marcado: true
-    },
-    {
-      tematica: 'Programación',
-      marcado: false
-    },
-    {
-      tematica: 'Videojuegos',
-      marcado: false
-    },
-    {
-      tematica: 'Bailar',
-      marcado: true
-    },
-    {
-      tematica: 'Caminar',
-      marcado: false
-    },
-    {
-      tematica: 'BMX',
-      marcado: false
-    },
-    {
-      tematica: 'Skateboarding',
-      marcado: false
-    },
-    {
-      tematica: 'Anime',
-      marcado: true
-    },
-    {
-      tematica: 'Política',
-      marcado: false
-    },
-    {
-      tematica: 'Nadar',
-      marcado: false
-    },
-    {
-      tematica: 'Arte',
-      marcado: false
-    },
-    {
-      tematica: 'Música',
-      marcado: false
-    },
-    {
-      tematica: 'Manualidades',
-      marcado: false
-    }
-  ])
+  // Estado para almacenar todos los intereses
+  const [intereses, setIntereses] = useState(null);
+
+  async function fetchInterests() {
+    const interestsResponse = await intsListWithUserInterests()
+    setIntereses(interestsResponse)
+  }
+
+  useEffect(() => {
+    fetchInterests()
+    getToday18YearsBefore()
+  }, []);
 
   // Función para modificar los intereses seleccionados al hacer click
   function handleEditarIntereses(index) {
@@ -74,111 +31,70 @@ const ProfileConfig = () => {
     setIntereses(nuevosIntereses);
   }
 
+  // Enviar los datos a la BD
   async function onSubmit(modifiedUserData) {
     try {
-      const response = await axios.put('http://localhost:5000/api/perfil/modificar', modifiedUserData, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token')
-        }
-      })
+      const response = await modifyUserData(modifiedUserData)
       getUserDataFromDB()
-      console.log('Datos:', modifiedUserData)
+      const newUserInterests = intereses.filter((int) => int.marcado)
+      modifyUserInterests(newUserInterests)
       window.location.href = '/profile'
-      console.log(response)
     } catch (error) {
       console.log(error.message)
     }
   }
 
+  // Función para obtener la fecha de hoy hace 18 años
+  function getToday18YearsBefore() {
+    let today18YearsBefore = new Date().toISOString().split("T")[0].split("-")
+    today18YearsBefore[0] = (today18YearsBefore[0] - 18).toString()
+    today18YearsBefore = today18YearsBefore.join('-')
+    return today18YearsBefore
+  }
+
+  // Uso de react-hook-form
+  const { register, formState: { errors }, handleSubmit } = useForm();
+
   return (
 
     // Contenedor principal
-    <div className="flex flex-col lg:flex-row lg:justify-evenly my-10">
+    <div className="min-h-[89vh] flex items-center justify-center">
 
-      {/* Card configuración del perfil */}
-      <div className="px-12 pt-10 pb-4 bg-gray-100 text-gray-500 rounded-3xl shadow-xl mx-auto max-w-[600px] overflow-hidden flex-grow">
+      {/* Card completar registro */}
+      <div className="pt-10 my-5 pb-4 bg-gray-100 text-gray-500 rounded-3xl shadow-xl max-w-[700px] overflow-hidden flex-grow">
+
+        {/* Título */}
         <h3 className="font-bold text-3xl text-gray-900 text-center mb-7">Configuración del perfil</h3>
 
         {/* Inicio del formulario */}
         {userData &&
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form className="grid min-[550px]:grid-cols-2 gap-1 max-w-[650px] mx-auto" onSubmit={handleSubmit(onSubmit)}>
 
-            {/* Apellido */}
-            <div className="w-full px-3 mb-5">
+            {/* Nickname */}
+            <div className="px-3 mb-5">
               <label className="text-sm font-semibold px-1">
-                Nombre
+                Nickname
               </label>
-              <div className="flex">
-                <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                    />
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                  {...register('nombre', {
-                    required: true,
-                    value: userData.nombre
-                  })}
-                />
-              </div>
-            </div>
-
-            {/* Apellido */}
-            <div className="w-full px-3 mb-5">
-              <label className="text-sm font-semibold px-1">
-                Apellido
-              </label>
-              <div className="flex">
-                <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                    />
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                  {...register('apellido', {
-                    required: true,
-                    value: userData.apellido
-                  })}
-                />
-              </div>
+              <input
+                type="text"
+                placeholder="Nickname"
+                className="w-full pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                {...register('nickname', {
+                  required: true,
+                  value: userData.nickname
+                })}
+              />
             </div>
 
             {/* Género */}
-            <div className="w-full px-3 mb-5">
+            <div className="px-3 mb-5">
               <label className="text-sm font-semibold px-1">
                 Genero
               </label>
               <select
                 id="gender"
                 name="gender"
-                className="w-full pl-3 pr-3 py-3 bg-gray-50 border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:border-indigo-500 block"
+                className="w-full pl-3 pr-3 py-[11px] bg-gray-50 border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:border-indigo-500 block"
                 {...register('genero', {
                   required: true,
                   value: userData.genero
@@ -189,38 +105,125 @@ const ProfileConfig = () => {
                 <option value="o">Otro</option>
               </select>
             </div>
-            <div className="w-full text-center mb-3">
-              <label className="font-semibold text-sm px-1">Cambia tus intereses</label>
-            </div>
-            <div className='border-4 border-gray-400 py-5 rounded-md w-full my-5 mx-auto flex justify-center flex-wrap'>
-              {intereses.map((elemento, index) => (
-                <span
-                  key={index}
-                  name={elemento.tematica}
-                  className={`rounded-full px-2 py-1 my-1 mx-1 cursor-pointer select-none ${elemento.marcado ? 'bg-indigo-500 text-white' : 'bg-gray-200'}`}
-                  onClick={() => handleEditarIntereses(index)}>
-                  {elemento.tematica}
-                </span>
-              ))}
+
+            {/* Nombre */}
+            <div className="px-3 mb-5">
+              <label className="text-sm font-semibold px-1">
+                Nombre
+              </label>
+              <input
+                type="text"
+                placeholder="Nombre"
+                className="w-full pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                {...register('nombre', {
+                  required: true,
+                  value: userData.nombre
+                })}
+              />
             </div>
 
-            <div className="flex justify-center mb-6">
-              <button type="submit" className="inline-block max-w-xs mx-auto mt-7 bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-10 py-2 font-semibold">
-                Continuar
+            {/* Apellido */}
+            <div className="px-3 mb-5">
+              <label className="text-sm font-semibold px-1">
+                Apellido
+              </label>
+              <input
+                type="text"
+                placeholder="Apellido"
+                className="w-full pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                {...register('apellido', {
+                  required: true,
+                  value: userData.apellido
+                })}
+              />
+            </div>
+
+            {/* Ciudad */}
+            <div className="px-3 mb-5">
+              <label className="text-sm font-semibold px-1">
+                Ciudad
+              </label>
+              <select
+                className="w-full pl-3 pr-3 py-[11px] bg-gray-50 border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:border-indigo-500 block"
+                {...register('ciudad', {
+                  required: true,
+                  value: userData.ciudad
+                })}
+              >
+                <option value="111">Tuluá</option>
+                <option value="222">Cali</option>
+              </select>
+            </div>
+
+            {/* Fecha de nacimiento */}
+            <div className="px-3 mb-5">
+              <label className="text-sm font-semibold px-1">
+                Fecha de nacimiento
+              </label>
+              <input
+                type="date"
+                disabled={userData.fecha_nacimiento}
+                max={getToday18YearsBefore()}
+                className="w-full pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                {...register('fecha_nacimiento', {
+                  required: true,
+                  value: !userData.fecha_nacimiento ? null : userData.fecha_nacimiento.substring(0, 10)
+                })}
+              />
+            </div>
+
+            {/* Descripción */}
+            <div className="px-3 mb-5 min-[550px]:col-span-2">
+              <label className="text-sm font-semibold px-1">
+                Descripción del perfil (opcional)
+              </label>
+              <textarea
+                placeholder="Descripción"
+                className="w-full pl-3 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                {...register('descripcion', {
+                  required: false,
+                  value: userData.descripcion
+                })}
+              />
+            </div>
+
+
+            {/* Intereses */}
+            <div className="w-full text-center mb-3 min-[550px]:col-span-2 px-3">
+              <label className="font-semibold text-sm px-1">Seleciona tus intereses</label>
+              <div className='border-2 border-gray-400 py-5 rounded-lg w-full mt-1 mb-1 mx-auto flex justify-center flex-wrap'>
+                {intereses &&
+                  intereses.map((elemento, index) => (
+                    <span
+                      key={elemento.codigo_interes}
+                      className={`rounded-full px-2 py-1 my-1 mx-1 cursor-pointer select-none ${elemento.marcado ? 'bg-indigo-500 text-white' : 'bg-gray-200'}`}
+                      onClick={() => handleEditarIntereses(index)}
+                    >
+                      {elemento.nombre}
+                    </span>
+                  ))}
+              </div>
+            </div>
+
+
+            {/* Botones para modificar y cancelar */}
+            <div className="flex flex-col min-[550px]:flex-row min-[550px]:col-span-2 px-3 gap-3">
+
+              <button type="submit" className="bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-10 py-3 font-semibold flex-grow min-[550px]:order-2">
+                Guardar
               </button>
-              <button type="submit" className="inline-block max-w-xs mx-auto mt-7 hover:bg-gray-300 rounded-lg px-10 py-2 font-semibold"
+
+              <button className="bg-gray-300 rounded-lg px-10 py-3 font-semibold flex-grow min-[550px]:order-1"
                 onClick={(e) => {
                   e.preventDefault()
                   window.location.href = '/profile'
-                }}
-              >
+                }}>
                 Cancelar
               </button>
             </div>
+
           </form>}
       </div>
     </div >
   );
 };
-
-export default ProfileConfig;
