@@ -8,7 +8,6 @@ export default async function obtenerParticipantes(codigo_evento) {
         Authorization: localStorage.getItem('token')
       }
     })
-    console.log(lista_participantes)
     return lista_participantes
   } catch (error) {
     console.log(error.message)

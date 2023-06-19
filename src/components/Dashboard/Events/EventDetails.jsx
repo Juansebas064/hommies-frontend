@@ -127,19 +127,20 @@ export default function EventDetails({
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
       obtenerListaParticipantes()
-      
+
     } catch (error) {
       console.error(error)
     }
   }
 
-    // Funcion para salir del evento
+  // Funcion para salir del evento
   async function anularInscripcionEvento() {
     try {
       const response = await anularInscripcion(selectedEvent.codigo_evento)
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
       obtenerListaParticipantes()
+      setEsParticipante(false)
     } catch (error) {
       console.error(error)
     }
@@ -155,7 +156,6 @@ export default function EventDetails({
         }
       });
     }
-    console.log(esParticipante)
   };
 
   useEffect(() => {

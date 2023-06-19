@@ -12,7 +12,6 @@ export default async function deleteEvent(codigo_evento) {
         },
       }
     );
-    console.log(response.data.message);
     return response
   } catch (error) {
     console.error(error);
