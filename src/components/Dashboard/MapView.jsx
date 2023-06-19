@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -12,6 +12,26 @@ import { getPlaceName } from "../../utils/placeName.js";
 
 export default function MapView() {
 
+  const [userLocation, setUserLocation] = useState(null)
+
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation([latitude, longitude]);
+        },
+        (error) => {
+          console.error("Error obteniendo la ubicacion:", error);
+        },
+        { enableHighAccuracy: true }
+      );
+    } else {
+      console.error("La geolocalización no está habilitada para este navegador.");
+    }
+  }, []);
+  
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -52,8 +72,9 @@ export default function MapView() {
   return (
     // Contenedor principal del mapa
     <div className="lg:basis-[70%] z-0">
-      <MapContainer
-        center={[4.074862, -76.192516]}
+      {userLocation && (
+        <MapContainer
+        center={userLocation}
         zoom={17}
         scrollWheelZoom={false}
         className="h-[63vh] lg:h-[89vh] shadow-[10px_10px_22px_-13px_rgba(0,0,0,0.4)]"
@@ -116,6 +137,8 @@ export default function MapView() {
           />
         )}
       </MapContainer>
+      )}
+      
     </div>
   );
 }
