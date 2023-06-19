@@ -24,8 +24,9 @@ export default function EventDetails({ selectedPlace, setSelectedPlace }) {
   return (
     // Cuadro de diálogo modal
     <VentanaModal estado={selectedPlace} cambiarEstado={setSelectedPlace}>
+
       {/* Contenido del lugar */}
-      {console.log(selectedPlace.codigo_lugar)}
+
       {/* Nombre del lugar */}
       <p className={`text-xl font-bold text-center col-span-2 mb-3 mt-3 cursor-text`}>
         {selectedPlace.nombre}

@@ -324,8 +324,9 @@ export default function EventDetails({
         {/* Lista de participantes */}
         <details className="block w-[240px] max-w-[240px] min-w-[150px] p-1 mt-5 mb-3 mx-auto border-[1px] border-indigo-500 rounded-lg col-span-2 cursor-pointer">
           <summary>Participantes</summary>
+          <div key={0}>{selectedEvent.creador}</div>
           {participantes === null ? (
-            <div>Si ves este mensaje, es que alguien ya estuvo inscrito...</div>
+            <div>No hay participantes</div>
           ) : (
             participantes.map((participante, index) => (
               <div key={index}>{participante.nickname}</div>
@@ -339,11 +340,16 @@ export default function EventDetails({
           <button onClick={anularInscripcionEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
             Salir del evento
           </button>
-
         ) : (
-          <button onClick={inscribirseEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
-            Quiero unirme
-          </button>
+          userData.id === selectedEvent.creador ? (
+            <button onClick={deleteEvent} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
+              Eliminar evento
+            </button>
+          ) : (
+            <button onClick={inscribirseEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
+              Quiero unirme
+            </button>
+          )
         )
         }
       </form>

@@ -47,7 +47,7 @@ export default function EventsList({ activeFilter }) {
           listaParticipantes = listaParticipantes.data.rows
 
           const participa = participaEnEvento(listaParticipantes)
-          if (participa) {
+          if (participa || userData.id === events[i].creador) {
             inscribedList.push(events[i])
           } else {
             notInscribedList.push(events[i])
