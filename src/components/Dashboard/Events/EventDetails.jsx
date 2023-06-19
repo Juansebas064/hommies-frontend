@@ -153,6 +153,7 @@ export default function EventDetails({
       participantes.forEach((participante) => {
         if (participante.id === userData.id) {
           setEsParticipante(true);
+          console.log(participantes)
         }
       });
     }
@@ -324,8 +325,14 @@ export default function EventDetails({
         {/* Lista de participantes */}
         <details className="block w-[240px] max-w-[240px] min-w-[150px] p-1 mt-5 mb-3 mx-auto border-[1px] border-indigo-500 rounded-lg col-span-2 cursor-pointer">
           <summary>Participantes</summary>
-          <p>Smith</p>
-          <p>Casariz</p>
+          {participantes === null ? (
+            <div>Si ves este mensaje, es que alguien ya estuvo inscrito...</div>
+            ) : (
+            participantes.map((participante, index) => (
+            <div key={index}>{participante.nickname}</div>
+            ))
+            )
+          }
         </details>
 
         {/* Botón unirse al evento */}
