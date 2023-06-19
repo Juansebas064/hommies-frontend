@@ -9,6 +9,7 @@ import modifyEventToDB from "../../../utils/Events/modifyEventToDB.js";
 import VentanaModal from "../../VentanaModal.jsx";
 import inscripcionEvento from "../../../utils/Events/inscripcionEvento.js";
 import anularInscripcion from "../../../utils/Events/anularInscripcionEvento.js";
+import obtenerParticipantes from "../../../utils/Events/obtenerParticipantes.js";
 
 
 export default function EventDetails({
@@ -32,14 +33,14 @@ export default function EventDetails({
   // Se consulta el usuario para obtener la id
   const { userData } = useContext(UserDataContext);
 
-  // Se verifica si el usuario es el propietario del evento
-  const [isOwner, setIsOwner] = useState(selectedEvent.creador === userData.id);
-
   // Determinar si se está modificando un evento
   const [modifyingEvent, setModifyingEvent] = useState(false);
 
+  // Lista de participantes del evento
+  const [participantes, setParticipantes] = useState(null)
+
   //Estado botón de anular inscripción (Temporal)
-  const [estadoBoton, setEstadoBoton] = useState(false);
+  const [esParticipante, setEsParticipante] = useState(false);
 
   // Uso de react-hook-form
   const {
@@ -65,6 +66,16 @@ export default function EventDetails({
   useEffect(() => {
     setStatus(() => handleEventStatus());
   }, [selectedEvent]);
+
+  // Obtener la lista de participantes del evento
+  async function obtenerListaParticipantes() {
+    const listaParticipantes = await obtenerParticipantes(selectedEvent.codigo_evento)
+    setParticipantes(listaParticipantes.data.rows)
+  }
+
+  useEffect(() => {
+    obtenerListaParticipantes()
+  }, [])
 
 
   // Restablecer el contenido de los inputs
@@ -114,8 +125,7 @@ export default function EventDetails({
       const response = await inscripcionEvento(selectedEvent.codigo_evento)
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
-      updateEvents();
-      setSelectedEvent(null);
+      obtenerListaParticipantes()
     } catch (error) {
       console.error(error)
     }
@@ -133,26 +143,22 @@ export default function EventDetails({
     }
   }
 
-  const listaParticipantes = [
-    {id: 1, nombre: 'Daniel'},
-    {id: 2, nombre: 'Lorena'},
-    {id: 3, nombre: 'Natalia'},
-  ];
+  // Función para verificar si el usuario participa en el evento
+  const participaEnEvento = () => {
 
-  const verificarID = (id) => {
-    let encontrado = false;
-
-    listaParticipantes.forEach((participante) => {
-      if (participante.id === id) {
-        encontrado = true;
-      }
-    });
-
-    return encontrado;
+    if (participantes) {
+      participantes.forEach((participante) => {
+        if (participante.id === userData.id) {
+          setEsParticipante(true);
+        }
+      });
+    }
+    console.log(esParticipante)
   };
 
-  const id = 3;
-  const encontrado = verificarID(id);
+  useEffect(() => {
+    participaEnEvento()
+  }, [participantes])
 
   return (
 
@@ -321,17 +327,17 @@ export default function EventDetails({
         </details>
 
         {/* Botón unirse al evento */}
-        {encontrado ? (
-            <button onClick={anularInscripcion} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
-              Salir del evento
-            </button>
-          
-          ) : (
-            <button onClick={inscribirseEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
-              Quiero unirme
-            </button>
-          )
-      }
+        {esParticipante ? (
+          <button onClick={anularInscripcion} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
+            Salir del evento
+          </button>
+
+        ) : (
+          <button onClick={inscribirseEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
+            Quiero unirme
+          </button>
+        )
+        }
       </form>
     </VentanaModal>
   );
