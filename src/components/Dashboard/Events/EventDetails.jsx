@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import getEventStatus from "../../../utils/getEventStatus.js";
-import { clockSVG, calendarSVG, close, ellipsis } from "../../../utils/svgs";
+import { clockSVG, calendarSVG } from "../../../utils/svgs";
 import { UserDataContext } from "../../Profile/UserDataProvider.jsx";
 import { useForm } from "react-hook-form";
 import EventOwnerMenu from "./EventMenuOwner.jsx";
 import deleteEventFromDB from "../../../utils/Events/deleteEventFromDB.js";
 import modifyEventToDB from "../../../utils/Events/modifyEventToDB.js";
 import VentanaModal from "../../VentanaModal.jsx";
+import inscripcionEvento from "../../../utils/Events/inscripcionEvento.js";
+import anularInscripcion from "../../../utils/Events/anularInscripcionEvento.js";
 
 
 export default function EventDetails({
@@ -14,6 +16,7 @@ export default function EventDetails({
   setSelectedEvent,
   eventStatus,
   updateEvents,
+
 }) {
   // Verificación para no mostrarse en caso de no haber evento seleccionado
   if (!selectedEvent) {
@@ -34,6 +37,9 @@ export default function EventDetails({
 
   // Determinar si se está modificando un evento
   const [modifyingEvent, setModifyingEvent] = useState(false);
+
+  //Estado botón de anular inscripción (Temporal)
+  const [estadoBoton, setEstadoBoton] = useState(false);
 
   // Uso de react-hook-form
   const {
@@ -102,6 +108,51 @@ export default function EventDetails({
       console.error(error)
     }
   }
+
+  async function inscribirseEvento() {
+    try {
+      const response = await inscripcionEvento(selectedEvent.codigo_evento)
+
+      // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
+      updateEvents();
+      setSelectedEvent(null);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function anularInscripcionEvento() {
+    try {
+      const response = await anularInscripcion(selectedEvent.codigo_evento)
+
+      // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
+      updateEvents();
+      setSelectedEvent(null);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const listaParticipantes = [
+    {id: 1, nombre: 'Daniel'},
+    {id: 2, nombre: 'Lorena'},
+    {id: 3, nombre: 'Natalia'},
+  ];
+
+  const verificarID = (id) => {
+    let encontrado = false;
+
+    listaParticipantes.forEach((participante) => {
+      if (participante.id === id) {
+        encontrado = true;
+      }
+    });
+
+    return encontrado;
+  };
+
+  const id = 3;
+  const encontrado = verificarID(id);
 
   return (
 
@@ -270,9 +321,17 @@ export default function EventDetails({
         </details>
 
         {/* Botón unirse al evento */}
-        <button className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
-          Quiero unirme
+        {encontrado ? (
+          <button className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
+          Salir del evento
         </button>
+          
+          ) : (
+            <button className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
+            Quiero unirme
+          </button>
+          )
+      }
       </form>
     </VentanaModal>
   );
