@@ -153,7 +153,6 @@ export default function EventDetails({
       participantes.forEach((participante) => {
         if (participante.id === userData.id) {
           setEsParticipante(true);
-          console.log(participantes)
         }
       });
     }
@@ -327,11 +326,11 @@ export default function EventDetails({
           <summary>Participantes</summary>
           {participantes === null ? (
             <div>Si ves este mensaje, es que alguien ya estuvo inscrito...</div>
-            ) : (
+          ) : (
             participantes.map((participante, index) => (
-            <div key={index}>{participante.nickname}</div>
+              <div key={index}>{participante.nickname}</div>
             ))
-            )
+          )
           }
         </details>
 

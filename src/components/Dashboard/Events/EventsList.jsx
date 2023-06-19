@@ -3,9 +3,14 @@ import getEventStatus from "../../../utils/getEventStatus"
 import { clockSVG, calendarSVG } from "../../../utils/svgs"
 import EventDetails from "./EventDetails";
 import { EventsContext } from "./EventsProvider";
+import { UserDataContext } from "../../Profile/UserDataProvider";
+import obtenerParticipantes from "../../../utils/Events/obtenerParticipantes.js";
 
 
 export default function EventsList({ activeFilter }) {
+
+  // Datos del usuario que tiene iniciada la sesión
+  const { userData } = useContext(UserDataContext)
 
   // Traer los eventos
   const { events, fetchEvents } = useContext(EventsContext)
@@ -26,7 +31,7 @@ export default function EventsList({ activeFilter }) {
   }
 
   // Crear lista de eventos filtrada
-  function createFilteredEventsList() {
+  async function createFilteredEventsList() {
     if (activeFilter !== 'todos') {
       if (['terminado', 'en_progreso', 'sin_empezar'].includes(activeFilter)) {
         const filteredList = events.filter((evento) => (
@@ -34,10 +39,41 @@ export default function EventsList({ activeFilter }) {
         ))
         setFilteredEvents(filteredList)
       }
-    } else {
+      if (['inscrito', 'no_inscrito'].includes(activeFilter)) {
+        const inscribedList = []
+        const notInscribedList = []
+        for (let i = 0; i < events.length; i++) {
+          let listaParticipantes = await obtenerParticipantes(events[i].codigo_evento)
+          listaParticipantes = listaParticipantes.data.rows
+
+          const participa = participaEnEvento(listaParticipantes)
+          if (participa) {
+            inscribedList.push(events[i])
+          } else {
+            notInscribedList.push(events[i])
+          }
+        };
+        setFilteredEvents(activeFilter === 'inscrito' ? inscribedList : notInscribedList)
+        console.log(filteredEvents)
+      }
+    }
+    if (activeFilter === 'todos') {
       setFilteredEvents(events)
     }
   }
+
+  // Función para verificar si el usuario participa en el evento
+  const participaEnEvento = (participantes) => {
+
+    if (participantes) {
+      for (let i = 0; i < participantes.length; i++) {
+        if (participantes[i].id === userData.id) {
+          return true
+        }
+      };
+    }
+    return false
+  };
 
   // La lista filtrada se creará cuando se actualice el estado activeFilter
   useEffect(() => {
