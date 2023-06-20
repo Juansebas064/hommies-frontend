@@ -1,11 +1,15 @@
 import { useContext, useState, useEffect } from "react"
 import { PlacesContext } from "./PlacesProvider"
+import { UserLocationContext } from "../UserLocationProvider"
 import PlaceDetails from "./PlaceDetails"
 import { location } from '../../../utils/svgs'
 import dummiePhoto from "../../../assets/HOMMIES.png"
 
 
 export default function PlacesList() {
+
+  // Ubicación del usuario y el mapa
+  const { userLocation, setUserLocation } = useContext(UserLocationContext)
 
   // Lista de lugares
   const { places, fetchPlaces } = useContext(PlacesContext)
@@ -64,7 +68,12 @@ export default function PlacesList() {
           <p className="text-center"><span className="font-semibold">Aforo:</span> {lugar.aforo}</p>
 
           {/* Botón ver en el mapa */}
-          <button className="underline my-2 hover:text-indigo-500 p-0">
+          <button className="underline my-2 hover:text-indigo-500 p-0" onClick={() => {
+            setUserLocation({
+              coordinates: JSON.parse(lugar.ubicacion),
+              zoom: 17
+            })
+          }}>
             Ver en el mapa
           </button>
         </div>
