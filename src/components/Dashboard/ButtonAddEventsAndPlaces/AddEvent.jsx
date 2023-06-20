@@ -36,9 +36,9 @@ const AddEvent = ({ setIsToggled }) => {
 
   return (
     <>
-      <ConfirmacionEventoCreado estado={confirmacionEventoCreado} cambiarEstado={setIsToggled}>
+      {confirmacionEventoCreado && <ConfirmacionEventoCreado estado={confirmacionEventoCreado} cambiarEstado={setIsToggled}>
         <h1 className="text-center m-6 text-sm font-semibold">Evento creado satisfactoriamente</h1>
-      </ConfirmacionEventoCreado>
+      </ConfirmacionEventoCreado>}
       <div className="w-full px-3 mb-4 mt-3 items-center relative">
         <div className="w-full items-center text-center justify-center pb-3">
           <h1 className="font-semibold text-indigo-700 text-base shadow-lg shadow-indigo-300 mb-6 w-fit text-center mx-auto">
