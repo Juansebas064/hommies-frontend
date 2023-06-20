@@ -11,8 +11,12 @@ import ButtonAddEventAndPlace from "./ButtonAddEventsAndPlaces/ButtonAddEventAnd
 import { getPlaceName } from "../../utils/placeName.js";
 import { UserDataContext } from "../Profile/UserDataProvider";
 import { PlacesContext } from "../Dashboard/Places/PlacesProvider"
+import { UserLocationContext } from "./UserLocationProvider";
 
 export default function MapView() {
+
+  // Ubicación del usuario y el mapa
+  const { userLocation, setUserLocation } = useContext(UserLocationContext)
 
   // Datos del usuario para sacar la ciudad
   const { userData } = useContext(UserDataContext)
@@ -31,9 +35,6 @@ export default function MapView() {
       zoom: 13
     }
   }
-
-  // Estado para obtener ubicación del usuario con base en su ciudad
-  const [userLocation, setUserLocation] = useState(null)
 
 
   // Ajustar la ubicación al cargar la información del usuario
@@ -64,6 +65,7 @@ export default function MapView() {
     <div className="lg:basis-[70%] z-0">
       {userLocation && (
         <MapContainer
+          key={`${userLocation.coordinates[0]}-${userLocation.coordinates[1]}-${userLocation.zoom}`}
           center={userLocation.coordinates}
           zoom={userLocation.zoom}
           scrollWheelZoom={false}
@@ -99,22 +101,6 @@ export default function MapView() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          {/* Botón para añadir un evento */}
-          <ButtonAddEventAndPlace
-            isToggled={isToggled}
-            isToggledMarker={isToggledMarker}
-            isToggledDate={isToggledDate}
-            setIsToggledDate={setIsToggledDate}
-            setIsToggled={setIsToggled}
-            setIsToggledMarker={setIsToggledMarker}
-            placeName={placeName}
-            setPlaceName={setPlaceName}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            placeNameDate={newEventDate} register
-            setPlaceNameDate={setNewEventDate}
-            coord={coord}
-          />
           {/* Componente para actualizar la lista de marcadores */}
           {isToggledMarker && (
             <AddMarker
@@ -126,8 +112,24 @@ export default function MapView() {
             />
           )}
         </MapContainer>
-      )}
 
+      )}
+      {/* Botón para añadir un evento */}
+      <ButtonAddEventAndPlace
+        isToggled={isToggled}
+        isToggledMarker={isToggledMarker}
+        isToggledDate={isToggledDate}
+        setIsToggledDate={setIsToggledDate}
+        setIsToggled={setIsToggled}
+        setIsToggledMarker={setIsToggledMarker}
+        placeName={placeName}
+        setPlaceName={setPlaceName}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        placeNameDate={newEventDate} register
+        setPlaceNameDate={setNewEventDate}
+        coord={coord}
+      />
     </div>
   );
 }
