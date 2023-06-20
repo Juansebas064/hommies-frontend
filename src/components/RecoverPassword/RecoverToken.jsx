@@ -1,50 +1,45 @@
-import  {useState} from "react";
-import axios from "axios";
+import React, {useState} from 'react'
 
+export const RecoverToken = () => {
 
-const RecoverPassword = () => {
-
-    const [email, setEmail] = useState("");
+    const [token, setToken] = useState(null);
     
-    const [mailError, setMailError] = useState(null)
+    const [tokenError, setTokenError] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para enviar el correo electrónico de recuperación de contraseña
-    axios.post('http://localhost:5000/api/usuario/recuperar-cuenta', { email })
+    // Lógica para enviar el token de recuperación de contraseña
+    axios.post('http://localhost:5000/api/usuario/recuperar-cuenta', { token })
     .then(response => {
-      console.log('Correo electrónico enviado con éxito');
+      console.log('Token enviado con exito');
       // Aquí puedes realizar cualquier acción adicional después de enviar el correo electrónico
 
       if (response.data.success) {
       } else {
         // Redireccionar a una página de error
-        window.location.href = '/recovertoken';
-        setMailError(null)
+        window.location.href = '/changepass';
+        setTokenError(null)
         
       }
 
     })
     .catch(error => {
-      console.error('Error al enviar el correo electrónico', error);
+      console.error('Error al enviar el token', error);
       // Aquí puedes manejar el error de envío de correo electrónico
-      setMailError("Esta cuenta no existe")
+      setTokenError("El token no es valido, intentalo nuevamente")
     });
   };
 
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="font-bold text-3xl text-gray-900 text-center">¿Olvidaste tu contraseña? ¡Recupérala ya!</h2>
-      </div>
-
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-gray-100 text-gray-500 py-8 px-4 shadow-xl sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="flex -mx-3">
                   <div className="w-full px-3 ">
                     <label className="text-xs font-semibold px-1">
-                      Ingresa tu e-mail aquí
+                      Ingresa el código que llegó a tu correo electrónico
                     </label>
                     <div className="flex">
                       <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
@@ -64,15 +59,14 @@ const RecoverPassword = () => {
                         </svg>
                       </div>
                       <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
+                        id="token"
+                        name="token"
+                        type="number"
                         required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={token}
+                        onChange={(e) => setToken(e.target.value)}
                         className= {"w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-${isValid ? 'green-500' : 'red-500'}"}
-                        placeholder="alejogonzales@example.com"
+                        placeholder="123456"
                         
                       /> 
                     </div>
@@ -84,17 +78,15 @@ const RecoverPassword = () => {
                 type="submit"
                 className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
               >
-                Enviar correo de recuperación
+                Enviar token de recuperación
               </button>
             </div>
             <p className="text-sm text-red-500 font-extrabold">
-              {mailError}
+              {tokenError}
             </p>
           </form>
         </div>
       </div>
     </div>
-  );
-};
-
-export default RecoverPassword;
+  )
+}

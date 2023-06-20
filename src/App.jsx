@@ -16,6 +16,7 @@ import { UserDataProvider } from "./components/Profile/UserDataProvider.jsx";
 import { EventsProvider } from "./components/Dashboard/Events/EventsProvider.jsx";
 import { PlacesProvider } from "./components/Dashboard/Places/PlacesProvider.jsx"
 import { UserLocationProvider } from "./components/Dashboard/UserLocationProvider.jsx";
+import { RecoverToken } from "./components/RecoverPassword/RecoverToken.jsx";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<LoginUser />} />
                 <Route path="/recoverpassword" element={< RecoverPassword />} />
+                <Route path="/recovertoken" element={< RecoverToken />} />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/profile" element={
                   <ProtectedRoute isLoggedIn={localStorage.getItem('token')}>
