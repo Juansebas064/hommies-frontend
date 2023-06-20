@@ -32,7 +32,7 @@ export default function MapView() {
     },
     222: {
       coordinates: [3.4348269, -76.5041975],
-      zoom: 13
+      zoom: 12
     }
   }
 
@@ -62,10 +62,10 @@ export default function MapView() {
 
   return (
     // Contenedor principal del mapa
-    <div className="lg:basis-[70%] z-0">
+    <div className="lg:basis-[70%] relative">
       {userLocation && (
         <MapContainer
-          key={`${userLocation.coordinates[0]}-${userLocation.coordinates[1]}-${userLocation.zoom}`}
+          key={`${userLocation.coordinates[0]}-${userLocation.coordinates[1]}-${userLocation.zoom}-${places.length}`}
           center={userLocation.coordinates}
           zoom={userLocation.zoom}
           scrollWheelZoom={false}

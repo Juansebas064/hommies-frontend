@@ -27,7 +27,7 @@ export default function ButtonAddEventAndPlace({
   return (
     <>
       <button
-        className="rounded-3xl w-[40px] h-[40px] absolute bottom-4 left-4 z-[400] bg-indigo-600 text-white p-0 text-4xl font-bold hover:scale-125 transition-transform ease-in-out duration-500"
+        className="rounded-3xl w-[40px] h-[40px] absolute bottom-4 left-4 z-[400] bg-indigo-600 text-white p-0 text-4xl font-bold"
         onClick={handleToggle}
       >
         <svg
@@ -60,31 +60,34 @@ export default function ButtonAddEventAndPlace({
       {isToggled && (
 
         // Card con los controles y el contenido
-        <div className="rounded-xl min-w-[250px] max-h-[40vh] sm:max-h-[50vh] lg:max-h-[60vh] sm:w-[450px] absolute bottom-[15%] left-5 right-5 sm:left-12 z-[400] bg-gray-200 shadow-md before:duration-200 items-center justify-center px-5 py-1 overflow-y-scroll">
-          <div className="flex flex-col -mx-3">
+        <div className="rounded-xl min-w-[250px] max-h-[40vh] sm:max-h-[50vh] lg:max-h-[60vh] sm:w-[450px] absolute bottom-[15%] left-5 right-5 sm:left-12 z-[400] bg-gray-200 shadow-md items-center justify-center overflow-y-auto">
 
-            {/* Contenedor de botones crear evento y crear lugar */}
-            <div className="flex h-8 font-bold text-base rounded-[14px] overflow-hidden z-[9999]">
-              <button
-                className={`flex-grow py-1 border-b-gray-200 z-[9999] ${activeTab === "events"
-                  ? "bg-indigo-500 text-white rounded-[14px]"
-                  : "bg-gray-200 "
-                  }`}
-                onClick={() => setActiveTab("events")}
-              >
-                Crear eventos
-              </button>
-              <button
-                className={`flex-grow py-1 border-b-gray-200 ${activeTab === "places"
-                  ? "bg-indigo-500 text-white rounded-[14px]"
-                  : "bg-gray-200 "
-                  }`}
-                onClick={() => setActiveTab("places")}
-              >
-                Crear lugares
-              </button>
-            </div>
-            <div className="overflow-auto">
+
+          {/* Contenedor de botones crear evento y crear lugar */}
+          <div className="flex font-semibold text-sm overflow-hidden w-full">
+            <button
+              className={`flex-grow py-[10px] border-b-gray-200 ${activeTab === "events"
+                ? "bg-indigo-500 text-white rounded-[14px]"
+                : "bg-gray-200 "
+                }`}
+              onClick={() => setActiveTab("events")}
+            >
+              Crear eventos
+            </button>
+            <button
+              className={`flex-grow py-[10px] border-b-gray-200 ${activeTab === "places"
+                ? "bg-indigo-500 text-white rounded-[14px]"
+                : "bg-gray-200 "
+                }`}
+              onClick={() => setActiveTab("places")}
+            >
+              Crear lugares
+            </button>
+          </div>
+
+          <div className="flex flex-col px-4">
+
+            <div className="">
               {activeTab == "events" ? (
                 <AddEvent setIsToggled={setIsToggled} />
               ) : (

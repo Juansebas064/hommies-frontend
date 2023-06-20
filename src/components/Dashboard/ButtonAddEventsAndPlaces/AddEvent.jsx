@@ -41,7 +41,7 @@ const AddEvent = ({ setIsToggled }) => {
       </ConfirmacionEventoCreado>}
       <div className="w-full px-3 mb-4 mt-3 items-center relative">
         <div className="w-full items-center text-center justify-center pb-3">
-          <h1 className="font-semibold text-indigo-700 text-base shadow-lg shadow-indigo-300 mb-6 w-fit text-center mx-auto">
+          <h1 className="font-semibold text-indigo-700 text-base shadow-lg shadow-indigo-300 my-7 w-fit text-center mx-auto">
             Crear un evento
           </h1>
           {/* Inicio del formulario */}
