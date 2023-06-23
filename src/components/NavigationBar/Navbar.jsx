@@ -10,7 +10,7 @@ export const Navbar = () => {
   return (
 
     // Contenedor navbar 
-    <nav className="bg-gray-800 sticky top-0 z-50 flex items-center p-1">
+    <nav className="bg-gray-800 sticky top-0 z-[9999] flex items-center p-1">
 
       {/* Contenedor para reducir el ancho máximo de la navbar */}
       {/* <div className="max-w-7xl h-full mx-auto z-50 flex items-center border-2 border-red-500"> */}
