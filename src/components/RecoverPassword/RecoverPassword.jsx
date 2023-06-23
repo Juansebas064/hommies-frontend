@@ -1,5 +1,6 @@
 import  {useState} from "react";
 import axios from "axios";
+import { RecoverPasswordContext } from "./RecoverPasswordProvider";
 
 
 const RecoverPassword = () => {
@@ -7,6 +8,8 @@ const RecoverPassword = () => {
     const [email, setEmail] = useState("");
     
     const [mailError, setMailError] = useState(null)
+
+    const { setEmailContext } = useContext(RecoverPasswordContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +22,7 @@ const RecoverPassword = () => {
       if (response.data.success) {
       } else {
         // Redireccionar a una página de error
+        setEmailContext(email);
         window.location.href = '/recovertoken';
         setMailError(null)
         
