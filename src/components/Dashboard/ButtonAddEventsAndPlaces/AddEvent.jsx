@@ -1,13 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { EventsContext } from "../Events/EventsProvider";
 import ConfirmacionEventoCreado from "../../VentanaModal"
+import { PlacesContext } from "../Places/PlacesProvider";
+import { buttonExpand } from "../../../utils/svgs";
 
 const AddEvent = ({ setIsToggled }) => {
 
+  // Lista de lugares para registrarlos en el evento
+  const { places } = useContext(PlacesContext)
+
+  // Importar la función para actualizar lista de eventos una vez creado
   const { fetchEvents } = useContext(EventsContext)
 
+  // Variable para mostrar confirmación de evento creado en un 
   const [confirmacionEventoCreado, setConfirmacionEventoCreado] = useState(false)
 
   const {
@@ -18,20 +26,22 @@ const AddEvent = ({ setIsToggled }) => {
 
   const onSubmit = async (datosNuevoEvento) => {
 
-    await axios.post("http://localhost:5000/api/evento/agregar", datosNuevoEvento, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token')
-      }
-    })
-      .then(async (response) => {
-        console.log(response.data.message)
-        await fetchEvents()
-        setConfirmacionEventoCreado(true)
+    if (datosNuevoEvento.lugar) {
+      await axios.post("http://localhost:5000/api/evento/agregar", datosNuevoEvento, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token')
+        }
       })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then(async (response) => {
+          console.log(response.data.message)
+          await fetchEvents()
+          setConfirmacionEventoCreado(true)
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   return (
@@ -80,40 +90,85 @@ const AddEvent = ({ setIsToggled }) => {
               {/* Lugar */}
               <div className="basis-[50%] mr-2">
                 <label className="text-sm font-semibold">Lugar</label>
-                <input
-                  type="text"
-                  placeholder="Escribe un lugar"
-                  className="text-sm w-full px-4 py-2 rounded-lg border-2 border-gray-200 mr-2 focus:border-indigo-500"
-                  {...register("lugar", {
-                    required: true,
-                  })}
-                />
-                {errors.lugar?.type === "required" && (
-                  <p className="mb-3">Campo lugar es requerido *</p>
-                )}
-                {/* <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-7 h-7 inline"
+                <div className="relative overflow-visible border-0 bg-transparent">
+
+                  {/* Campo para ingresar el lugar */}
+                  <input
+                    id="campo-lugar"
+                    type="search"
+                    autoComplete="off"
+                    onKeyUp={(event) => {
+                      // setTextoCampoLugar(event.target.value.toLowerCase())
+                      if (event.key === 'Escape') {
+                        document.getElementById('lista-lugares').style.display = 'none'
+                      } else {
+                        const listaLugares = document.getElementById('lista-lugares')
+                        listaLugares.style.display = 'block'
+                        const textSearch = event.target.value.toLowerCase()
+                        const places = listaLugares.getElementsByTagName('li')
+
+                        for (let i = 0; i < places.length; i++) {
+                          if (places[i].textContent.toLowerCase().includes(textSearch)) {
+                            places[i].style.display = 'block'
+                          } else {
+                            places[i].style.display = 'none'
+                          }
+                        }
+                      }
+                    }}
+                    onClick={() => {
+                      document.getElementById('lista-lugares').style.display = 'block'
+                    }}
+                    placeholder="Buscar..."
+                    className="text-sm w-full px-4 py-2 rounded-lg border-2 border-gray-200 mr-2 focus:border-indigo-500 focus:border-2"
+                  />
+
+                  {/* Botón para desplegar la lista */}
+                  <button type="button" id="boton-lugar"
+                    className="absolute top-[50%] -translate-y-1/2 right-[7px] bg-white rounded-lg border-[2px] border-gray-300"
+                    onKeyUp={(event) => {
+                      if (event.key === 'Escape') {
+                        document.getElementById('lista-lugares').style.display = 'none'
+                      }
+                    }}
+                    onClick={() => {
+                      const lista = document.getElementById('lista-lugares')
+                      lista.style.display = lista.style.display === 'block' ? 'none' : 'block';
+                    }}
+                    {...register("lugar", {
+                      required: true,
+                    })}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                    />
-                  </svg> */}
+                    {buttonExpand(28)}
+                  </button>
+
+                  {/* Lista de lugares */}
+                  <ul id="lista-lugares" className="hidden absolute top-[100%] right-1 left-1 bg-white rounded-lg border-[1px] border-indigo-500 px-3 max-h-[130.5px] overflow-y-auto">
+                    {
+                      places.map((place, index) => (
+                        <li
+                          key={place.codigo_lugar}
+                          className={`text-gray-800 ${index === places.length - 1 ? 'border-b-[0px]' : 'border-b-[2px]'} border-gray-30000 whitespace-nowrap text-sm text-left overflow-hidden overflow-ellipsis py-2 px-1 cursor-pointer hover:text-indigo-600`}
+                          onClick={() => {
+                            const lugar = document.getElementById('campo-lugar')
+                            lugar.value = place.nombre
+                            document.getElementById('boton-lugar').value = place.codigo_lugar
+                            document.getElementById('lista-lugares').style.display = 'none'
+                          }}
+                        >
+                          {place.nombre}
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+                {errors.lugar && (
+                  <p className="mb-3">{errors.message}</p>
+                )}
               </div>
 
               {/* Fecha */}
-              <div className="basis-[50%] ml-2">
+              <div className="basis-[50%] ml-2 flex-shrink">
                 <label className="text-sm font-semibold px-1">Fecha</label>
                 <input
                   className="w-full px-[6px] py-2 rounded-lg border-2 border-gray-200 text-sm focus:border-indigo-500"
@@ -174,6 +229,7 @@ const AddEvent = ({ setIsToggled }) => {
             <button
               type="submit"
               className="bg-indigo-500 rounded-3xl mt-5 py-2 px-3 font-bold text-white text-sm hover:w hover:duration-100 hover:bg-indigo-700"
+              onClick={() => console.log(document.getElementById('campo-lugar').value)}
             >
               Crear evento
             </button>
