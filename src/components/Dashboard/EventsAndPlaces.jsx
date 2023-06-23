@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import EventsList from "./Events/EventsList";
 import PlacesList from "./Places/PlacesList";
 import EventsFilters from "./Events/EventsFilters";
@@ -30,7 +30,7 @@ export default function EventsAndPlaces() {
 
   return (
     // Card
-    <div className="lg:basis-[30%] lg:pb-3 lg:h-[89vh] px-3 mx-3 mt-7 lg:mt-0 lg:pt-4 flex flex-col justify-start bg-transparent overflow-y-auto max-h-[480px]">
+    <div className="lg:basis-[30%] lg:pb-3 lg:h-[89vh] px-3 mx-3 mt-7 lg:mt-0 lg:pt-4 flex flex-col justify-start bg-transparent overflow-y-auto h-[480px]">
 
       {/* Contenedor de botones */}
       <div className="flex lg:w-full lg:mx-0 font-bold rounded-[14px] overflow-hidden text-sm h-[45px] flex-shrink-0">

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { buttonNext, buttonPrevious } from "../../../utils/svgs.jsx"
 
 export default function EventsFilters({ activeFilter, setActiveFilter }) {

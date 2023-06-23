@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import getEventStatus from "../../../utils/getEventStatus.js";
 import { clockSVG, calendarSVG } from "../../../utils/svgs";
@@ -19,6 +20,7 @@ export default function EventDetails({
   updateEvents,
 
 }) {
+
   // Verificación para no mostrarse en caso de no haber evento seleccionado
   if (!selectedEvent) {
     return null;
@@ -92,7 +94,7 @@ export default function EventDetails({
   // Función para enviar el evento a la bd
   async function modifyEvent(modifiedEventData) {
     try {
-      const response = await modifyEventToDB(selectedEvent.codigo_evento, modifiedEventData)
+      await modifyEventToDB(selectedEvent.codigo_evento, modifiedEventData)
       setModifyingEvent(false);
       updateEvents();
       modifiedEventData = {
@@ -110,7 +112,7 @@ export default function EventDetails({
   // Funcion para borrar un evento
   async function deleteEvent() {
     try {
-      const response = await deleteEventFromDB(selectedEvent.codigo_evento)
+      await deleteEventFromDB(selectedEvent.codigo_evento)
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
       updateEvents();
@@ -123,7 +125,7 @@ export default function EventDetails({
   // Funcion para inscribirse al evento
   async function inscribirseEvento() {
     try {
-      const response = await inscripcionEvento(selectedEvent.codigo_evento)
+      await inscripcionEvento(selectedEvent.codigo_evento)
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
       obtenerListaParticipantes()
@@ -136,7 +138,7 @@ export default function EventDetails({
   // Funcion para salir del evento
   async function anularInscripcionEvento() {
     try {
-      const response = await anularInscripcion(selectedEvent.codigo_evento)
+      await anularInscripcion(selectedEvent.codigo_evento)
 
       // Realizar cualquier otra acción necesaria después de eliminar el evento, como actualizar la lista de eventos
       obtenerListaParticipantes()
@@ -163,196 +165,199 @@ export default function EventDetails({
   }, [participantes])
 
   return (
+    selectedEvent ?
+      // Cuadro de diálogo modal
+      <VentanaModal estado={selectedEvent} cambiarEstado={setSelectedEvent} >
+        {/* Menú del propietario del evento */}
+        {selectedEvent.creador === userData.id && <EventOwnerMenu ownerMenu={ownerMenu} setOwnerMenu={setOwnerMenu} modifyingEvent={modifyingEvent} setModifyingEvent={setModifyingEvent} handleReset={handleReset} deleteEvent={deleteEvent} />}
 
-    // Cuadro de diálogo modal
-    <VentanaModal estado={selectedEvent} cambiarEstado={setSelectedEvent} >
-      {/* Menú del propietario del evento */}
-      {selectedEvent.creador === userData.id && <EventOwnerMenu ownerMenu={ownerMenu} setOwnerMenu={setOwnerMenu} modifyingEvent={modifyingEvent} setModifyingEvent={setModifyingEvent} handleReset={handleReset} deleteEvent={deleteEvent} />}
-
-      {/* Contenido del evento */}
-      <form
-        className="py-6 px-[8px] grid grid-cols-2"
-        onSubmit={handleSubmit(modifyEvent)}
-      >
-        {/* Nombre del evento */}
-        <input
-          className={`text-xl font-bold text-center col-span-2 mb-3 mt-3 cursor-text ${modifyingEvent
-            ? "border-gray-300 border-[1px] rounded-md"
-            : "border-0"
-            }`}
-          placeholder="Nombre del evento"
-          disabled={!modifyingEvent}
-          {...register("nombre", {
-            required: true,
-            value: selectedEvent.nombre,
-          })}
-        />
-        {errors.nombre?.type === "required" && (
-          <p>Campo nombre es requerido *</p>
-        )}
-
-        {/* Descripción del evento */}
-        <textarea
-          className={`text-center resize-none overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text ${modifyingEvent
-            ? "border-gray-300 border-[1px] rounded-md"
-            : "border-0"
-            }`}
-          disabled={!modifyingEvent}
-          placeholder="Descripción del evento"
-          rows={selectedEvent.descripcion.length < 75 ? 2 : 3}
-          {...register("descripcion", {
-            required: true,
-            value: selectedEvent.descripcion,
-          })}
-        />
-        {errors.descripcion?.type === "required" && (
-          <p>Campo descripción es requerido *</p>
-        )}
-
-        {/* ----------------------------------------------- */}
-
-        {/* Encabezado estado del evento */}
-        <p className="text-center font-bold">Estado</p>
-        {/* Encabezado temáticas del evento */}
-        <p className="text-center font-bold">Temática</p>
-
-        {/* Estado del evento */}
-        <p className={`${status.color} mb-8 text-center`}>{`● ${status.text}`}</p>
-        {/* Temáticas */}
-        <p className="text-center">Temáticas</p>
-
-        {/* ----------------------------------------------- */}
-
-        {/* Encabezado fecha */}
-        <p className="text-center font-bold">Fecha</p>
-        {/* Encabezado horario */}
-        <p className="text-center font-bold">Horario</p>
-
-        {/* Fecha del evento */}
-        <p className="text-sm text-center lg:text-center">
-          {!modifyingEvent && (
-            <span className="mr-[6px]">{calendarSVG(20)}</span>
-          )}
+        {/* Contenido del evento */}
+        <form
+          className="py-6 px-[8px] grid grid-cols-2"
+          onSubmit={handleSubmit(modifyEvent)}
+        >
+          {/* Nombre del evento */}
           <input
-            type="date"
-            className={`align-middle relative ${modifyingEvent
+            className={`text-xl font-bold text-center col-span-2 mb-3 mt-3 cursor-text ${modifyingEvent
               ? "border-gray-300 border-[1px] rounded-md"
               : "border-0"
               }`}
-            min={new Date().toISOString().split("T")[0]}
+            placeholder="Nombre del evento"
             disabled={!modifyingEvent}
-            {...register("fecha", {
+            {...register("nombre", {
               required: true,
-              value: selectedEvent.fecha.substring(0, 10),
+              value: selectedEvent.nombre,
             })}
           />
-        </p>
+          {errors.nombre?.type === "required" && (
+            <p>Campo nombre es requerido *</p>
+          )}
 
-        {/* Hora del evento */}
-        <p className="text-sm text-center lg:text-center">
-          <span className="mr-[6px]">{clockSVG(18)}</span>
+          {/* Descripción del evento */}
+          <textarea
+            className={`text-center resize-none overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text ${modifyingEvent
+              ? "border-gray-300 border-[1px] rounded-md"
+              : "border-0"
+              }`}
+            disabled={!modifyingEvent}
+            placeholder="Descripción del evento"
+            rows={selectedEvent.descripcion.length < 75 ? 2 : 3}
+            {...register("descripcion", {
+              required: true,
+              value: selectedEvent.descripcion,
+            })}
+          />
+          {errors.descripcion?.type === "required" && (
+            <p>Campo descripción es requerido *</p>
+          )}
 
-          {/* Hora de inicio */}
-          <span className="align-end">
+          {/* ----------------------------------------------- */}
+
+          {/* Encabezado estado del evento */}
+          <p className="text-center font-bold">Estado</p>
+          {/* Encabezado temáticas del evento */}
+          <p className="text-center font-bold">Temática</p>
+
+          {/* Estado del evento */}
+          <p className={`${status.color} mb-8 text-center`}>{`● ${status.text}`}</p>
+          {/* Temáticas */}
+          <p className="text-center">Temáticas</p>
+
+          {/* ----------------------------------------------- */}
+
+          {/* Encabezado fecha */}
+          <p className="text-center font-bold">Fecha</p>
+          {/* Encabezado horario */}
+          <p className="text-center font-bold">Horario</p>
+
+          {/* Fecha del evento */}
+          <p className="text-sm text-center lg:text-center">
+            {!modifyingEvent && (
+              <span className="mr-[6px]">{calendarSVG(20)}</span>
+            )}
             <input
-              className={`w-12 text-center col-span-2 mb-3 cursor-text ${modifyingEvent
+              type="date"
+              className={`align-middle relative ${modifyingEvent
                 ? "border-gray-300 border-[1px] rounded-md"
                 : "border-0"
                 }`}
-              placeholder="00:00"
+              min={new Date().toISOString().split("T")[0]}
               disabled={!modifyingEvent}
-              {...register("hora_inicio", {
+              {...register("fecha", {
                 required: true,
-                value: selectedEvent.hora_inicio.substring(0, 5),
-                pattern: {
-                  value: /([0-1]?[0-9]|2[0-3]):[0-5][0-9]/,
-                  message: "Formato de hora de inicio no válido",
-                },
+                value: selectedEvent.fecha.substring(0, 10),
               })}
             />
-            {" - "}
-            {/* Hora final */}
-            <input
-              className={`w-12 text-center col-span-2 mb-3 cursor-text ${modifyingEvent
-                ? "border-gray-300 border-[1px] rounded-md"
-                : "border-0"
-                }`}
-              placeholder="00:00"
-              disabled={!modifyingEvent}
-              {...register("hora_final", {
-                required: true,
-                value: selectedEvent.hora_final.substring(0, 5),
-                pattern: {
-                  value: /([0-1]?[0-9]|2[0-3]):[0-5][0-9]/,
-                  message: "Formato de hora final no válido",
-                },
-              })}
-            />
-          </span>
-        </p>
+          </p>
 
-        {/* ----------------------------------------------- */}
+          {/* Hora del evento */}
+          <p className="text-sm text-center lg:text-center">
+            <span className="mr-[6px]">{clockSVG(18)}</span>
 
-        {/*Encabezado lugar del evento */}
-        <p className="text-center font-bold col-span-2">Lugar</p>
-        {/* Lugar del evento */}
-        <p className="text-sm text-center col-span-2">
-          {selectedEvent.lugar.nombre}
-        </p>
-        <p className="text-sm text-center col-span-2">
-          {selectedEvent.lugar.descripcion}
-        </p>
+            {/* Hora de inicio */}
+            <span className="align-end">
+              <input
+                className={`w-12 text-center col-span-2 mb-3 cursor-text ${modifyingEvent
+                  ? "border-gray-300 border-[1px] rounded-md"
+                  : "border-0"
+                  }`}
+                placeholder="00:00"
+                disabled={!modifyingEvent}
+                {...register("hora_inicio", {
+                  required: true,
+                  value: selectedEvent.hora_inicio.substring(0, 5),
+                  pattern: {
+                    value: /([0-1]?[0-9]|2[0-3]):[0-5][0-9]/,
+                    message: "Formato de hora de inicio no válido",
+                  },
+                })}
+              />
+              {" - "}
+              {/* Hora final */}
+              <input
+                className={`w-12 text-center col-span-2 mb-3 cursor-text ${modifyingEvent
+                  ? "border-gray-300 border-[1px] rounded-md"
+                  : "border-0"
+                  }`}
+                placeholder="00:00"
+                disabled={!modifyingEvent}
+                {...register("hora_final", {
+                  required: true,
+                  value: selectedEvent.hora_final.substring(0, 5),
+                  pattern: {
+                    value: /([0-1]?[0-9]|2[0-3]):[0-5][0-9]/,
+                    message: "Formato de hora final no válido",
+                  },
+                })}
+              />
+            </span>
+          </p>
 
-        {errors.hora_inicio && (
-          <p className="col-span-2 text-center"> {errors.hora_inicio.message}</p>
-        )}
-        {errors.hora_final && (
-          <p className="col-span-2 text-center"> {errors.hora_final.message}</p>
-        )}
+          {/* ----------------------------------------------- */}
 
-        {/* ----------------------------------------------- */}
+          {/*Encabezado lugar del evento */}
+          <p className="text-center font-bold col-span-2">Lugar</p>
+          {/* Lugar del evento */}
+          <p className="text-sm text-center col-span-2">
+            {selectedEvent.lugar.nombre}
+          </p>
+          <p className="text-sm text-center col-span-2">
+            {selectedEvent.lugar.descripcion}
+          </p>
 
-        {/* Botón guardar evento editado*/}
-        {modifyingEvent && (
-          <button
-            className="my-2 rounded-3xl mx-auto font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3"
-            type="submit">
-            Guardar
-          </button>
-        )}
+          {errors.hora_inicio && (
+            <p className="col-span-2 text-center"> {errors.hora_inicio.message}</p>
+          )}
+          {errors.hora_final && (
+            <p className="col-span-2 text-center"> {errors.hora_final.message}</p>
+          )}
 
-        {/* Lista de participantes */}
-        <details className="block w-[240px] max-w-[240px] min-w-[150px] p-1 mt-5 mb-3 mx-auto border-[1px] border-indigo-500 rounded-lg col-span-2 cursor-pointer">
-          <summary>Participantes</summary>
-          <div key={0}>{selectedEvent.creador}</div>
-          {participantes === null ? (
-            <div>No hay participantes</div>
+          {/* ----------------------------------------------- */}
+
+          {/* Botón guardar evento editado*/}
+          {modifyingEvent && (
+            <button
+              className="my-2 rounded-3xl mx-auto font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3"
+              type="submit">
+              Guardar
+            </button>
+          )}
+
+          {/* Lista de participantes */}
+          <details className="block w-[240px] max-w-[240px] min-w-[150px] p-1 mt-5 mb-3 mx-auto border-[1px] border-indigo-500 rounded-lg col-span-2 cursor-pointer">
+            <summary>Participantes</summary>
+            <div key={0}>{selectedEvent.creador}</div>
+            {participantes === null ? (
+              <div>No hay participantes</div>
+            ) : (
+              participantes.map((participante, index) => (
+                <div key={index}>{participante.nickname}</div>
+              ))
+            )
+            }
+          </details>
+
+          {/* Botón unirse al evento */}
+          {esParticipante ? (
+            <button onClick={anularInscripcionEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
+              Salir del evento
+            </button>
           ) : (
-            participantes.map((participante, index) => (
-              <div key={index}>{participante.nickname}</div>
-            ))
+            // eslint-disable-next-line react/prop-types
+            userData.id === selectedEvent.creador ? (
+              <button onClick={deleteEvent} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
+                Eliminar evento
+              </button>
+            ) : (
+              <button onClick={inscribirseEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
+                Quiero unirme
+              </button>
+            )
           )
           }
-        </details>
-
-        {/* Botón unirse al evento */}
-        {esParticipante ? (
-          <button onClick={anularInscripcionEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
-            Salir del evento
-          </button>
-        ) : (
-          userData.id === selectedEvent.creador ? (
-            <button onClick={deleteEvent} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
-              Eliminar evento
-            </button>
-          ) : (
-            <button onClick={inscribirseEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
-              Quiero unirme
-            </button>
-          )
-        )
-        }
-      </form>
-    </VentanaModal>
+        </form>
+      </VentanaModal>
+      :
+      null
   );
 }

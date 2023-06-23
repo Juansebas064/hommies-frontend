@@ -1,18 +1,18 @@
-import { useContext, useState, useEffect } from "react"
+/* eslint-disable react/prop-types */
+import { useContext, useState } from "react"
 import { PlacesContext } from "./PlacesProvider"
 import { UserLocationContext } from "../UserLocationProvider"
 import PlaceDetails from "./PlaceDetails"
 import { location } from '../../../utils/svgs'
-import dummiePhoto from "../../../assets/HOMMIES.png"
 
 
 export default function PlacesList() {
 
   // Ubicación del usuario y el mapa
-  const { userLocation, setUserLocation } = useContext(UserLocationContext)
+  const { setUserLocation } = useContext(UserLocationContext)
 
   // Lista de lugares
-  const { places, fetchPlaces } = useContext(PlacesContext)
+  const { places } = useContext(PlacesContext)
 
   // Mostrar detalles del lugar
   const [selectedPlace, setSelectedPlace] = useState(null)
@@ -24,10 +24,10 @@ export default function PlacesList() {
   return (
     places ?
       <>
-        <div className="relative flex flex-col items-center text-sm lg:px-0 overflow-hidden">
-          <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block lg:overflow-y-auto h-auto" id="place-list">
+        <div className="relative flex flex-col items-center text-sm lg:px-0 overflow-hidden mt-[10px]">
+          <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block overflow-y-auto h-auto" id="place-list">
             {/* Iterar sobre la lista de lugares */}
-            {places.map((lugar) => <PlaceItem lugar={lugar} key={lugar.codigo_lugar} handleShowPlaceDetails={handleShowPlaceDetails} />)}
+            {places.map((lugar) => <PlaceItem key={lugar.codigo_lugar} lugar={lugar} handleShowPlaceDetails={handleShowPlaceDetails} />)}
           </ul>
         </div>
         {/* Detalles del evento al hacer click sobre uno */}
@@ -61,7 +61,7 @@ export default function PlacesList() {
 
           {/* Dirección del lugar */}
           <p className="text-center flex items-center justify-center mx-3">
-            <span className="">{location(22)}{lugar.direccion}</span>
+            <span>{location(22)}{lugar.direccion}</span>
           </p>
 
           {/* Aforo */}
@@ -73,6 +73,7 @@ export default function PlacesList() {
               coordinates: JSON.parse(lugar.ubicacion),
               zoom: 17
             })
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' })
           }}>
             Ver en el mapa
           </button>

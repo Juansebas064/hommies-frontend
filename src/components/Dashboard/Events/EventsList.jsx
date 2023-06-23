@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState, useContext } from "react";
 import getEventStatus from "../../../utils/getEventStatus"
 import { clockSVG, calendarSVG } from "../../../utils/svgs"
@@ -52,7 +53,7 @@ export default function EventsList({ activeFilter }) {
           } else {
             notInscribedList.push(events[i])
           }
-        };
+        }
         setFilteredEvents(activeFilter === 'inscrito' ? inscribedList : notInscribedList)
         console.log(filteredEvents)
       }
@@ -70,7 +71,7 @@ export default function EventsList({ activeFilter }) {
         if (participantes[i].id === userData.id) {
           return true
         }
-      };
+      }
     }
     return false
   };
