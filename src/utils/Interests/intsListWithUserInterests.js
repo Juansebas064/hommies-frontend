@@ -22,5 +22,3 @@ export default async function intsListWithUserInterests() {
     console.log(error.message)
   }
 }
-
-intsListWithUserInterests()
