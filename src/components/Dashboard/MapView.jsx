@@ -104,7 +104,7 @@ export default function MapView() {
           {/* Componente para actualizar la lista de marcadores */}
           {isToggledMarker && (
             <AddMarker
-              setMarkers={setMarkers}
+              //setMarkers={setMarkers}
               isToggledMarker={isToggledMarker}
               setIsToggledMarker={setIsToggledMarker}
               setPlaceName={setPlaceName}
@@ -135,30 +135,25 @@ export default function MapView() {
 }
 
 function AddMarker({
-  setMarkers,
   isToggledMarker,
   setIsToggledMarker,
   setPlaceName,
   setCoord,
 }) {
+  const [markerCoord, setMarkerCoord] = useState(null);
+
   useMapEvents({
     click: async (e) => {
-      const coord = [e.latlng.lat, e.latlng.lng];
-      console.log(e);
       if (isToggledMarker) {
-        setMarkers((previousState) => [
-          ...previousState,
-          {
-            key: previousState[previousState.length - 1].key + 1,
-            coordinates: coord,
-          },
-        ]);
+        const coord = [e.latlng.lat, e.latlng.lng];
+        setMarkerCoord(coord);
         setIsToggledMarker(false);
         const placeName = await getPlaceName(e.latlng.lat, e.latlng.lng);
-        console.log(placeName);
         setPlaceName(placeName);
         setCoord(coord);
       }
     },
   });
+
+  return markerCoord ? <Marker position={markerCoord} /> : null;
 }

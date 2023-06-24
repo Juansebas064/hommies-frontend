@@ -1,8 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { UserLocationContext } from "../UserLocationProvider";
+import { UserDataContext } from "../../Profile/UserDataProvider";
 
-const AddPlaces = ({ handleToggleMarker, placeName, coord}) => {
+const AddPlaces = ({ handleToggleMarker, placeName, coord }) => {
+  const { ciudad } = useContext(UserLocationContext);
+
+  const [nombreCiudad, setNombreCiudad] = useState("");
+  const [codigoCiudad, setCodigoCiudad] = useState("");
+
+  useEffect(() => {
+    if (ciudad != "" && ciudad.length > 0) {
+      setNombreCiudad(ciudad[0].nombre);
+      setCodigoCiudad(ciudad[0].codigo_ciudad);
+    }
+  }, [ciudad]);
+
+  useEffect(() => {
+    console.log(nombreCiudad, codigoCiudad);
+  }, [nombreCiudad, codigoCiudad]);
   const {
     register,
     formState: { errors },
@@ -10,41 +27,48 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord}) => {
   } = useForm();
 
   const onSubmit = async (dataJson) => {
-    console.log(dataJson);
 
-    await axios
-      .post("http://localhost:5000/api/lugar/crear", {
-        data: dataJson,
-      })
-      .then((dataJson) => {
-        console.log(dataJson.data);
 
+    const formData = new FormData();
+
+    // Agregar los valores de los campos ocultos al objeto FormData
+    formData.append("direccion", placeName);
+    formData.append("ciudad", codigoCiudad);
+    formData.append("ubicacion", JSON.stringify(coord));
+
+    const fotoInput = document.getElementById("foto");
+    if (fotoInput.files.length > 0) {
+      formData.append("foto", fotoInput.files[0]);
+    }
+
+    // Agregar los demás valores del formulario al objeto FormData
+    for (const key in dataJson) {
+      formData.append(key, dataJson[key]);
+    }
+
+    console.log(formData);
+
+    if (formData) {
+      try {
+        await fetch("http://localhost:5000/api/lugar/crear", {
+          method: "POST",
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+          body: formData,
+        });
+  
         console.log("Se creó el lugar");
-      })
-
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    }
   };
 
-
-  const [value, setValue] = useState("")
-
-  const changeValue = () => {
-    setValue(coord)
-  }
-
-  const [valueDir, setValueDir] = useState("")
-
-  const changeValueDir = () => {
-    setValueDir(placeName)
-  }
-
-
-  return (
+  return ciudad ? (
     <div className="w-full px-3 mb-4 mt-3 items-center relative">
       <div className="w-full items-center text-center justify-center pb-3">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <div className="mb-4">
             <label className="mb-3 font-semibold text-indigo-700 text-sm shadow-lg shadow-indigo-300">
               Crear un lugar
@@ -57,12 +81,13 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord}) => {
             type="text"
             placeholder="Nombre del lugar"
             className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-            id="inputName"
-            {...register("placeName", {
+            id="nombre"
+            name="nombre"
+            {...register("nombre", {
               required: true,
             })}
           />
-          {errors.placeName?.type === "required" && (
+          {errors.nombre?.type === "required" && (
             <p>Campo nombre es requerido *</p>
           )}
           <label className="mb-2 text-xs font-semibold px-1">Dirección</label>
@@ -72,16 +97,10 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord}) => {
               placeholder="Selecciona una dirección"
               className="w-[88%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
               disabled={true}
-              value={valueDir}
-              id="inputUbi"
-              {...register("placeUbi", {
-                required: true,
-              })}
-              
+              value={placeName}
+              id="direccion"
             />
-            {errors.placeUbi?.type === "required" && (
-              <p>Campo dirección es requerido *</p>
-            )}
+
             <button
               className="relative w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200"
               onClick={handleToggleMarker}
@@ -114,13 +133,13 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord}) => {
               type="number"
               placeholder="Ingresa el numero de personas maximo"
               className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              id="inputCapacity"
-              onClick={changeValue}
-              {...register("placeCapacity", {
+              id="aforo"
+              name="aforo"
+              {...register("aforo", {
                 required: true,
               })}
             />
-            {errors.placeCapacity?.type === "required" && (
+            {errors.aforo?.type === "required" && (
               <p>Campo aforo es requerido *</p>
             )}
           </div>
@@ -132,44 +151,34 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord}) => {
             type="text"
             placeholder="Descripción del lugar"
             className="w-full h-12 px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-            id="inputName"
-            {...register("placeInfo", {
+            id="descripcion"
+            name="descripcion"
+            {...register("descripcion", {
               required: true,
             })}
           />
-          {errors.placeInfo?.type === "required" && (
+          {errors.descripcion?.type === "required" && (
             <p>Campo descripción es requerido *</p>
           )}
 
-          <label className="mb-3 mt-3 text-xs font-semibold px-1">
-            Ciudad
-          </label>
+          <label className="mb-3 mt-3 text-xs font-semibold px-1">Ciudad</label>
           <input
             type="text"
-            placeholder="Ciudad del lugar"
+            disabled={true}
             className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
             id="inputName"
-            {...register("placeCity", {
-              required: true,
-            })}
+            value={nombreCiudad}
           />
-          {errors.placeCity?.type === "required" && (
-            <p>Campo ciudad es requerido *</p>
-          )}
+
+
+          <label className="mb-3 mt-3 text-xs font-semibold px-1">Imagen</label>
           <input
-            type="text"
-            placeholder="Coords"
-            className="hidden w-full px-4 py-2 rounded-lg border-2 text-xs border-gray-200 outline-none focus:border-indigo-500"
-            id="inputName"
-            value={value}
-            {...register("placeCoords", {
-              required:true
-            })}  
+            type="file"
+            className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+            id="foto"
+            name="foto"
+            multiple={false}
           />
-          
-
-
-
           <button
             type="submit"
             className="bg-indigo-500 rounded-xl mt-3 w-1/3 font-bold text-white text-sm hover:w-2/3 hover:duration-100 hover:bg-indigo-700"
@@ -179,6 +188,8 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord}) => {
         </form>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 
