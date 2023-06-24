@@ -23,7 +23,7 @@ const Contact = () => {
               <p className="text-base text-gray-400 font-normal">Ingeniero de Sistemas</p>
             </div>
             <div className='text-center'>
-              <a href='https://github.com/Juansebas064'>
+              <a href='https://github.com/Juansebas064' target="_blank" rel="noopener noreferrer">
                 <img className='w-9 rounded-full transition ease-in-out delay-150 hover:bg-slate-200/60 hover:duration-200' src={GithubLogo} alt="GithubLogo" />
               </a>
             </div>
@@ -37,7 +37,7 @@ const Contact = () => {
               <p className="text-base text-gray-400 font-normal">Ingeniero de Sistemas</p>
             </div>
             <div className='text-center'>
-              <a href='https://github.com/BitzKort'>
+              <a href='https://github.com/BitzKort' target="_blank" rel="noopener noreferrer">
                 <img className='w-9 rounded-full transition ease-in-out delay-150 hover:bg-slate-200/60 hover:duration-200' src={GithubLogo} alt="GithubLogo" />
               </a>
             </div>
@@ -51,7 +51,7 @@ const Contact = () => {
               <p className="text-base text-gray-400 font-normal">Ingeniero de Sistemas</p>
             </div>
             <div className='text-center'>
-              <a href='https://github.com/JuanArango30'>
+              <a href='https://github.com/JuanArango30' target="_blank" rel="noopener noreferrer">
                 <img className='w-9 rounded-full transition ease-in-out delay-150 hover:bg-slate-200/60 hover:duration-200' src={GithubLogo} alt="GithubLogo" />
               </a>
             </div>
@@ -65,7 +65,7 @@ const Contact = () => {
               <p className="text-base text-gray-400 font-normal">Ingeniero de Sistemas</p>
             </div>
             <div className='text-center'>
-              <a href='https://github.com/casariz'>
+              <a href='https://github.com/casariz' target="_blank" rel="noopener noreferrer">
                 <img className='w-9 rounded-full transition ease-in-out delay-150 hover:bg-slate-200/60 hover:duration-200' src={GithubLogo} alt="GithubLogo" />
               </a>
             </div>
@@ -79,7 +79,7 @@ const Contact = () => {
               <p className="text-base text-gray-400 font-normal">Ingeniero de Sistemas</p>
             </div>
             <div className='text-center'>
-              <a href='https://github.com/ClusterMax'>
+              <a href='https://github.com/ClusterMax' target="_blank" rel="noopener noreferrer">
                 <img className='w-9 rounded-full transition ease-in-out delay-150 hover:bg-slate-200/60 hover:duration-200' src={GithubLogo} alt="GithubLogo" />
               </a>
             </div>
