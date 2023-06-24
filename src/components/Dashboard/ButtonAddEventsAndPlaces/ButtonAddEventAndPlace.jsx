@@ -45,7 +45,7 @@ export default function ButtonAddEventAndPlace({
   return (
     <>
       <button
-        className="absolute top-[80px] left-[9px] z-[400] bg-white rounded-full p-1 flex justify-center items-center cursor-pointer"
+        className="absolute top-[80px] left-[10px] z-[400] w-[34px] bg-white rounded-[4px] border-2 border-[#c2bfba] p-1 flex justify-center items-center cursor-pointer"
         onClick={() => {
           const newZoom = userLocation.zoom === defaultLocations[userData.ciudad].zoom ? userLocation.zoom + 1 : defaultLocations[userData.ciudad].zoom
           setUserLocation({
@@ -53,7 +53,7 @@ export default function ButtonAddEventAndPlace({
             zoom: newZoom
           })
         }}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(0,0,0,0.8)" width="28" height="28" viewBox="0 0 24 24"><path d="M24 11h-2.051c-.469-4.725-4.224-8.48-8.949-8.95v-2.05h-2v2.05c-4.725.47-8.48 4.225-8.949 8.95h-2.051v2h2.051c.469 4.725 4.224 8.48 8.949 8.95v2.05h2v-2.05c4.725-.469 8.48-4.225 8.949-8.95h2.051v-2zm-11 8.931v-3.931h-2v3.931c-3.611-.454-6.478-3.32-6.931-6.931h3.931v-2h-3.931c.453-3.611 3.32-6.477 6.931-6.931v3.931h2v-3.931c3.611.454 6.478 3.319 6.931 6.931h-3.931v2h3.931c-.453 3.611-3.32 6.477-6.931 6.931zm1-7.931c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(0,0,0,0.7)" width="20" height="20" viewBox="0 0 24 24"><path d="M24 11h-2.051c-.469-4.725-4.224-8.48-8.949-8.95v-2.05h-2v2.05c-4.725.47-8.48 4.225-8.949 8.95h-2.051v2h2.051c.469 4.725 4.224 8.48 8.949 8.95v2.05h2v-2.05c4.725-.469 8.48-4.225 8.949-8.95h2.051v-2zm-11 8.931v-3.931h-2v3.931c-3.611-.454-6.478-3.32-6.931-6.931h3.931v-2h-3.931c.453-3.611 3.32-6.477 6.931-6.931v3.931h2v-3.931c3.611.454 6.478 3.319 6.931 6.931h-3.931v2h3.931c-.453 3.611-3.32 6.477-6.931 6.931zm1-7.931c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2z" /></svg>
       </button>
       <button
         className="rounded-3xl w-[40px] h-[40px] absolute bottom-4 left-4 z-[400] bg-indigo-600 text-white p-0 text-4xl font-bold"
