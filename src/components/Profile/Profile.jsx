@@ -21,7 +21,7 @@ export default function Profile() {
       setNickname(userData.nickname)
       setCorreo(userData.correo_electronico)
       setFechaNacimiento(userData.fecha_nacimiento)
-      setCiudad(userData.ciudad)
+      setCiudad(userData.ciudad.nombre)
       setDescripcion(userData.descripcion)
     }
   }, [userData]);

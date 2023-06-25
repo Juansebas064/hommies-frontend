@@ -147,7 +147,7 @@ export default function ProfileConfig() {
                 className="w-full pl-3 pr-3 py-[11px] bg-gray-50 border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:border-indigo-500 block"
                 {...register('ciudad', {
                   required: true,
-                  value: userData.ciudad
+                  value: userData.ciudad.codigo_ciudad
                 })}
               >
                 <option value="111">Tuluá</option>
