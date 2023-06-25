@@ -3,7 +3,6 @@ import { useContext } from "react";
 import {
   useMapEvents,
   Marker,
-  Circle,
   Popup,
 } from "react-leaflet";
 import { getPlaceName } from "../../utils/placeName.js";
@@ -21,7 +20,7 @@ export default function MapView({ isToggledMarker, setIsToggledMarker, markerAux
   return (
     <>
       {places &&
-        places.map((place, index) => (
+        places.map((place) => (
           <Marker
             key={place.codigo_lugar}
             ref={(ref) => markerRefs.current[place.codigo_lugar] = ref}
