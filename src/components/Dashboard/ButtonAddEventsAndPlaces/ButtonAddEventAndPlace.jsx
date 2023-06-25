@@ -10,7 +10,7 @@ export default function ButtonAddEventAndPlace({
   setIsToggled,
   isToggledMarker,
   setIsToggledMarker,
-  coord,
+  markerAux,
   setMarkerAux,
   mapRef,
   placeName,
@@ -110,7 +110,7 @@ export default function ButtonAddEventAndPlace({
                 <AddPlaces
                   handleToggleMarker={handleToggleMarker}
                   placeName={placeName}
-                  coord={coord}
+                  markerAux={markerAux}
                   setMarkerAux={setMarkerAux}
                   setIsToggled={setIsToggled}
                 />
