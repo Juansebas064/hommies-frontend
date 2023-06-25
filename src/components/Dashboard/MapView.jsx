@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState, useContext, useRef, createContext } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -12,8 +13,17 @@ import { getPlaceName } from "../../utils/placeName.js";
 import { UserDataContext } from "../Profile/UserDataProvider";
 import { PlacesContext } from "../Dashboard/Places/PlacesProvider"
 import { UserLocationContext } from "./UserLocationProvider";
+import location from '../../assets/location.svg'
+import newLocation from '../../assets/new-location.svg'
+
 
 export default function MapView() {
+
+  // Usar el mapa como un objeto
+  const map = useRef(null)
+
+  // Guardar la ubicacion de un lugar temporalmente mientras se crea
+  const [markerAux, setMarkerAux] = useState(null)
 
   // Ubicación del usuario y el mapa
   const { userLocation, setUserLocation } = useContext(UserLocationContext)
@@ -22,19 +32,7 @@ export default function MapView() {
   const { userData } = useContext(UserDataContext)
 
   // Lugares
-  const { places, fetchPlaces } = useContext(PlacesContext)
-
-  // Ubicaciones predeterminadas de acuerdo a la ciudad para centrar el mapa
-  const defaultLocations = {
-    111: {
-      coordinates: [4.0864122, -76.1909629],
-      zoom: 14
-    },
-    222: {
-      coordinates: [3.4348269, -76.5041975],
-      zoom: 12
-    }
-  }
+  const { places } = useContext(PlacesContext)
 
 
   // Ajustar la ubicación al cargar la información del usuario
@@ -48,11 +46,6 @@ export default function MapView() {
   }, [userData]);
 
 
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const [coord, setCoord] = useState(null)
-
-
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledMarker, setIsToggledMarker] = useState(false);
   const [isToggledDate, setIsToggledDate] = useState(false);
@@ -61,11 +54,13 @@ export default function MapView() {
   const [newEventDate, setNewEventDate] = useState("Selecciona una fecha");
 
   return (
+
     // Contenedor principal del mapa
     <div className="lg:basis-[70%] relative">
       {userLocation && (
         <MapContainer
-          key={`${userLocation.coordinates[0]}-${userLocation.coordinates[1]}-${userLocation.zoom}-${places.length}`}
+          key={`${userLocation.coordinates[0]}-${userLocation.coordinates[1]}-${userLocation.zoom}`}
+          ref={map}
           center={userLocation.coordinates}
           zoom={userLocation.zoom}
           scrollWheelZoom={false}
@@ -76,6 +71,11 @@ export default function MapView() {
             <Marker
               key={place.codigo_lugar}
               position={JSON.parse(place.ubicacion)}
+              // eslint-disable-next-line no-undef
+              icon={L.icon({
+                iconUrl: location,
+                iconSize: [42, 42],
+              })}
             // eventHandlers={{
             //   click: () => {
             //     onclick = {  }
@@ -94,6 +94,19 @@ export default function MapView() {
             </Marker>
           ))}
 
+          {/* Pintar temporalmente un marcador cuando se crea un lugar */}
+          {markerAux &&
+            <Marker
+              key={'marker-aux'}
+              position={markerAux}
+              // eslint-disable-next-line no-undef
+              icon={L.icon({
+                iconUrl: newLocation,
+                iconSize: [42, 42],
+              })}>
+            </Marker>
+          }
+
           {/* Posición inicial en el mapa */}
           {/* <Circle center={[4.074862, -76.192516]} radius={20} /> */}
           {/* Atribución */}
@@ -101,14 +114,14 @@ export default function MapView() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          {/* Componente para actualizar la lista de marcadores */}
+
+          {/* Componente para añadir un lugar en una ubicación donde el usuario dé click */}
           {isToggledMarker && (
             <AddMarker
-              //setMarkers={setMarkers}
               isToggledMarker={isToggledMarker}
               setIsToggledMarker={setIsToggledMarker}
               setPlaceName={setPlaceName}
-              setCoord={setCoord}
+              setMarkerAux={setMarkerAux}
             />
           )}
         </MapContainer>
@@ -128,7 +141,9 @@ export default function MapView() {
         setSelectedDate={setSelectedDate}
         placeNameDate={newEventDate} register
         setPlaceNameDate={setNewEventDate}
-        coord={coord}
+        coord={markerAux}
+        setMarkerAux={setMarkerAux}
+        map={map}
       />
     </div>
   );
@@ -138,22 +153,30 @@ function AddMarker({
   isToggledMarker,
   setIsToggledMarker,
   setPlaceName,
-  setCoord,
+  setMarkerAux,
 }) {
-  const [markerCoord, setMarkerCoord] = useState(null);
 
   useMapEvents({
     click: async (e) => {
       if (isToggledMarker) {
         const coord = [e.latlng.lat, e.latlng.lng];
-        setMarkerCoord(coord);
+        setMarkerAux(coord)
         setIsToggledMarker(false);
         const placeName = await getPlaceName(e.latlng.lat, e.latlng.lng);
         setPlaceName(placeName);
-        setCoord(coord);
       }
     },
   });
+}
 
-  return markerCoord ? <Marker position={markerCoord} /> : null;
+// Ubicaciones predeterminadas de acuerdo a la ciudad para centrar el mapa
+const defaultLocations = {
+  111: {
+    coordinates: [4.0864122, -76.1909629],
+    zoom: 14
+  },
+  222: {
+    coordinates: [3.4348269, -76.5041975],
+    zoom: 12
+  }
 }

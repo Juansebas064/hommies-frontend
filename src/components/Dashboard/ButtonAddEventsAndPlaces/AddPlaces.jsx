@@ -1,11 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
+/* eslint-disable react/prop-types */
+import { useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { UserLocationContext } from "../UserLocationProvider";
-import { UserDataContext } from "../../Profile/UserDataProvider";
+import { PlacesContext } from "../Places/PlacesProvider";
 
-const AddPlaces = ({ handleToggleMarker, placeName, coord }) => {
+const AddPlaces = ({ handleToggleMarker, placeName, coord, setMarkerAux, setIsToggled }) => {
   const { ciudad } = useContext(UserLocationContext);
+  const { fetchPlaces } = useContext(PlacesContext)
 
   const [nombreCiudad, setNombreCiudad] = useState("");
   const [codigoCiudad, setCodigoCiudad] = useState("");
@@ -17,9 +18,6 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord }) => {
     }
   }, [ciudad]);
 
-  useEffect(() => {
-    console.log(nombreCiudad, codigoCiudad);
-  }, [nombreCiudad, codigoCiudad]);
   const {
     register,
     formState: { errors },
@@ -46,7 +44,6 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord }) => {
       formData.append(key, dataJson[key]);
     }
 
-    console.log(formData);
 
     if (formData) {
       try {
@@ -57,8 +54,9 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord }) => {
           },
           body: formData,
         });
-  
-        console.log("Se creó el lugar");
+        setMarkerAux(null)
+        await fetchPlaces()
+        setIsToggled(false)
       } catch (error) {
         console.error(error);
       }
@@ -103,7 +101,10 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord }) => {
 
             <button
               className="relative w-[10%] rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200"
-              onClick={handleToggleMarker}
+              onClick={(e) => {
+                e.preventDefault()
+                handleToggleMarker()
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -2,7 +2,6 @@
 import { useState, useContext } from "react";
 import AddEvent from "./AddEvent";
 import AddPlaces from "./AddPlaces";
-import { UserLocationContext } from "../UserLocationProvider";
 import { UserDataContext } from "../../Profile/UserDataProvider";
 
 export default function ButtonAddEventAndPlace({
@@ -12,9 +11,12 @@ export default function ButtonAddEventAndPlace({
   setIsToggledMarker,
   placeName,
   setPlaceName,
-  coord
+  coord,
+  setMarkerAux,
+  map
 }) {
   const handleToggle = () => {
+    setMarkerAux(null)
     setIsToggled(!isToggled);
     if (!isToggled) {
       setPlaceName("Selecciona una ubicación");
@@ -31,7 +33,7 @@ export default function ButtonAddEventAndPlace({
   const defaultLocations = {
     111: {
       coordinates: [4.0864122, -76.1909629],
-      zoom: 14
+      zoom: 14.5
     },
     222: {
       coordinates: [3.4348269, -76.5041975],
@@ -39,7 +41,6 @@ export default function ButtonAddEventAndPlace({
     }
   }
 
-  const { userLocation, setUserLocation } = useContext(UserLocationContext)
   const { userData } = useContext(UserDataContext)
 
   return (
@@ -47,11 +48,10 @@ export default function ButtonAddEventAndPlace({
       <button
         className="absolute top-[80px] left-[10px] z-[400] w-[34px] bg-white rounded-[4px] border-2 border-[#c2bfba] p-1 flex justify-center items-center cursor-pointer"
         onClick={() => {
-          const newZoom = userLocation.zoom === defaultLocations[userData.ciudad].zoom ? userLocation.zoom + 1 : defaultLocations[userData.ciudad].zoom
-          setUserLocation({
-            coordinates: defaultLocations[userData.ciudad].coordinates,
-            zoom: newZoom
-          })
+          map.current.flyTo(defaultLocations[userData.ciudad].coordinates, defaultLocations[userData.ciudad].zoom, {
+            duration: 1, // Duración de la animación en segundos
+            easeLinearity: 0.1, // Suavidad de la animación (0 a 1)
+          });
         }}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(0,0,0,0.7)" width="20" height="20" viewBox="0 0 24 24"><path d="M24 11h-2.051c-.469-4.725-4.224-8.48-8.949-8.95v-2.05h-2v2.05c-4.725.47-8.48 4.225-8.949 8.95h-2.051v2h2.051c.469 4.725 4.224 8.48 8.949 8.95v2.05h2v-2.05c4.725-.469 8.48-4.225 8.949-8.95h2.051v-2zm-11 8.931v-3.931h-2v3.931c-3.611-.454-6.478-3.32-6.931-6.931h3.931v-2h-3.931c.453-3.611 3.32-6.477 6.931-6.931v3.931h2v-3.931c3.611.454 6.478 3.319 6.931 6.931h-3.931v2h3.931c-.453 3.611-3.32 6.477-6.931 6.931zm1-7.931c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2z" /></svg>
       </button>
@@ -124,6 +124,8 @@ export default function ButtonAddEventAndPlace({
                   handleToggleMarker={handleToggleMarker}
                   placeName={placeName}
                   coord={coord}
+                  setMarkerAux={setMarkerAux}
+                  setIsToggled={setIsToggled}
                 />
               )}
             </div>
