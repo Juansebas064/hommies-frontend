@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { PlacesContext } from "./PlacesProvider";
-import { UserLocationContext } from "../UserLocationProvider";
 import PlaceDetails from "./PlaceDetails";
 import { location } from "../../../utils/svgs";
 import defaultPlace from '../../../assets/default-place.png'
@@ -62,9 +61,6 @@ export default function PlacesList() {
 // Componente para mostrar cada lugar en la lista
 function PlaceItem({ lugar, handleShowPlaceDetails }) {
 
-  // Ubicación del usuario y el mapa
-  const { setUserLocation } = useContext(UserLocationContext);
-
   const [imageSrc, setImageSrc] = useState(null);
 
   useEffect(() => {
@@ -117,11 +113,11 @@ function PlaceItem({ lugar, handleShowPlaceDetails }) {
           <p className="text-center self-center"><span className="font-semibold">Aforo:</span> {lugar.aforo}</p>
           {/* Botón ver en el mapa */}
           <button className="underline my-2 hover:text-indigo-500 p-0" onClick={() => {
-            setUserLocation({
-              coordinates: JSON.parse(lugar.ubicacion),
-              zoom: 17
-            })
-            window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+            // setUserLocation({
+            //   coordinates: JSON.parse(lugar.ubicacion),
+            //   zoom: 17
+            // })
+            // window.scroll({ top: 0, left: 0, behavior: 'smooth' })
           }}>
             Ver en el mapa
           </button>
