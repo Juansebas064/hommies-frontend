@@ -35,7 +35,7 @@ export default function ButtonAddEventAndPlace({
       <button
         className="absolute top-[80px] left-[10px] z-[400] w-[34px] bg-white rounded-[4px] border-2 border-[#c2bfba] p-1 flex justify-center items-center cursor-pointer"
         onClick={() => {
-          mapRef.flyTo(defaultLocations(userData.ciudad.codigo_ciudad).coordinates, defaultLocations(userData.ciudad.codigo_ciudad).zoom, {
+          mapRef.current.flyTo(defaultLocations(userData.ciudad.codigo_ciudad).coordinates, defaultLocations(userData.ciudad.codigo_ciudad).zoom, {
             duration: 1, // Duración de la animación en segundos
             easeLinearity: 0.1, // Suavidad de la animación (0 a 1)
           });

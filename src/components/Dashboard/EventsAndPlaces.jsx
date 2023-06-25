@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import EventsList from "./Events/EventsList";
 import PlacesList from "./Places/PlacesList";
 import EventsFilters from "./Events/EventsFilters";
 
-export default function EventsAndPlaces() {
+export default function EventsAndPlaces({ mapRef, markerRefs }) {
 
   // Estados: 
   // Actividades en la ciudad (datos de la bd)
@@ -16,17 +17,6 @@ export default function EventsAndPlaces() {
   const [activeFilter, setActiveFilter] = useState('todos')
   // Fin declaración estados
 
-
-  // Funciones del componente:
-  // Hacer la petición de la información de eventos a la base de datos con fetchEvents()
-  // useEffect(() => {
-  //   async function eventsResponse() {
-  //     const eventsResponse = await fetchEvents()
-  //     setEvents(eventsResponse)
-  //   }
-  //   eventsResponse()
-  // }, []);
-  // Fin funciones del componente
 
   return (
     // Card
@@ -57,7 +47,7 @@ export default function EventsAndPlaces() {
             < EventsList activeFilter={activeFilter} />
           </>
           :
-          <PlacesList />
+          <PlacesList mapRef={mapRef} markerRefs={markerRefs} />
       }
     </div >
   )

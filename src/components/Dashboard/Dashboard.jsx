@@ -39,6 +39,9 @@ export default function Dashboard() {
   // Instancia del mapa
   const mapRef = useRef(null)
 
+  // Instancias de los marcadores
+  const markerRefs = useRef({});
+
   useEffect(() => {
     fetchEvents()
     fetchPlaces()
@@ -73,7 +76,8 @@ export default function Dashboard() {
               setIsToggledMarker={setIsToggledMarker}
               markerAux={markerAux}
               setMarkerAux={setMarkerAux}
-              setPlaceName={setPlaceName} />
+              setPlaceName={setPlaceName}
+              markerRefs={markerRefs} />
 
             {/* Atribución */}
             <TileLayer
@@ -89,9 +93,9 @@ export default function Dashboard() {
           setPlaceName={setPlaceName}
           markerAux={markerAux}
           setMarkerAux={setMarkerAux}
-          mapRef={mapRef.current} />
+          mapRef={mapRef} />
       </div>
-      <EventsAndPlaces />
+      <EventsAndPlaces mapRef={mapRef} markerRefs={markerRefs} />
     </div>
   )
 }

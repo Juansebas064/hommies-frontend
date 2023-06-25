@@ -4,6 +4,7 @@ import { PlacesContext } from "./PlacesProvider";
 import PlaceDetails from "./PlaceDetails";
 import { location } from "../../../utils/svgs";
 import defaultPlace from '../../../assets/default-place.png'
+import { Marker } from "react-leaflet";
 
 async function fetchImage(url) {
   if (!url.includes('null')) {
@@ -15,7 +16,7 @@ async function fetchImage(url) {
 
 }
 
-export default function PlacesList() {
+export default function PlacesList({ mapRef, markerRefs }) {
 
   // Lista de lugares
   const { places } = useContext(PlacesContext);
@@ -40,6 +41,8 @@ export default function PlacesList() {
               key={lugar.codigo_lugar}
               lugar={lugar}
               handleShowPlaceDetails={handleShowPlaceDetails}
+              mapRef={mapRef}
+              markerRefs={markerRefs}
             />
           ))}
         </ul>
@@ -59,7 +62,7 @@ export default function PlacesList() {
 
 
 // Componente para mostrar cada lugar en la lista
-function PlaceItem({ lugar, handleShowPlaceDetails }) {
+function PlaceItem({ lugar, handleShowPlaceDetails, mapRef, markerRefs }) {
 
   const [imageSrc, setImageSrc] = useState(null);
 
@@ -113,11 +116,12 @@ function PlaceItem({ lugar, handleShowPlaceDetails }) {
           <p className="text-center self-center"><span className="font-semibold">Aforo:</span> {lugar.aforo}</p>
           {/* Botón ver en el mapa */}
           <button className="underline my-2 hover:text-indigo-500 p-0" onClick={() => {
-            // setUserLocation({
-            //   coordinates: JSON.parse(lugar.ubicacion),
-            //   zoom: 17
-            // })
-            // window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+            mapRef.current.flyTo(JSON.parse(lugar.ubicacion), 17, {
+              duration: 1, // Duración de la animación en segundos
+              easeLinearity: 0.1, // Suavidad de la animación (0 a 1)
+            });
+            markerRefs.current[lugar.codigo_lugar].openPopup()
           }}>
             Ver en el mapa
           </button>

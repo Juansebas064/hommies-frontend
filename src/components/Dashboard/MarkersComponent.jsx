@@ -13,7 +13,7 @@ import location from '../../assets/location.svg'
 import newLocation from '../../assets/new-location.svg'
 
 
-export default function MapView({ isToggledMarker, setIsToggledMarker, markerAux, setMarkerAux, setPlaceName }) {
+export default function MapView({ isToggledMarker, setIsToggledMarker, markerAux, setMarkerAux, setPlaceName, markerRefs }) {
 
   // Lugares
   const { places } = useContext(PlacesContext)
@@ -21,9 +21,10 @@ export default function MapView({ isToggledMarker, setIsToggledMarker, markerAux
   return (
     <>
       {places &&
-        places.map((place) => (
+        places.map((place, index) => (
           <Marker
             key={place.codigo_lugar}
+            ref={(ref) => markerRefs.current[place.codigo_lugar] = ref}
             position={JSON.parse(place.ubicacion)}
             // eslint-disable-next-line no-undef
             icon={L.icon({
