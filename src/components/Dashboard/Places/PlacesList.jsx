@@ -4,7 +4,6 @@ import { PlacesContext } from "./PlacesProvider";
 import PlaceDetails from "./PlaceDetails";
 import { location } from "../../../utils/svgs";
 import defaultPlace from '../../../assets/default-place.png'
-import { Marker } from "react-leaflet";
 
 async function fetchImage(url) {
   if (!url.includes('null')) {
