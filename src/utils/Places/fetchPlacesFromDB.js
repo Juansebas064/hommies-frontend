@@ -7,9 +7,11 @@ export default async function fetchPlacesFromDB() {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('token')
       }
-    });
-    return lugares.data.rows; // Almacenar los datos en el estado local
+    })
+
+    const nuevosLugares = lugares.data.rows.filter((lugar) => lugar.estado !== 'inactivo')
+    return nuevosLugares;
   } catch (error) {
     console.error('Error al realizar la solicitud al backend:', error.message);
   }
-};
+}
