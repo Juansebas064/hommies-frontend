@@ -1,22 +1,23 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UserLocationContext } from "../UserLocationProvider";
 import { PlacesContext } from "../Places/PlacesProvider";
+import { UserDataContext } from "../../Profile/UserDataProvider";
 
-const AddPlaces = ({ handleToggleMarker, placeName, coord, setMarkerAux, setIsToggled }) => {
-  const { ciudad } = useContext(UserLocationContext);
+const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, setIsToggled }) => {
   const { fetchPlaces } = useContext(PlacesContext)
+
+  const { userData } = useContext(UserDataContext)
 
   const [nombreCiudad, setNombreCiudad] = useState("");
   const [codigoCiudad, setCodigoCiudad] = useState("");
 
   useEffect(() => {
-    if (ciudad != "" && ciudad.length > 0) {
-      setNombreCiudad(ciudad[0].nombre);
-      setCodigoCiudad(ciudad[0].codigo_ciudad);
+    if (userData.ciudad) {
+      setNombreCiudad(userData.ciudad.nombre);
+      setCodigoCiudad(userData.ciudad.codigo_ciudad);
     }
-  }, [ciudad]);
+  }, [userData]);
 
   const {
     register,
@@ -32,7 +33,7 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord, setMarkerAux, setIsTo
     // Agregar los valores de los campos ocultos al objeto FormData
     formData.append("direccion", placeName);
     formData.append("ciudad", codigoCiudad);
-    formData.append("ubicacion", JSON.stringify(coord));
+    formData.append("ubicacion", JSON.stringify(markerAux));
 
     const fotoInput = document.getElementById("foto");
     if (fotoInput.files.length > 0) {
@@ -63,7 +64,7 @@ const AddPlaces = ({ handleToggleMarker, placeName, coord, setMarkerAux, setIsTo
     }
   };
 
-  return ciudad ? (
+  return userData ? (
     <div className="w-full px-3 mb-4 mt-3 items-center relative">
       <div className="w-full items-center text-center justify-center pb-3">
         <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">

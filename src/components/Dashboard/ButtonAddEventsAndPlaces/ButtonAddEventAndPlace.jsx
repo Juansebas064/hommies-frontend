@@ -3,24 +3,23 @@ import { useState, useContext } from "react";
 import AddEvent from "./AddEvent";
 import AddPlaces from "./AddPlaces";
 import { UserDataContext } from "../../Profile/UserDataProvider";
+import defaultLocations from "../../../utils/City/defaultLocations";
 
 export default function ButtonAddEventAndPlace({
   isToggled,
-  isToggledMarker,
   setIsToggled,
+  isToggledMarker,
   setIsToggledMarker,
-  placeName,
-  setPlaceName,
   coord,
   setMarkerAux,
-  map
+  mapRef,
+  placeName,
+  setPlaceName
 }) {
   const handleToggle = () => {
     setMarkerAux(null)
     setIsToggled(!isToggled);
-    if (!isToggled) {
-      setPlaceName("Selecciona una ubicación");
-    }
+    setPlaceName('Seleccione una ubicación')
   };
 
   const handleToggleMarker = () => {
@@ -29,18 +28,6 @@ export default function ButtonAddEventAndPlace({
 
   const [activeTab, setActiveTab] = useState("events");
 
-  // Ubicaciones predeterminadas de acuerdo a la ciudad para centrar el mapa
-  const defaultLocations = {
-    111: {
-      coordinates: [4.0864122, -76.1909629],
-      zoom: 14.5
-    },
-    222: {
-      coordinates: [3.4348269, -76.5041975],
-      zoom: 12
-    }
-  }
-
   const { userData } = useContext(UserDataContext)
 
   return (
@@ -48,7 +35,7 @@ export default function ButtonAddEventAndPlace({
       <button
         className="absolute top-[80px] left-[10px] z-[400] w-[34px] bg-white rounded-[4px] border-2 border-[#c2bfba] p-1 flex justify-center items-center cursor-pointer"
         onClick={() => {
-          map.current.flyTo(defaultLocations[userData.ciudad].coordinates, defaultLocations[userData.ciudad].zoom, {
+          mapRef.flyTo(defaultLocations(userData.ciudad.codigo_ciudad).coordinates, defaultLocations(userData.ciudad.codigo_ciudad).zoom, {
             duration: 1, // Duración de la animación en segundos
             easeLinearity: 0.1, // Suavidad de la animación (0 a 1)
           });
