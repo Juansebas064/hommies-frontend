@@ -34,7 +34,7 @@ export default function ProfileConfig() {
   // Enviar los datos a la BD
   async function onSubmit(modifiedUserData) {
     try {
-      const response = await modifyUserData(modifiedUserData)
+      await modifyUserData(modifiedUserData)
       getUserDataFromDB()
       const newUserInterests = intereses.filter((int) => int.marcado)
       modifyUserInterests(newUserInterests)

@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import EventsList from "../Dashboard/Events/EventsList";
-import { fetchUserData } from "../../utils/fetchUserData";
 import { UserDataContext } from "./UserDataProvider";
 
 export default function Profile() {
 
-  const { userData, getUserDataFromDB } = useContext(UserDataContext);
+  const { userData } = useContext(UserDataContext);
 
   const [nombre, setNombre] = useState("");
   const [nickname, setNickname] = useState("");

@@ -21,19 +21,13 @@ export default function EventDetails({
 
 }) {
 
-  // Verificación para no mostrarse en caso de no haber evento seleccionado
-  if (!selectedEvent) {
-    return null;
-  }
+  // Declaración de estados y contextos
 
   // Variable para actualizar el estado del evento (en progreso, terminado, sin empezar) si es modificado
   const [status, setStatus] = useState(() => handleEventStatus());
 
   // Abrir o cerrar el menú del propietario del evento
   const [ownerMenu, setOwnerMenu] = useState(false);
-
-  // Se consulta el usuario para obtener la id
-  const { userData } = useContext(UserDataContext);
 
   // Determinar si se está modificando un evento
   const [modifyingEvent, setModifyingEvent] = useState(false);
@@ -44,6 +38,9 @@ export default function EventDetails({
   //Estado botón de anular inscripción (Temporal)
   const [esParticipante, setEsParticipante] = useState(false);
 
+  // Se consulta el usuario para obtener la id
+  const { userData } = useContext(UserDataContext);
+
   // Uso de react-hook-form
   const {
     register,
@@ -52,22 +49,24 @@ export default function EventDetails({
     reset,
   } = useForm();
 
-  // Cambiar el estado del evento
-  function handleEventStatus() {
-    const showStatus =
-      eventStatus[
-      getEventStatus(
-        selectedEvent.fecha.substring(0, 10),
-        selectedEvent.hora_inicio.substring(0, 5),
-        selectedEvent.hora_final.substring(0, 5)
-      )
-      ];
-    return showStatus;
-  }
 
-  useEffect(() => {
-    setStatus(() => handleEventStatus());
-  }, [selectedEvent]);
+  // Funciones para manejar el estado de los 
+
+
+  // Cambiar el estado del evento
+  async function handleEventStatus() {
+    if (selectedEvent) {
+      const showStatus =
+        await eventStatus[
+          getEventStatus(
+            selectedEvent.fecha.substring(0, 10),
+            selectedEvent.hora_inicio.substring(0, 5),
+            selectedEvent.hora_final.substring(0, 5)
+          )
+        ];
+      setStatus(showStatus)
+    }
+  }
 
   // Obtener la lista de participantes del evento
   async function obtenerListaParticipantes() {
@@ -76,8 +75,14 @@ export default function EventDetails({
   }
 
   useEffect(() => {
-    obtenerListaParticipantes()
-  }, [])
+    if (selectedEvent) {
+      handleEventStatus()
+      obtenerListaParticipantes()
+    }
+  }, [selectedEvent]);
+
+
+  // Declaración de funciones
 
 
   // Restablecer el contenido de los inputs

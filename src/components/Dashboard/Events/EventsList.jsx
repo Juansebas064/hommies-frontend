@@ -55,7 +55,6 @@ export default function EventsList({ activeFilter }) {
           }
         }
         setFilteredEvents(activeFilter === 'inscrito' ? inscribedList : notInscribedList)
-        console.log(filteredEvents)
       }
     }
     if (activeFilter === 'todos') {
@@ -78,8 +77,10 @@ export default function EventsList({ activeFilter }) {
 
   // La lista filtrada se creará cuando se actualice el estado activeFilter
   useEffect(() => {
-    createFilteredEventsList()
-  }, [events, activeFilter])
+    if (events && userData) {
+      createFilteredEventsList()
+    }
+  }, [events, activeFilter, userData])
 
   return (
     events && filteredEvents ?
