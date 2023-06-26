@@ -37,7 +37,7 @@ export default function ProfileConfig() {
       await modifyUserData(modifiedUserData)
       getUserDataFromDB()
       const newUserInterests = intereses.filter((int) => int.marcado)
-      modifyUserInterests(newUserInterests)
+      await modifyUserInterests(newUserInterests)
       window.location.href = '/profile'
     } catch (error) {
       console.log(error.message)
