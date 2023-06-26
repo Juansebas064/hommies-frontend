@@ -78,6 +78,7 @@ export default function EventDetails({
     if (selectedEvent) {
       handleEventStatus()
       obtenerListaParticipantes()
+      handleReset()
     }
   }, [selectedEvent]);
 
@@ -177,7 +178,7 @@ export default function EventDetails({
         {selectedEvent.creador === userData.id && <EventOwnerMenu ownerMenu={ownerMenu} setOwnerMenu={setOwnerMenu} modifyingEvent={modifyingEvent} setModifyingEvent={setModifyingEvent} handleReset={handleReset} deleteEvent={deleteEvent} />}
 
         {/* Contenido del evento */}
-        <form
+        {selectedEvent && <form
           className="py-6 px-[8px] grid grid-cols-2"
           onSubmit={handleSubmit(modifyEvent)}
         >
@@ -304,10 +305,10 @@ export default function EventDetails({
           <p className="text-center font-bold col-span-2">Lugar</p>
           {/* Lugar del evento */}
           <p className="text-sm text-center col-span-2">
-            {selectedEvent.lugar.nombre}
+            {selectedEvent.lugar ? selectedEvent.lugar.nombre : ''}
           </p>
           <p className="text-sm text-center col-span-2">
-            {selectedEvent.lugar.descripcion}
+            {selectedEvent.lugar ? selectedEvent.lugar.descripcion : 'Este lugar se eliminó'}
           </p>
 
           {errors.hora_inicio && (
@@ -331,7 +332,6 @@ export default function EventDetails({
           {/* Lista de participantes */}
           <details className="block w-[240px] max-w-[240px] min-w-[150px] p-1 mt-5 mb-3 mx-auto border-[1px] border-indigo-500 rounded-lg col-span-2 cursor-pointer">
             <summary>Participantes</summary>
-            <div key={0}>{selectedEvent.creador}</div>
             {participantes === null ? (
               <div>No hay participantes</div>
             ) : (
@@ -342,26 +342,24 @@ export default function EventDetails({
             }
           </details>
 
+
           {/* Botón unirse al evento */}
-          {esParticipante ? (
-            <button onClick={anularInscripcionEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
-              Salir del evento
+          {selectedEvent.creador === userData.id ?
+            <button onClick={deleteEvent} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
+              Eliminar evento
             </button>
-          ) : (
-            // eslint-disable-next-line react/prop-types
-            userData.id === selectedEvent.creador ? (
-              <button onClick={deleteEvent} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3">
-                Eliminar evento
+            :
+            esParticipante ?
+              <button onClick={anularInscripcionEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-red-500 col-span-2 hover:bg-red-700 py-2 px-3" >
+                Salir del evento
               </button>
-            ) : (
+              :
               <button onClick={inscribirseEvento} className="rounded-3xl mx-auto my-3 font-bold text-white text-center bg-indigo-500 col-span-2 hover:bg-indigo-700 py-2 px-3">
                 Quiero unirme
               </button>
-            )
-          )
           }
-        </form>
-      </VentanaModal>
+        </form>}
+      </VentanaModal >
       :
       null
   );
