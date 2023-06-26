@@ -14,6 +14,7 @@ const VentanaModal = ({ children, estado, cambiarEstado }) => {
           onClick={(e) => {
             if (e.target.id === 'background') {
               cambiarEstado(null)
+              document.body.classList.remove('overflow-hidden');
             }
           }}
         >
