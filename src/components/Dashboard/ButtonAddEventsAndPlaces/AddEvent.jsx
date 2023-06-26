@@ -7,7 +7,7 @@ import ConfirmacionEventoCreado from "../../VentanaModal";
 import { PlacesContext } from "../Places/PlacesProvider";
 import interestListEvents from "../../../utils/Interests/interestListEvent";
 
-const AddEvent = ({ setIsToggled }) => {
+const AddEvent = ({ setIsToggled, mapRef }) => {
   // Lista de lugares para registrarlos en el evento
   const { places } = useContext(PlacesContext);
 
@@ -216,6 +216,10 @@ const AddEvent = ({ setIsToggled }) => {
                           const lugar = document.getElementById("campo-lugar");
                           lugar.value = place.nombre;
                           setLugarSeleccionado(place.codigo_lugar)
+                          mapRef.current.flyTo(JSON.parse(place.ubicacion), mapRef.current.getZoom(), {
+                            duration: 1, // Duración de la animación en segundos
+                            easeLinearity: 0.1, // Suavidad de la animación (0 a 1)
+                          });
                           document.getElementById(
                             "lista-lugares"
                           ).style.display = "none";

@@ -105,7 +105,10 @@ export default function ButtonAddEventAndPlace({
 
             <div className="">
               {activeTab == "events" ? (
-                <AddEvent setIsToggled={setIsToggled} />
+                <AddEvent
+                  setIsToggled={setIsToggled}
+                  mapRef={mapRef}
+                />
               ) : (
                 <AddPlaces
                   handleToggleMarker={handleToggleMarker}
