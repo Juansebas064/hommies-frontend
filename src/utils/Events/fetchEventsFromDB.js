@@ -1,5 +1,6 @@
 import axios from "axios";
 import fetchPlacesFromDB from "../Places/fetchPlacesFromDB";
+import fetchEventInterestsFromDB from "./fetchEventInterestsFromDB";
 
 export default async function fetchEvents() {
   try {
@@ -26,8 +27,12 @@ export default async function fetchEvents() {
       }
     })
 
+    let intereses = await fetchEventInterestsFromDB()
+
+    eventos.intereses = intereses
+
     return eventos; // Almacenar los datos en el estado local
   } catch (error) {
     console.error('Error al ejecutar fetchEvents:', error.message);
   }
-};
+}
