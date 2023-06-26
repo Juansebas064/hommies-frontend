@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { close } from "../utils/svgs";
 
 const VentanaModal = ({ children, estado, cambiarEstado }) => {
@@ -9,7 +10,13 @@ const VentanaModal = ({ children, estado, cambiarEstado }) => {
       {estado &&
 
         // Fondo oscuro
-        <div className="fixed z-[9999] bg-[rgba(0,0,0,0.2)] h-[100vh] w-[100vw] left-0 top-0 overflow-clip flex justify-center items-center">
+        <div className="fixed z-[9999] bg-[rgba(0,0,0,0.2)] h-[100vh] w-[100vw] left-0 top-0 overflow-clip flex justify-center items-center" id="background"
+          onClick={(e) => {
+            if (e.target.id === 'background') {
+              cambiarEstado(null)
+            }
+          }}
+        >
 
           {/* Card */}
           <div className="z-[9999] bg-white rounded-[14px] relative min-w-[250px] max-w-[370px] sm:max-w-[470px] max-h-[70vh] sm:max-h-[70vh] px-3 sm:px-7 flex-grow overflow-auto">
