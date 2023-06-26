@@ -4,7 +4,7 @@ const locations = {
     zoom: 14
   },
   222: {
-    coordinates: [3.4348269, -76.5041975],
+    coordinates: [3.4277632, -76.5171433],
     zoom: 13
   }
 }
