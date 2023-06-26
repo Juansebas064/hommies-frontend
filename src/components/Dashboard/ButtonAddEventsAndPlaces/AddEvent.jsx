@@ -35,9 +35,8 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
       i.marcado
     ))
 
-    datosNuevoEvento.lugar = lugarSeleccionado
-
     if (lugarSeleccionado && interesEventoArr.length != 0) {
+      datosNuevoEvento.lugar = lugarSeleccionado
       await axios
         .post("http://localhost:5000/api/evento/agregar", datosNuevoEvento, {
           headers: {
@@ -57,7 +56,6 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
           }
           );
           console.log(response.data.idEvento);
-          console.log(response.data.message);
           await fetchEvents();
           setConfirmacionEventoCreado(true);
         })
@@ -216,7 +214,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                           const lugar = document.getElementById("campo-lugar");
                           lugar.value = place.nombre;
                           setLugarSeleccionado(place.codigo_lugar)
-                          mapRef.current.flyTo(JSON.parse(place.ubicacion), mapRef.current.getZoom(), {
+                          mapRef.current.flyTo(JSON.parse(place.ubicacion), 15, {
                             duration: 1, // Duración de la animación en segundos
                             easeLinearity: 0.1, // Suavidad de la animación (0 a 1)
                           });
