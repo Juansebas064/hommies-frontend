@@ -156,9 +156,9 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                     }}
                     placeholder="Selecciona un lugar ▼"
                     className="text-sm w-full px-4 py-2 rounded-lg border-2 border-gray-200 bg-white mr-2 focus:border-indigo-500 focus:border-2 outline-none cursor-pointer text-center placeholder:text-black"
-                    {...register("lugar", {
-                      required: true,
-                    })}
+                  // {...register("lugar", {
+                  //   required: true,
+                  // })}
                   />
                   {errors.lugar?.type === "required" && (
                     <p className="mb-3">Lugar requerido *</p>
