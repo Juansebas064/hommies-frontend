@@ -300,7 +300,7 @@ const Register = () => {
                       </svg>
                   <div className="relative inline-block">
                     {showTooltip && (
-                        <div className="absolute z-10 left-0 -ml-48 mt-0 p-2 -top-40 -right-1 text-white bg-gray-900 rounded-lg shadow-lg opacity-60 w-48 tooltip">
+                        <div className="absolute z-10 left-0 -ml-48 -mt-[3px] p-2 -top-40 -right-1 text-white bg-gray-900 rounded-lg shadow-lg opacity-60 w-48 tooltip">
                           La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
                         </div>
                       )}
