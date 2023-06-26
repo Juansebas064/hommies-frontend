@@ -76,14 +76,14 @@ export default function ButtonAddEventAndPlace({
       {isToggled && (
 
         // Card con los controles y el contenido
-        <div className="rounded-xl min-w-[250px] max-h-[40vh] sm:max-h-[50vh] lg:max-h-[60vh] sm:w-[450px] absolute bottom-[15%] left-5 right-5 sm:left-12 z-[400] bg-gray-200 shadow-md items-center justify-center overflow-y-auto ">
+        <div className="rounded-xl min-w-[250px] max-h-[40vh] sm:max-h-[50vh] lg:max-h-[60vh] sm:w-[590px] absolute bottom-[15%] left-5 right-5 sm:left-12 z-[400] bg-gray-200 shadow-md items-center justify-center overflow-y-auto ">
 
 
           {/* Contenedor de botones crear evento y crear lugar */}
           <div className="flex font-semibold text-sm overflow-hidden w-full">
             <button
               className={`flex-grow py-[10px] border-b-gray-200 ${activeTab === "events"
-                ? "bg-indigo-500 text-white rounded-[14px]"
+                ? "bg-indigo-500 text-white rounded-l-[14px]"
                 : "bg-gray-200 "
                 }`}
               onClick={() => setActiveTab("events")}
@@ -92,7 +92,7 @@ export default function ButtonAddEventAndPlace({
             </button>
             <button
               className={`flex-grow py-[10px] border-b-gray-200 ${activeTab === "places"
-                ? "bg-indigo-500 text-white rounded-[14px]"
+                ? "bg-indigo-500 text-white rounded-r-[14px]"
                 : "bg-gray-200 "
                 }`}
               onClick={() => setActiveTab("places")}
@@ -113,6 +113,7 @@ export default function ButtonAddEventAndPlace({
                   markerAux={markerAux}
                   setMarkerAux={setMarkerAux}
                   setIsToggled={setIsToggled}
+                  isToggledMarker={isToggledMarker}
                 />
               )}
             </div>
