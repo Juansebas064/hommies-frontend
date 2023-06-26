@@ -33,7 +33,7 @@ export default function Profile() {
     <div className="flex flex-col lg:flex-row lg:h-[89vh] justify-center">
 
       {/* Card información del perfil */}
-      <div className="basis-[45%] flex items-center justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8 overflow-auto">
+      <div className="basis-[45%] flex items-start justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8 overflow-auto">
 
         {/* Información */}
         <div className="flex flex-col ">
