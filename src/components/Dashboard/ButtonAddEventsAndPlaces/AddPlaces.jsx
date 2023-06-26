@@ -182,7 +182,7 @@ const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, set
           <div className="h-[49px] flex items-center mt-2 relative bg-white cursor-pointer rounded-lg shadow-[10px_10px_22px_-13px_rgba(0,0,0,0.4)] active:border-indigo-500 overflow-hidden hover:bg-[rgba(255,255,255,0.5)]">
             <input
               type="file"
-              className="absolute top-0 right-0 left-0 bottom-0 w-full z-[-10] py-2 block mx-auto rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 opacity-0"
+              className="absolute top-0 right-0 left-0 bottom-0 w-full z-[9999] py-2 block mx-auto rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 opacity-0"
               id="foto"
               capture='capture'
               name="foto"
