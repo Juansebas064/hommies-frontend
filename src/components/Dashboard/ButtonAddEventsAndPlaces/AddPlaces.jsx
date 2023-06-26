@@ -98,13 +98,13 @@ const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, set
               type="text"
               placeholder="Selecciona una dirección"
               className="w-[88%] px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 flex-grow"
-              disabled={true}
+              readOnly={true}
               value={placeName}
               id="direccion"
             />
 
             <button
-              className="relative px-1 rounded-md border-2 border-gray-200 outline-none hover:border-indigo-500 focus:border-indigo-500 hover:duration-200"
+              className={`relative px-1 rounded-md border-2 border-gray-200 outline-none hover:duration-200 ${isToggledMarker ? 'border-indigo-500' : 'hover:border-indigo-500'}`}
               onClick={(e) => {
                 e.preventDefault()
                 handleToggleMarker()
@@ -169,7 +169,7 @@ const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, set
           <label className="mb-3 mt-3 text-xs font-semibold px-1">Ciudad</label>
           <input
             type="text"
-            disabled={true}
+            readOnly={true}
             className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
             id="inputName"
             value={nombreCiudad}
