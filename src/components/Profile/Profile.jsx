@@ -30,16 +30,16 @@ export default function Profile() {
   return (
 
     // Contenedor principal
-    <div className="flex flex-col lg:flex-row lg:min-h-[89vh] justify-center">
+    <div className="flex flex-col lg:flex-row lg:h-[89vh] justify-center">
 
       {/* Card información del perfil */}
-      <div className="basis-[45%] flex items-center justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8">
+      <div className="basis-[45%] flex items-center justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8 overflow-auto">
 
         {/* Información */}
-        <div className="flex flex-col items-center py-16">
+        <div className="flex flex-col ">
 
           {/* Foto de perfil */}
-          <img src={localStorage.getItem('profilePicture')} alt="" className="w-24 h-24 rounded-full" />
+          <img src={localStorage.getItem('profilePicture')} alt="" className="w-24 h-24 mx-auto rounded-full" />
 
           {/* Nickname */}
           <p className="text-indigo-500 text-center pt-4 font-bold text-xl">
@@ -91,7 +91,7 @@ export default function Profile() {
       </div>
 
       {/* Historial de actividades */}
-      <div className="px-10 pb-4 text-gray-500 m-8">
+      <div className="pb-4 m-8">
 
         <h3 className="font-bold text-3xl text-gray-900 text-center mb-3">Historial de actividades</h3>
         <p className="text-center">
