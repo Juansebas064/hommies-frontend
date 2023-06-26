@@ -80,6 +80,7 @@ export default function EventDetails({
       obtenerListaParticipantes()
       handleReset()
     }
+    setOwnerMenu(false)
   }, [selectedEvent]);
 
 

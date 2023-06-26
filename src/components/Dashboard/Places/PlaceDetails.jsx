@@ -32,6 +32,7 @@ export default function EventDetails({ selectedPlace, setSelectedPlace }) {
     if (selectedPlace) {
       obtenerListaEventosLugar();
     }
+    setOwnerMenu(false)
   }, [selectedPlace]);
 
 
@@ -81,7 +82,7 @@ export default function EventDetails({ selectedPlace, setSelectedPlace }) {
         {/* Contenido del lugar */}
 
         {/* Nombre del lugar */}
-        <p className={`text-xl font-bold text-center col-span-2 mb-3 mt-3 cursor-text`}>
+        <p className={`text-xl font-bold text-center col-span-2 mb-3 mt-7 cursor-text`}>
           {selectedPlace.nombre}
         </p>
 
