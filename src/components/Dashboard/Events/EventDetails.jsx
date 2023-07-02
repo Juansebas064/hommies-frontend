@@ -11,6 +11,8 @@ import VentanaModal from "../../VentanaModal.jsx";
 import inscripcionEvento from "../../../utils/Events/inscripcionEvento.js";
 import anularInscripcion from "../../../utils/Events/anularInscripcionEvento.js";
 import obtenerParticipantes from "../../../utils/Events/obtenerParticipantes.js";
+import { EventUserContext } from "./EventUserProvider.jsx";
+
 
 const eventStatus = {
   terminado: {
@@ -51,6 +53,8 @@ export default function EventDetails({
 
   // Se consulta el usuario para obtener la id
   const { userData } = useContext(UserDataContext);
+
+  const { setUser, setEvent } = useContext(EventUserContext);
 
   // Uso de react-hook-form
   const {
@@ -173,6 +177,11 @@ export default function EventDetails({
     }
   };
 
+  const obtenerParticipante = (user) => {
+    setUser(user);
+    setEvent(selectedEvent);
+    console.log(user);
+  };
   useEffect(() => {
     participaEnEvento();
   }, [participantes]);
@@ -384,7 +393,15 @@ export default function EventDetails({
               <div>No hay participantes</div>
             ) : (
               participantes.map((participante, index) => (
-                <div key={index}>{participante.nickname}</div>
+                <div key={index}>
+                  <a
+                    href="/evento/usuario"
+                    
+                    onClick={obtenerParticipante(participante.nickname)}
+                  >
+                    {participante.nickname}
+                  </a>
+                </div>
               ))
             )}
           </details>
