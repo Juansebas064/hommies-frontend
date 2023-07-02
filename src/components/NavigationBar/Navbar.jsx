@@ -64,7 +64,6 @@ export const Navbar = () => {
           aria-expanded="false"
           onClick={() => {
             const mm = document.getElementById('mobile-menu')
-            console.log(mm)
             mm.hidden ? mm.hidden = false : mm.hidden = true
           }}
         >
