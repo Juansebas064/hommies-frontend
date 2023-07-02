@@ -107,12 +107,12 @@ function EventItem({ evento, handleShowEventDetails, userData }) {
 
   return (
     <li
-      className="relative hover:cursor-pointer text-gray-800 hover:outline-indigo-500 outline outline-offset-[-4px] outline-[2px] rounded-[20px] outline-gray-300 py-3 px-[8px] my-3 lg:mx-1 grid grid-cols-2"
+      className="box-border relative hover:cursor-pointer text-gray-800 hover:border-indigo-500 border-[2px] rounded-[20px] border-gray-300 py-3 px-[8px] my-3 lg:mx-1 grid grid-cols-2 overflow-hidden"
       onClick={() => handleShowEventDetails(evento)}>
 
       {/* Indicador si es creador del evento */}
       {userData && (evento.creador === userData.id && (
-        <span className="absolute top-3 right-3 px-1 rounded-md bg-purple-600 text-white">
+        <span className="absolute top-0 left-0 px-2 rounded-br-md bg-indigo-500 text-white">
           P
         </span>
       ))
