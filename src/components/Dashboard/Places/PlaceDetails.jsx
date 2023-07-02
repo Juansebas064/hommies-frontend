@@ -91,6 +91,21 @@ export default function EventDetails({ selectedPlace, setSelectedPlace }) {
           {selectedPlace.descripcion}
         </p>
 
+        {/* Dirección */}
+        <p className={`text-center resize-none overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text`}>
+          <span className="font-semibold">Dirección:</span> {selectedPlace.direccion}
+        </p>
+
+        {/* Aforo */}
+        <p className={`text-center resize-none overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text`}>
+          <span className="font-semibold">Aforo:</span> {selectedPlace.aforo}
+        </p>
+
+        {/* Ciudad */}
+        <p className={`text-center resize-none overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text`}>
+          <span className="font-semibold">Ciudad:</span> {selectedPlace.ciudad === '111' ? 'Tuluá' : 'Cali'}
+        </p>
+
         {/* Lista de eventos */}
         <details className="block w-[240px] max-w-[240px] min-w-[150px] p-1 mt-5 mb-3 mx-auto border-[1px] border-indigo-500 rounded-lg col-span-2 cursor-pointer">
           <summary>Eventos en este lugar</summary>

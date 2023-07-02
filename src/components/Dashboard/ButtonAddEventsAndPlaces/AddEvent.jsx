@@ -175,6 +175,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                       type="search"
                       placeholder="Buscar..."
                       id="buscar"
+                      autoComplete="off"
                       className="mt-2 py-1 px-1 w-full text-sm outline-none border-b-[1px] focus:border-gray-500"
 
                       // Función de búsqueda al escribir
@@ -224,12 +225,8 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                         {/* Contenedor flex */}
                         <div className="h-full flex items-center">
                           {/* Parte izquierda */}
-                          <div className="whitespace-nowrap overflow-x-hidden text-ellipsis basis-[65%]">
-                            {place.nombre}
-                          </div>
-                          {/* Parte derecha */}
-                          <div className="flex-grow text-right">
-                            {location(20)}{place.ciudad === '111' ? 'Tuluá' : 'Cali'}
+                          <div className="whitespace-nowrap overflow-x-hidden text-ellipsis">
+                            {location(20)} {place.nombre}
                           </div>
                         </div>
                       </li>

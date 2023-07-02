@@ -4,6 +4,7 @@ import { PlacesContext } from "./PlacesProvider";
 import PlaceDetails from "./PlaceDetails";
 import { location } from "../../../utils/svgs";
 import defaultPlace from '../../../assets/default-place.png'
+import { UserDataContext } from "../../Profile/UserDataProvider";
 
 async function fetchImage(url) {
   if (!url.includes('null')) {
@@ -63,6 +64,8 @@ export default function PlacesList({ mapRef, markerRefs }) {
 // Componente para mostrar cada lugar en la lista
 function PlaceItem({ lugar, handleShowPlaceDetails, mapRef, markerRefs }) {
 
+  const { userData } = useContext(UserDataContext)
+
   const [imageSrc, setImageSrc] = useState(null);
 
   useEffect(() => {
@@ -82,6 +85,14 @@ function PlaceItem({ lugar, handleShowPlaceDetails, mapRef, markerRefs }) {
 
   return (
     <li className="box-border text-gray-800 hover:border-indigo-500 border-[2px] overflow-hidden rounded-[20px] border-gray-300 my-3 lg:mx-1 relative h-[170px]">
+
+      {/* Indicador si es creador del lugar */}
+      {userData && (lugar.creador === userData.id && (
+        <span className="z-10 absolute top-0 left-0 px-2 rounded-br-md bg-indigo-500 text-white">
+          P
+        </span>
+      ))
+      }
 
       {/* Foto del lugar */}
       <div className="basis-[40%] object-cover absolute top-0 bottom-0">

@@ -13,10 +13,24 @@ import anularInscripcion from "../../../utils/Events/anularInscripcionEvento.js"
 import obtenerParticipantes from "../../../utils/Events/obtenerParticipantes.js";
 
 
+const eventStatus = {
+  terminado: {
+    text: 'Terminado',
+    color: 'text-gray-500'
+  },
+  en_progreso: {
+    text: 'En progreso',
+    color: 'text-green-500'
+  },
+  sin_empezar: {
+    text: 'Sin empezar',
+    color: 'text-blue-500'
+  }
+}
+
 export default function EventDetails({
   selectedEvent,
   setSelectedEvent,
-  eventStatus,
   updateEvents,
 
 }) {
