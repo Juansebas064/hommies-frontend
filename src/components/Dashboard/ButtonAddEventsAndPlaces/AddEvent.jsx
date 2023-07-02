@@ -303,6 +303,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                 <label className="font-semibold text-sm px-1">
                   Seleciona los intereses del evento
                 </label>
+                
                 <div className="border-2 border-gray-400 py-5 rounded-lg w-full mt-1 mb-1 mx-auto flex justify-center flex-wrap">
                   {intereses &&
                     intereses.map((elemento, index) => (
@@ -318,6 +319,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                       </span>
                     ))}
                 </div>
+                <p className="text-xs text-red-700">¡No es posible cambiar los intereses, escoge con precaución!</p>
               </div>
             )}
 
