@@ -6,6 +6,7 @@ import { EventsContext } from "../Events/EventsProvider";
 import ConfirmacionEventoCreado from "../../VentanaModal";
 import { PlacesContext } from "../Places/PlacesProvider";
 import interestListEvents from "../../../utils/Interests/interestListEvent";
+import { location } from "../../../utils/svgs";
 
 const AddEvent = ({ setIsToggled, mapRef }) => {
   // Lista de lugares para registrarlos en el evento
@@ -203,13 +204,10 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                         }
                       }}
                     />
-                    {places.map((place, index) => (
+                    {places.map((place) => (
                       <li
                         key={place.codigo_lugar}
-                        className={`text-gray-800 ${index === places.length - 1
-                          ? "border-b-[0px]"
-                          : "border-b-[2px]"
-                          } whitespace-nowrap text-sm text-left overflow-hidden overflow-ellipsis py-2 px-1 cursor-pointer hover:text-indigo-600`}
+                        className="rounded-md hover:bg-indigo-100 cursor-pointer px-1 h-[40px] text-left"
                         onClick={() => {
                           const lugar = document.getElementById("campo-lugar");
                           lugar.value = place.nombre;
@@ -223,7 +221,17 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                           ).style.display = "none";
                         }}
                       >
-                        {place.nombre}
+                        {/* Contenedor flex */}
+                        <div className="h-full flex items-center">
+                          {/* Parte izquierda */}
+                          <div className="whitespace-nowrap overflow-x-hidden text-ellipsis basis-[65%]">
+                            {place.nombre}
+                          </div>
+                          {/* Parte derecha */}
+                          <div className="flex-grow text-right">
+                            {location(20)}{place.ciudad === '111' ? 'Tuluá' : 'Cali'}
+                          </div>
+                        </div>
                       </li>
                     ))}
                   </ul>
