@@ -41,8 +41,7 @@ export default function MapView({ isToggledMarker, setIsToggledMarker, markerAux
                 <h1 className="text-lg font-bold text-center mt-4">
                   {place.nombre}
                 </h1>
-                <p className="text-sm">{place.descripcion}</p>
-                <p className="text-sm"><span className="font-bold">Aforo: </span> {place.aforo}</p>
+                <p className="text-sm text-center">{place.descripcion}</p>
               </div>
             </Popup>
           </Marker>
