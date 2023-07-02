@@ -12,6 +12,7 @@ export default function Profile() {
   const [fechaNacimiento, setFechaNacimiento] = useState("")
   const [ciudad, setCiudad] = useState("")
   const [descripcion, setDescripcion] = useState("")
+  
 
 
   useEffect(() => {
