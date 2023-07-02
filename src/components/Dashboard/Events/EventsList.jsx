@@ -87,7 +87,7 @@ export default function EventsList({ activeFilter }) {
       <>
         <div className="relative flex flex-col items-center text-sm lg:px-0 overflow-hidden">
           <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block overflow-y-auto px-2" id="event-list">
-            {filteredEvents.map((evento) => <EventItem evento={evento} key={evento.codigo_evento} handleShowEventDetails={handleShowEventDetails} />)}
+            {filteredEvents.map((evento) => <EventItem evento={evento} key={evento.codigo_evento} handleShowEventDetails={handleShowEventDetails} userData={userData} />)}
           </ul>
         </div>
         {/* Detalles del evento al hacer click sobre uno */}
@@ -100,15 +100,24 @@ export default function EventsList({ activeFilter }) {
   )
 }
 
-function EventItem({ evento, handleShowEventDetails }) {
+function EventItem({ evento, handleShowEventDetails, userData }) {
 
   // Variable para guardar estado del evento
   const status = getEventStatus(evento.fecha.substring(0, 10), evento.hora_inicio.substring(0, 5), evento.hora_final.substring(0, 5))
 
   return (
     <li
-      className="hover:cursor-pointer text-gray-800 hover:outline-indigo-500 outline outline-offset-[-4px] outline-[2px] rounded-[20px] outline-gray-300 py-3 px-[8px] my-3 lg:mx-1 grid grid-cols-2"
+      className="relative hover:cursor-pointer text-gray-800 hover:outline-indigo-500 outline outline-offset-[-4px] outline-[2px] rounded-[20px] outline-gray-300 py-3 px-[8px] my-3 lg:mx-1 grid grid-cols-2"
       onClick={() => handleShowEventDetails(evento)}>
+
+      {/* Indicador si es creador del evento */}
+      {userData && (evento.creador === userData.id && (
+        <span className="absolute top-3 right-3 px-1 rounded-md bg-purple-600 text-white">
+          P
+        </span>
+      ))
+      }
+
       {/* Nombre del evento */}
       <p className="text-base font-bold text-center col-span-2 mb-1">
         {`${evento.nombre}`}
