@@ -21,7 +21,7 @@ const VentanaModal = ({ children, estado, cambiarEstado }) => {
 
           {/* Card */}
           <div className="z-[9999] bg-white rounded-[14px] relative min-w-[250px] max-w-[370px] sm:max-w-[470px] max-h-[70vh] sm:max-h-[70vh] px-3 sm:px-7 flex-grow overflow-auto">
-            <div className="sticky top-0 translate-x-[30px]">
+            <div className="sticky top-0 translate-x-[10px]">
               <span onClick={() => {
                 document.body.classList.remove('overflow-hidden');
                 cambiarEstado(false)
