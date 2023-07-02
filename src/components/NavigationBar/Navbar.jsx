@@ -23,7 +23,7 @@ export const Navbar = () => {
           alt="Hommies"
           onClick={() => window.location.href = '/'}
         />
-        <NavbarSearch />
+        {localStorage.getItem('token') && <NavbarSearch />}
       </div>
 
 
