@@ -22,7 +22,7 @@ function NavbarSearch() {
     }
 
     fetchAll()
-  })
+  }, [])
 
   // Mostrar cuadro con resultados de la búsqueda
   const [searchDialog, setSearchDialog] = useState(false)
