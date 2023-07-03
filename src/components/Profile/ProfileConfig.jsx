@@ -26,9 +26,9 @@ export default function ProfileConfig() {
   useEffect(() => {
     // Obtener la imagen seleccionada del localStorage
     const selectedImage = localStorage.getItem("selectedImage");
-    if (selectedImage) {
-      setSelectedImage(selectedImage);
-    }
+    // if (selectedImage) {
+    //   setSelectedImage(selectedImage);
+    // }
   }, []);
 
   // Función para modificar los intereses seleccionados al hacer click
@@ -57,9 +57,9 @@ export default function ProfileConfig() {
 
         await modifyUserInterests(newUserInterests);
 
-        window.location.href = "/profile";
-        // setTimeout(() => {
-        // }, 1500);
+        setTimeout(() => {
+          window.location.href = "/profile";
+        }, 1000);
       } catch (error) {
         console.log(error.message);
       }

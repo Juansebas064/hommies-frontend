@@ -68,13 +68,17 @@ export default function Profile() {
           <p className="text-black text-center pt-4 font-bold text-base">
             Intereses:
           </p>
-          {userData && <p>{userData.intereses.reduce((strResultado, interes, index) => {
-            if (index === 0) {
-              return strResultado += interes.nombre + ', '
-            } else if (index === userData.intereses.length - 1) {
-              return strResultado += interes.nombre.toLowerCase() + '.'
+          {userData && <p className="text-center">{userData.intereses.reduce((strResultado, interes, index) => {
+            if (userData.intereses.length === 1) {
+              return strResultado += interes.nombre
             } else {
-              return strResultado += interes.nombre.toLowerCase() + ', '
+              if (index === 0) {
+                return strResultado += interes.nombre + ', '
+              } else if (index === userData.intereses.length - 1) {
+                return strResultado += interes.nombre.toLowerCase() + '.'
+              } else {
+                return strResultado += interes.nombre.toLowerCase() + ', '
+              }
             }
           }, '')}</p>}
           <p className="text-black text-center pt-4 font-bold text-base">
