@@ -349,7 +349,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                       </span>
                     ))}
                 </div>
-                <p className="text-xs text-red-700">¡No es posible cambiar los intereses, escoge con precaución!</p>
+                <p className="text-xs text-red-700">¡No es posible cambiar los intereses luego de guardarlos, escoge con precaución!</p>
               </div>
             )}
 
