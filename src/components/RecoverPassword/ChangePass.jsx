@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ChangePass = () => {
+export default function ChangePass({ email }) {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -41,8 +41,8 @@ export const ChangePass = () => {
                     placeholder="********"
                   />
                   <label className="text-xs font-semibold px-1">
-                  Ingresa nuevamente tu nueva contraseña
-                </label>
+                    Ingresa nuevamente tu nueva contraseña
+                  </label>
                   <input
                     id="confirmPassword"
                     name="confirmPassword"

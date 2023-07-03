@@ -3,11 +3,11 @@ import { createContext, useState } from "react";
 const RecoverPasswordContext = createContext();
 
 function RecoverPasswordProvider({ children }) {
-  const [emailContext, setEmailContext] = useState("")
+  const [emailContext, setEmailValue] = useState("")
 
-  const setEmailValue = (value) => {
-    setEmailContext(value);
-  };
+  // const setEmailValue = (value) => {
+  //   setEmailContext(value);
+  // };
 
 
   return (
