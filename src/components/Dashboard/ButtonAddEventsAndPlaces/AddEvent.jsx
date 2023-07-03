@@ -7,6 +7,7 @@ import ConfirmacionEventoCreado from "../../VentanaModal";
 import { PlacesContext } from "../Places/PlacesProvider";
 import interestListEvents from "../../../utils/Interests/interestListEvent";
 import { location } from "../../../utils/svgs";
+import { UserDataContext } from "../../Profile/UserDataProvider";
 
 const AddEvent = ({ setIsToggled, mapRef }) => {
   // Lista de lugares para registrarlos en el evento
@@ -14,6 +15,9 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
 
   // Importar la función para actualizar lista de eventos una vez creado
   const { fetchEvents } = useContext(EventsContext);
+
+  // Importar datos del usuario
+  const { userData } = useContext(UserDataContext)
 
   // Estado para guardar el lugar seleccionado
   const [lugarSeleccionado, setLugarSeleccionado] = useState('')
@@ -23,6 +27,32 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
     useState(false);
 
   const [intereses, setIntereses] = useState(null);
+
+  const [advertenciaIntereses, setAdvertenciaIntereses] = useState(false)
+
+  // Función para verificar si hay intereses
+  function compareInterests(intList1, intList2) {
+
+    // Flag
+    let found = false
+
+    // Se crea un array solo con los códigos de intereses del usuario
+    const listWithCodes = intList1.map((interest) => {
+      return interest.codigo_interes
+    })
+
+    // Iterar sobre los seleccionados para verificar si cumple
+    intList2.forEach(interest => {
+      if (listWithCodes.includes(interest.codigo_interes)) {
+        found = true
+      }
+    });
+
+    if (!found) {
+      setAdvertenciaIntereses(true)
+    }
+    return found
+  }
 
   const {
     register,
@@ -36,7 +66,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
       i.marcado
     ))
 
-    if (lugarSeleccionado && interesEventoArr.length != 0) {
+    if (lugarSeleccionado && interesEventoArr.length != 0 && compareInterests(userData.intereses, interesEventoArr)) {
       datosNuevoEvento.lugar = lugarSeleccionado
       await axios
         .post("http://localhost:5000/api/evento/agregar", datosNuevoEvento, {
@@ -56,7 +86,6 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
             },
           }
           );
-          console.log(response.data.idEvento);
           await fetchEvents();
           setConfirmacionEventoCreado(true);
         })
@@ -76,6 +105,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
 
   // Función para modificar los intereses seleccionados al hacer click
   function handleInteresesEvento(index) {
+    setAdvertenciaIntereses(false)
     const nuevosIntereses = intereses.slice();
     nuevosIntereses[index].marcado = !nuevosIntereses[index].marcado;
     setIntereses(nuevosIntereses);
@@ -303,7 +333,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                 <label className="font-semibold text-sm px-1">
                   Seleciona los intereses del evento
                 </label>
-                
+
                 <div className="border-2 border-gray-400 py-5 rounded-lg w-full mt-1 mb-1 mx-auto flex justify-center flex-wrap">
                   {intereses &&
                     intereses.map((elemento, index) => (
@@ -322,6 +352,16 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                 <p className="text-xs text-red-700">¡No es posible cambiar los intereses, escoge con precaución!</p>
               </div>
             )}
+
+            {advertenciaIntereses && <p>Debes seleccionar al menos uno de tus intereses: {userData.intereses.reduce((strResultado, interes, index) => {
+              if (index === 0) {
+                return strResultado += interes.nombre + ', '
+              } else if (index === userData.intereses.length - 1) {
+                return strResultado += interes.nombre.toLowerCase() + '.'
+              } else {
+                return strResultado += interes.nombre.toLowerCase() + ', '
+              }
+            }, '')}</p>}
 
             {/* Botón crear evento */}
             <button
