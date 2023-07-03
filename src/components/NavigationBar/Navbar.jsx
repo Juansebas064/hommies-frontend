@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import NavbarSearch from "./NavbarSearch";
 import NavbarUser from "./NavbarUser";
-import HommiesLogo from "../../assets/hommiesPublic.png"
+import HommiesLogo from "../../assets/hommies-logo-official.png"
 
 export const Navbar = () => {
 
@@ -16,7 +16,7 @@ export const Navbar = () => {
       {/* <div className="max-w-7xl h-full mx-auto z-50 flex items-center border-2 border-red-500"> */}
 
       {/* Logo de la app */}
-      <div className="flex items-center flex-grow">
+      <div className="flex items-center flex-grow mx-1 gap-2">
         <img
           className="max-h-[65px] cursor-pointer"
           src={HommiesLogo}
