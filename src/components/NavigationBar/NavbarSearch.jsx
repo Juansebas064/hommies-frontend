@@ -13,14 +13,14 @@ function NavbarSearch() {
   // Lista de eventos
   const [events, setEvents] = useState(null)
 
-  useEffect(() => {
-    async function fetchAll() {
-      const allEvents = await fetchAllEventsFromDB()
-      setEvents(allEvents)
-      const allPlaces = await fetchAllPlacesFromDB()
-      setPlaces(allPlaces)
-    }
+  async function fetchAll() {
+    const allEvents = await fetchAllEventsFromDB()
+    setEvents(allEvents)
+    const allPlaces = await fetchAllPlacesFromDB()
+    setPlaces(allPlaces)
+  }
 
+  useEffect(() => {
     fetchAll()
   }, [])
 
@@ -54,6 +54,7 @@ function NavbarSearch() {
           placeholder="Buscar..."
           className="px-10 py-2 w-full rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
           onClick={(e) => {
+            fetchAll()
             const listaEventosLugares = document.getElementById("lista-eventos-lugares")
             const campoBusqueda = e.target
             if (!campoBusqueda.value) {
@@ -72,11 +73,7 @@ function NavbarSearch() {
               const textSearch = event.target.value.toLowerCase();
               const eventsAndPlaces = listaEventosLugares.getElementsByTagName("li")
               for (let i = 0; i < eventsAndPlaces.length; i++) {
-                if (
-                  eventsAndPlaces[i].textContent
-                    .toLowerCase()
-                    .includes(textSearch)
-                ) {
+                if (eventsAndPlaces[i].textContent.toLowerCase().includes(textSearch)) {
                   eventsAndPlaces[i].style.display = "block";
                 } else {
                   eventsAndPlaces[i].style.display = "none";
@@ -116,7 +113,8 @@ function NavbarSearch() {
               {/* Contenedor flex */}
               <div className="h-full flex items-center">
                 {/* Parte izquierda */}
-                <div className="whitespace-nowrap overflow-x-hidden text-ellipsis flex-shrink-0 flex-grow">
+                <div className="whitespace-nowrap overflow-x-hidden text-ellipsis flex-shrink-0 flex-grow relative">
+                  <p className="opacity-0 absolute">{event.lugar.ciudad.nombre}</p>
                   <p className="inline ml-1 mr-2 px-[6px] rounded-md bg-red-500 text-white">
                     E
                   </p>
