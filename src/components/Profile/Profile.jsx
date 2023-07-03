@@ -12,7 +12,7 @@ export default function Profile() {
   const [fechaNacimiento, setFechaNacimiento] = useState("")
   const [ciudad, setCiudad] = useState("")
   const [descripcion, setDescripcion] = useState("")
-  
+
 
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Profile() {
   return (
 
     // Contenedor principal
-    <div className="flex flex-col lg:flex-row lg:h-[89vh] justify-center">
+    <div className="flex flex-col lg:flex-row lg:min-h-[89vh] justify-center overflow-hidden">
 
       {/* Card información del perfil */}
       <div className="basis-[45%] flex items-start justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8 overflow-auto">
@@ -92,7 +92,7 @@ export default function Profile() {
       </div>
 
       {/* Historial de actividades */}
-      <div className="pb-4 m-8">
+      <div className="max-h-[612px] pb-4 m-8 overflow-y-auto">
 
         <h3 className="font-bold text-3xl text-gray-900 text-center mb-3">Historial de actividades</h3>
         <p className="text-center">
