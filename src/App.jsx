@@ -19,6 +19,7 @@ import { PlacesProvider } from "./components/Dashboard/Places/PlacesProvider.jsx
 import { RecoverToken } from "./components/RecoverPassword/RecoverToken.jsx";
 import { RecoverPasswordProvider } from "./components/RecoverPassword/RecoverPasswordProvider.jsx";
 import EventUserProfile from "./components/Dashboard/Events/EventUserProfile.jsx";
+import ChangePass from "./components/RecoverPassword/RecoverPassword.jsx";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                     path="/recoverpassword"
                     element={<RecoverPassword />}
                   />
+                  <Route path="/change-pass" element={<ChangePass/>} />
                   <Route path="/recovertoken" element={<RecoverToken />} />
                   <Route path="/calendar" element={<Calendar />} />
                   <Route

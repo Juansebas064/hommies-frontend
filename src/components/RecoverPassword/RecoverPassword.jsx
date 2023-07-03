@@ -9,26 +9,20 @@ const RecoverPassword = () => {
 
   const [mailError, setMailError] = useState(null)
 
-  const { setEmailContext } = useContext(RecoverPasswordContext);
+  const { setEmailValue } = useContext(RecoverPasswordContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Lógica para enviar el correo electrónico de recuperación de contraseña
-    axios.post('http://localhost:5000/api/usuario/recuperar-cuenta', { email })
+    await axios.post('http://localhost:5000/api/usuario/recuperar-cuenta', { email })
       .then(response => {
-        console.log('Correo electrónico enviado con éxito');
-        // Aquí puedes realizar cualquier acción adicional después de enviar el correo electrónico
-
-        if (response.data.success) {
-        } else {
-          // Redireccionar a una página de error
-          setEmailContext(email);
+        console.log('Correo electrónico enviado con éxito');    
+          setEmailValue(email)
           window.location.href = '/recovertoken';
           setMailError(null)
+      }
 
-        }
-
-      })
+      )
       .catch(error => {
         console.error('Error al enviar el correo electrónico', error);
         // Aquí puedes manejar el error de envío de correo electrónico

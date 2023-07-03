@@ -1,4 +1,5 @@
 import React, { useState , useContext} from "react";
+import axios from "axios";
 import { RecoverPasswordContext } from "./RecoverPasswordProvider";
 
 export const RecoverToken = () => {
@@ -10,11 +11,13 @@ export const RecoverToken = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const correo_electronico = emailContext
+    const token_recuperacion = token
 
-    console.log(emailContext)
+    console.log(emailContext, token)
     // Lógica para enviar el token de recuperación de contraseña
     axios
-      .post("http://localhost:5000/api/usuario/recuperar-cuenta", { token })
+      .post("http://localhost:5000/api/usuario/recuperar-cuenta-token", { token_recuperacion, correo_electronico })
       .then((response) => {
         console.log("Token enviado con exito");
         // Aquí puedes realizar cualquier acción adicional después de enviar el correo electrónico

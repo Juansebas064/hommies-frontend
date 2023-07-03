@@ -11,7 +11,6 @@ export default function ProfileConfig() {
 
   // Estado para almacenar todos los intereses
   const [intereses, setIntereses] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [profilePicture, setProfilePicture] = useState(localStorage.getItem("profilePicture"));
 
   async function fetchInterests() {
@@ -96,7 +95,7 @@ export default function ProfileConfig() {
     const nombre = e.target.files[0].name;
     const image = URL.createObjectURL(e.target.files[0]);
     localStorage.setItem("selectedImage", image);
-    setSelectedImage(image);
+    setProfilePicture(image);
   };
 
 
@@ -139,7 +138,7 @@ export default function ProfileConfig() {
                 {...register("foto")}
               />
               <img
-                src={selectedImage || profilePicture}
+                src={profilePicture}
                 alt=""
                 className="w-24 h-24 mx-auto rounded-full"
               />

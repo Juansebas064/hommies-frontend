@@ -11,7 +11,7 @@ function RecoverPasswordProvider({ children }) {
 
 
   return (
-    <RecoverPasswordContext.Provider value={{ emailContext, setEmailContext: setEmailValue }}>
+    <RecoverPasswordContext.Provider value={{ emailContext, setEmailValue }}>
       {children}
     </RecoverPasswordContext.Provider>
   )
