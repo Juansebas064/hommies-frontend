@@ -17,7 +17,7 @@ export default function EventsFilters({ activeFilter, setActiveFilter }) {
       <div className="relative w-full h-[36px] lg:w-full mt-3 text-[16px] z-10 outline outline-[7px] outline-white flex-shrink-0">
 
         {/* Contenedor scrollable de botones de filtros */}
-        <div className="scroll-smooth no-scrollbar overflow-auto flex justify-between sm:justify-evenly lg:justify-between whitespace-nowrap h-full" id="filter-container">
+        <div className="scroll-smooth no-scrollbar overflow-auto flex justify-between lg:justify-between whitespace-nowrap h-full" id="filter-container">
 
           {/* Botones de filtros */}
           <button
