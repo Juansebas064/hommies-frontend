@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useContext } from "react";
 import getEventStatus from "../../../utils/getEventStatus"
-import { clockSVG, calendarSVG } from "../../../utils/svgs"
+import { clockSVG, calendarSVG, location } from "../../../utils/svgs"
 import EventDetails from "./EventDetails";
 import { EventsContext } from "./EventsProvider";
 import { UserDataContext } from "../../Profile/UserDataProvider";
@@ -154,9 +154,10 @@ function EventItem({ evento, handleShowEventDetails, userData }) {
       }>
         {`● ${eventStatus[status].text}`}
       </p>
-      {/* Temáticas */}
-      <p className="text-center ">
-        {`${evento.lugar.nombre}`}
+      {/* Lugar */}
+      <p className="text-sm text-center lg:text-center">
+        <span className="mr-[6px]">{location(20)}</span>
+        <span className="align-middle">{`${evento.lugar.nombre}`}</span>
       </p>
       {/* Fecha del evento */}
       <p className="text-sm text-center lg:text-center">
