@@ -93,10 +93,10 @@ export default function ProfileConfig() {
   const handleFileChange = (e) => {
     const nombre = e.target.files[0].name;
     const image = URL.createObjectURL(e.target.files[0]);
-    localStorage.setItem("selectedImage", image); 
+    localStorage.setItem("selectedImage", image);
     setSelectedImage(image);
   };
-  
+
 
   return (
     // Contenedor principal
@@ -216,7 +216,7 @@ export default function ProfileConfig() {
                 className="w-full pl-3 pr-3 py-[11px] bg-gray-50 border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:border-indigo-500 block"
                 {...register("ciudad", {
                   required: true,
-                  value: userData.ciudad.codigo_ciudad,
+                  value: userData.ciudad.codigo_ciudad ? userData.ciudad.codigo_ciudad : null,
                 })}
               >
                 <option value="111">Tuluá</option>
@@ -268,11 +268,10 @@ export default function ProfileConfig() {
                   intereses.map((elemento, index) => (
                     <span
                       key={elemento.codigo_interes}
-                      className={`rounded-full px-2 py-1 my-1 mx-1 cursor-pointer select-none ${
-                        elemento.marcado
+                      className={`rounded-full px-2 py-1 my-1 mx-1 cursor-pointer select-none ${elemento.marcado
                           ? "bg-indigo-500 text-white"
                           : "bg-gray-200"
-                      }`}
+                        }`}
                       onClick={() => handleEditarIntereses(index)}
                     >
                       {elemento.nombre}
