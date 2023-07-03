@@ -31,7 +31,7 @@ export default function Profile() {
   return (
 
     // Contenedor principal
-    <div className="flex flex-col lg:flex-row lg:min-h-[89vh] justify-center overflow-hidden">
+    <div className="flex flex-col lg:flex-row lg:h-[89vh] justify-center overflow-hidden">
 
       {/* Card información del perfil */}
       <div className="basis-[45%] flex items-start justify-center rounded-3xl border-2 border-indigo-400 bg-slate-200 py-5 m-8 overflow-auto">
@@ -47,7 +47,7 @@ export default function Profile() {
             {nickname}
           </p>
           <p className="text-black text-center pt-4 pb-1 font-bold text-base">
-            Acerca de mí
+            Acerca de mi
           </p>
 
           {descripcion !== '' && descripcion !== null ? (
@@ -83,7 +83,7 @@ export default function Profile() {
           <p className="text-black text-center text-base">
             {ciudad}
           </p>
-          <button className="bg-indigo-500 rounded-xl mt-3 px-2 py-1 font-bold text-white text-sm hover:bg-indigo-700"
+          <button className="bg-indigo-500 max-w-[250px] rounded-xl mt-3 mx-auto px-5 py-2 font-bold text-white text-sm hover:bg-indigo-700"
             onClick={() => window.location.href = '/profile/config'}
           >
             Editar perfil
@@ -92,10 +92,10 @@ export default function Profile() {
       </div>
 
       {/* Historial de actividades */}
-      <div className="max-h-[612px] pb-4 m-8 overflow-y-auto">
+      <div className="pb-4 m-8 overflow-y-auto">
 
-        <h3 className="font-bold text-3xl text-gray-900 text-center mb-3 px-2">Historial de actividades</h3>
-        <p className="text-center px-2">
+        <h3 className="font-bold text-3xl text-gray-900 text-center mb-3">Historial de actividades</h3>
+        <p className="text-center">
           Aqui se mostraran los eventos en los que has estado inscrito
         </p>
         <EventsList activeFilter='inscrito' />
