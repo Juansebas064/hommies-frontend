@@ -14,7 +14,7 @@ export const RecoverToken = ({ email, setEtapa }) => {
     // const correo_electronico = emailContext
     const token_recuperacion = token
 
-    console.log(emailContext, token)
+    console.log(email, token)
     // Lógica para enviar el token de recuperación de contraseña
     axios
       .post("http://localhost:5000/api/usuario/recuperar-cuenta-token", { token_recuperacion, correo_electronico: email })
