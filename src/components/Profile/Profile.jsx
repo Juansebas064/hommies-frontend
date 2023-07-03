@@ -21,7 +21,7 @@ export default function Profile() {
       setNickname(userData.nickname)
       setCorreo(userData.correo_electronico)
       setFechaNacimiento(userData.fecha_nacimiento)
-      setCiudad(userData.ciudad.nombre)
+      setCiudad(userData.ciudad ? userData.ciudad.nombre : 'Sin asignar')
       setDescripcion(userData.descripcion)
     }
   }, [userData]);

@@ -48,7 +48,9 @@ export default function Dashboard() {
   }, [])
 
   useEffect(() => {
-    if (userData) {
+    if (userData && !userData.ciudad) {
+      window.location.href = '/profile/config'
+    } else if (userData) {
       setUserLocation({
         coordinates: defaultLocations(userData.ciudad.codigo_ciudad).coordinates,
         zoom: defaultLocations(userData.ciudad.codigo_ciudad).zoom

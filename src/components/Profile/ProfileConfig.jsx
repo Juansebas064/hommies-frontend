@@ -13,6 +13,7 @@ export default function ProfileConfig() {
   const [intereses, setIntereses] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [profilePicture, setProfilePicture] = useState(localStorage.getItem("profilePicture"));
+
   async function fetchInterests() {
     const interestsResponse = await intsListWithUserInterests();
     setIntereses(interestsResponse);
@@ -42,23 +43,24 @@ export default function ProfileConfig() {
   async function onSubmit(modifiedUserData) {
     const formData = new FormData();
     const fotoInput = document.getElementById("foto");
+    const newUserInterests = intereses.filter((int) => int.marcado);
     if (fotoInput.files.length > 0) {
       formData.append("foto", fotoInput.files[0]);
     }
     for (const key in modifiedUserData) {
       formData.append(key, modifiedUserData[key]);
     }
-    if (formData) {
+    if (formData && newUserInterests.length !== 0) {
       try {
         await modifyUserData(formData);
 
         getUserDataFromDB();
-        const newUserInterests = intereses.filter((int) => int.marcado);
+
         await modifyUserInterests(newUserInterests);
 
-        setTimeout(() => {
-          window.location.href = "/profile";
-        }, 1500);
+        window.location.href = "/profile";
+        // setTimeout(() => {
+        // }, 1500);
       } catch (error) {
         console.log(error.message);
       }
