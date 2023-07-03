@@ -180,7 +180,6 @@ export default function EventDetails({
   const obtenerParticipante = (user) => {
     setUser(user);
     setEvent(selectedEvent);
-    console.log(user);
   };
   useEffect(() => {
     participaEnEvento();
@@ -189,7 +188,6 @@ export default function EventDetails({
   // Función para listar eventos
   const interesesSeparadosPorComas = () => {
     if (selectedEvent) {
-      console.log(selectedEvent.intereses)
       return selectedEvent.intereses.reduce((acumulador, interes) => {
         if (acumulador === "") {
           return interes.nombre;
@@ -223,11 +221,10 @@ export default function EventDetails({
         >
           {/* Nombre del evento */}
           <input
-            className={`text-xl font-bold text-center col-span-2 mb-3 mt-3 cursor-text ${
-              modifyingEvent
+            className={`text-xl font-bold text-center col-span-2 mb-3 mt-3 cursor-text ${modifyingEvent
                 ? "border-gray-300 border-[1px] rounded-md"
                 : "border-0"
-            }`}
+              }`}
             placeholder="Nombre del evento"
             disabled={!modifyingEvent}
             {...register("nombre", {
@@ -241,11 +238,10 @@ export default function EventDetails({
 
           {/* Descripción del evento */}
           <textarea
-            className={`text-center resize-none overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text ${
-              modifyingEvent
+            className={`text-center resize-none overflow-y-scroll h-auto col-span-2 mb-3 px-3 cursor-text ${modifyingEvent
                 ? "border-gray-300 border-[1px] rounded-md"
                 : "border-0"
-            }`}
+              }`}
             disabled={!modifyingEvent}
             placeholder="Descripción del evento"
             rows={selectedEvent.descripcion.length < 75 ? 2 : 3}
@@ -288,11 +284,10 @@ export default function EventDetails({
             )}
             <input
               type="date"
-              className={`align-middle relative ${
-                modifyingEvent
+              className={`align-middle relative ${modifyingEvent
                   ? "border-gray-300 border-[1px] rounded-md"
                   : "border-0"
-              }`}
+                }`}
               min={new Date().toISOString().split("T")[0]}
               disabled={!modifyingEvent}
               {...register("fecha", {
@@ -309,11 +304,10 @@ export default function EventDetails({
             {/* Hora de inicio */}
             <span className="align-end">
               <input
-                className={`w-12 text-center col-span-2 mb-3 cursor-text ${
-                  modifyingEvent
+                className={`w-12 text-center col-span-2 mb-3 cursor-text ${modifyingEvent
                     ? "border-gray-300 border-[1px] rounded-md"
                     : "border-0"
-                }`}
+                  }`}
                 placeholder="00:00"
                 disabled={!modifyingEvent}
                 {...register("hora_inicio", {
@@ -328,11 +322,10 @@ export default function EventDetails({
               {" - "}
               {/* Hora final */}
               <input
-                className={`w-12 text-center col-span-2 mb-3 cursor-text ${
-                  modifyingEvent
+                className={`w-12 text-center col-span-2 mb-3 cursor-text ${modifyingEvent
                     ? "border-gray-300 border-[1px] rounded-md"
                     : "border-0"
-                }`}
+                  }`}
                 placeholder="00:00"
                 disabled={!modifyingEvent}
                 {...register("hora_final", {
@@ -396,7 +389,7 @@ export default function EventDetails({
                 <div key={index}>
                   <a
                     href="/evento/usuario"
-                    
+
                     onClick={obtenerParticipante(participante.nickname)}
                   >
                     {participante.nickname}
