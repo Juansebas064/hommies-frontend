@@ -140,6 +140,8 @@ const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, set
               className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
               id="aforo"
               name="aforo"
+              min="1" 
+              pattern="^[0-9]+"
               {...register("aforo", {
                 required: true,
               })}
