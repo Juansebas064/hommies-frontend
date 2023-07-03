@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function ChangePass({ email }) {
+
+  const [oldPass, setOldPass] = useState(null)
+
+  const [newPass, setNewPass] = useState(null)
+
+  const [confirmNewPass, setConfirmNewPass] = useState(null)
+
+  const [newPassError, setNewPassError] = useState(null)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+  }
+
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -8,6 +23,22 @@ export default function ChangePass({ email }) {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="flex -mx-3">
               <div className="w-full px-3 ">
+                <label className="text-xs font-semibold px-1">
+                  Ingresa la contraseña actual
+                </label>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  required
+                  value={oldPass}
+                  onChange={(e) => setOldPass(e.target.value)}
+                  className={
+                    "w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-${isValid ? 'green-500' : 'red-500'}"
+                  }
+                  placeholder="********"
+                />
+
                 <label className="text-xs font-semibold px-1">
                   Ingresa tu nueva contraseña
                 </label>
@@ -33,8 +64,8 @@ export default function ChangePass({ email }) {
                     name="password"
                     type="password"
                     required
-                    value={token}
-                    onChange={(e) => setToken(e.target.value)}
+                    value={newPass}
+                    onChange={(e) => setNewPass(e.target.value)}
                     className={
                       "w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-${isValid ? 'green-500' : 'red-500'}"
                     }
@@ -48,8 +79,8 @@ export default function ChangePass({ email }) {
                     name="confirmPassword"
                     type="password"
                     required
-                    value={token}
-                    onChange={(e) => setToken(e.target.value)}
+                    value={confirmNewPass}
+                    onChange={(e) => setConfirmNewPass(e.target.value)}
                     className={
                       "w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-${isValid ? 'green-500' : 'red-500'}"
                     }
@@ -63,10 +94,10 @@ export default function ChangePass({ email }) {
                 type="submit"
                 className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
               >
-                Enviar token de recuperación
+                Guardar nueva contraseña
               </button>
             </div>
-            <p className="text-sm text-red-500 font-extrabold">{tokenError}</p>
+            <p className="text-sm text-red-500 font-extrabold">{newPassError}</p>
           </form>
         </div>
       </div>
