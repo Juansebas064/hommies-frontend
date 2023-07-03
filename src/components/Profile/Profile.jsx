@@ -47,11 +47,11 @@ export default function Profile() {
             {nickname}
           </p>
           <p className="text-black text-center pt-4 pb-1 font-bold text-base">
-            Acerca de mi
+            Acerca de mí
           </p>
 
           {descripcion !== '' && descripcion !== null ? (
-            <div className="text-black text-center bg-gray-100">
+            <div className="text-black text-center">
               {descripcion}
 
             </div>
@@ -94,8 +94,8 @@ export default function Profile() {
       {/* Historial de actividades */}
       <div className="max-h-[612px] pb-4 m-8 overflow-y-auto">
 
-        <h3 className="font-bold text-3xl text-gray-900 text-center mb-3">Historial de actividades</h3>
-        <p className="text-center">
+        <h3 className="font-bold text-3xl text-gray-900 text-center mb-3 px-2">Historial de actividades</h3>
+        <p className="text-center px-2">
           Aqui se mostraran los eventos en los que has estado inscrito
         </p>
         <EventsList activeFilter='inscrito' />
