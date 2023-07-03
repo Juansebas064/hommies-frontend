@@ -110,7 +110,7 @@ export default function Profile() {
         <p className="text-center">
           Aqui se mostraran los eventos en los que has estado inscrito
         </p>
-        <EventsList activeFilter='inscrito' />
+        <EventsList activeFilter='historial' />
       </div>
     </div>
   );

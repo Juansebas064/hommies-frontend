@@ -6,6 +6,7 @@ import EventDetails from "./EventDetails";
 import { EventsContext } from "./EventsProvider";
 import { UserDataContext } from "../../Profile/UserDataProvider";
 import obtenerParticipantes from "../../../utils/Events/obtenerParticipantes.js";
+import fetchAllEventsFromDB from "../../../utils/Events/fetchAllEventsFromDB"
 
 
 export default function EventsList({ activeFilter }) {
@@ -19,6 +20,17 @@ export default function EventsList({ activeFilter }) {
   // Estados: 
   // Mostrar detalles del evento
   const [selectedEvent, setSelectedEvent] = useState(null)
+
+  const [allEvents, setAllEvents] = useState(null)
+
+  useEffect(() => {
+    async function getAllEvents() {
+      const aE = await fetchAllEventsFromDB()
+      setAllEvents(aE)
+    }
+
+    getAllEvents()
+  }, [])
 
   // Lista de eventos filtrada
   const [filteredEvents, setFilteredEvents] = useState(events)
@@ -57,6 +69,20 @@ export default function EventsList({ activeFilter }) {
         setFilteredEvents(activeFilter === 'inscrito' ? inscribedList : notInscribedList)
       }
     }
+    if (activeFilter === 'historial') {
+      const inscribedList = []
+      for (let i = 0; i < allEvents.length; i++) {
+        // const status = getEventStatus(allEvents[i].fecha.substring(0, 10), allEvents[i].hora_inicio.substring(0, 5), allEvents[i].hora_final.substring(0, 5))
+        let listaParticipantes = await obtenerParticipantes(allEvents[i].codigo_evento)
+        listaParticipantes = listaParticipantes.data.rows
+
+        const participa = participaEnEvento(listaParticipantes)
+        if ((participa || userData.id === allEvents[i].creador)) {
+          inscribedList.push(allEvents[i])
+        }
+      }
+      setFilteredEvents(inscribedList)
+    }
     if (activeFilter === 'todos') {
       setFilteredEvents(events)
     }
@@ -77,13 +103,13 @@ export default function EventsList({ activeFilter }) {
 
   // La lista filtrada se creará cuando se actualice el estado activeFilter
   useEffect(() => {
-    if (events && userData) {
+    if (events && userData && allEvents) {
       createFilteredEventsList()
     }
   }, [events, activeFilter, userData])
 
   return (
-    events && filteredEvents ?
+    events && allEvents && filteredEvents ?
       <>
         <div className="relative flex flex-col items-center text-sm lg:px-0 overflow-hidden">
           <ul className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 lg:block overflow-y-auto px-2" id="event-list">
