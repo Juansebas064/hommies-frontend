@@ -129,7 +129,9 @@ function EventItem({ evento, handleShowEventDetails, userData }) {
         {`● ${eventStatus[status].text}`}
       </p>
       {/* Temáticas */}
-      <p className="text-center">Temáticas</p>
+      <p className="text-center ">
+        {`${evento.lugar.nombre}`}
+      </p>
       {/* Fecha del evento */}
       <p className="text-sm text-center lg:text-center">
         <span className="mr-[6px]">{calendarSVG(20)}</span>

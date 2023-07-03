@@ -258,17 +258,22 @@ export default function EventDetails({
 
           {/* Encabezado estado del evento */}
           <p className="text-center font-bold">Estado</p>
-          {/* Encabezado temáticas del evento */}
-          <p className="text-center font-bold">Temática</p>
+
+
+          {/* Encabezado lugar del evento */}
+          <p className="text-center font-bold">Lugar</p>
 
           {/* Estado del evento */}
           <p
             className={`${status.color} mb-8 text-center`}
           >{`● ${status.text}`}</p>
-          {/* Temáticas */}
-          {interesesSeparadosPorComas() && (
-            <p className="text-center mb-6">{interesesSeparadosPorComas()}</p>
-          )}
+
+          
+          {/* Lugar del evento */}
+          <p className="text-center mb-6">
+            {selectedEvent.lugar ? selectedEvent.lugar.nombre : ""}
+          </p>
+          
 
           {/* ----------------------------------------------- */}
 
@@ -342,17 +347,12 @@ export default function EventDetails({
 
           {/* ----------------------------------------------- */}
 
-          {/*Encabezado lugar del evento */}
-          <p className="text-center font-bold col-span-2">Lugar</p>
-          {/* Lugar del evento */}
-          <p className="text-sm text-center col-span-2">
-            {selectedEvent.lugar ? selectedEvent.lugar.nombre : ""}
-          </p>
-          <p className="text-sm text-center col-span-2">
-            {selectedEvent.lugar
-              ? selectedEvent.lugar.descripcion
-              : "Este lugar se eliminó"}
-          </p>
+          {/*Encabezado temática del evento */}
+          <p className="text-center font-bold col-span-2">Temática</p>
+          {/* Temática del evento */}
+          {interesesSeparadosPorComas() && (
+            <p className="text-sm text-center col-span-2">{interesesSeparadosPorComas()}</p>
+          )}
 
           {errors.hora_inicio && (
             <p className="col-span-2 text-center">
