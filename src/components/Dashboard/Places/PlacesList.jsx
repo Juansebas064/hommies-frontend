@@ -71,7 +71,7 @@ function PlaceItem({ lugar, handleShowPlaceDetails, mapRef, markerRefs }) {
   useEffect(() => {
     if (lugar) {
       const ruta = lugar.foto
-      const imageUrl = `http://localhost:5000/${ruta}`;
+      const imageUrl = `http://localhost:5500/${ruta}`;
 
       fetchImage(imageUrl)
         .then((url) => setImageSrc(url))

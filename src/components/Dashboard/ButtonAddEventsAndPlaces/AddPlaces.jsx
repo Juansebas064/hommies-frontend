@@ -5,6 +5,7 @@ import { PlacesContext } from "../Places/PlacesProvider";
 import { UserDataContext } from "../../Profile/UserDataProvider";
 
 const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, setIsToggled, isToggledMarker }) => {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   const { fetchPlaces } = useContext(PlacesContext)
 
   const { userData } = useContext(UserDataContext)
@@ -49,7 +50,7 @@ const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, set
 
     if (formData) {
       try {
-        await fetch("http://localhost:5000/api/lugar/crear", {
+        await fetch(`http://localhost:${requestPort}/api/lugar/crear`, {
           method: "POST",
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -66,7 +67,7 @@ const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, set
   };
 
   return userData ? (
-    <div className={`w-full px-3 mb-4 mt-3 items-center relative ${isToggledMarker ? 'h-6' : 'h-auto'} lg:h-auto`}>
+    <div className={`w - full px - 3 mb - 4 mt - 3 items - center relative ${isToggledMarker ? 'h-6' : 'h-auto'} lg: h - auto`}>
       <div className="w-full items-center text-center justify-center pb-3">
         <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <div className="mb-4">
@@ -104,7 +105,7 @@ const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, set
             />
 
             <button
-              className={`relative px-1 rounded-md border-2 border-gray-200 outline-none hover:duration-200 ${isToggledMarker ? 'border-indigo-500' : 'hover:border-indigo-500'}`}
+              className={`relative px - 1 rounded - md border - 2 border - gray - 200 outline - none hover: duration - 200 ${isToggledMarker ? 'border-indigo-500' : 'hover:border-indigo-500'}`}
               onClick={(e) => {
                 e.preventDefault()
                 handleToggleMarker()
@@ -140,7 +141,7 @@ const AddPlaces = ({ handleToggleMarker, placeName, markerAux, setMarkerAux, set
               className="w-full px-4 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
               id="aforo"
               name="aforo"
-              min="1" 
+              min="1"
               pattern="^[0-9]+"
               {...register("aforo", {
                 required: true,

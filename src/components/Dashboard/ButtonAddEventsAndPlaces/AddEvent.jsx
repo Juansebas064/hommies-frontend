@@ -10,6 +10,7 @@ import { location } from "../../../utils/svgs";
 import { UserDataContext } from "../../Profile/UserDataProvider";
 
 const AddEvent = ({ setIsToggled, mapRef }) => {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   // Lista de lugares para registrarlos en el evento
   const { places } = useContext(PlacesContext);
 
@@ -69,7 +70,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
     if (lugarSeleccionado && interesEventoArr.length != 0 && compareInterests(userData.intereses, interesEventoArr)) {
       datosNuevoEvento.lugar = lugarSeleccionado
       await axios
-        .post("http://localhost:5000/api/evento/agregar", datosNuevoEvento, {
+        .post(`http://localhost:${requestPort}/api/evento/agregar`, datosNuevoEvento, {
           headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("token"),
@@ -78,7 +79,7 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
         .then(async (response) => {
 
           await axios.post(
-            "http://localhost:5000/api/evento/intereses/modificar", interesEventoArr, {
+            `http://localhost:${requestPort}/api/evento/intereses/modificar`, interesEventoArr, {
             headers: {
               "Content-Type": "application/json",
               Authorization: localStorage.getItem("token"),
@@ -272,7 +273,6 @@ const AddEvent = ({ setIsToggled, mapRef }) => {
                   className="w-full px-[6px] py-2 rounded-lg border-2 border-gray-200 text-sm focus:border-indigo-500"
                   type="date"
                   min={new Date().toISOString().split("T")[0]}
-                  max="2023-12-31"
                   {...register("fecha", {
                     required: true,
                   })}

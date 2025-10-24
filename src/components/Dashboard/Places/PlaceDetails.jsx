@@ -9,6 +9,7 @@ import { PlacesContext } from "./PlacesProvider.jsx";
 
 
 export default function EventDetails({ selectedPlace, setSelectedPlace }) {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
 
   // Datos del usuario para determinar si es el creador o no
   const { userData } = useContext(UserDataContext)
@@ -38,7 +39,7 @@ export default function EventDetails({ selectedPlace, setSelectedPlace }) {
 
   // Eliminar lugar
   async function deletePlace() {
-    await axios.post('http://localhost:5000/api/lugar/eliminar', { codigo_lugar: selectedPlace.codigo_lugar }, {
+    await axios.post(`http://localhost:${requestPort}/api/lugar/eliminar`, { codigo_lugar: selectedPlace.codigo_lugar }, {
       headers: {
         "Content-Type": 'application/json',
         Authorization: localStorage.getItem('token')

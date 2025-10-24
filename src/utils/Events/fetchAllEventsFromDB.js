@@ -2,8 +2,9 @@ import axios from "axios"
 import fetchAllPlacesFromDB from "./fetchAllPlacesFromDB"
 
 export default async function fetchAllEventsFromDB() {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   try {
-    let allEvents = await axios.get('http://localhost:5000/api/navbar/get/lista', {
+    let allEvents = await axios.get(`http://localhost:${requestPort}/api/navbar/get/lista`, {
       headers: {
         "Content-Type": 'application/json',
         Authorization: localStorage.getItem('token')

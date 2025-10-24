@@ -5,6 +5,7 @@ import { fetchUserData } from "../../utils/fetchUserData";
 const UserDataContext = createContext();
 
 function UserDataProvider({ children }) {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   // Estado para guardar la información del usuario
   const [userData, setUserData] = useState(null);
 
@@ -21,7 +22,7 @@ function UserDataProvider({ children }) {
         imageUrl = foto;
       } else if (foto) {
         // Si la foto es una ruta del backend, construye la URL completa utilizando la ruta y el origen del backend
-        imageUrl = `http://localhost:5000/${foto}`;
+        imageUrl = `http://localhost:${requestPort}/${foto}`;
       } else {
         // Si no hay foto, asigna una imagen por defecto
         imageUrl =

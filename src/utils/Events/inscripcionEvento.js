@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export default async function inscripcionEvento(codigo_evento) {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/evento/inscribirse",
+      `http://localhost:${requestPort}/api/evento/inscribirse`,
       { codigo_evento: codigo_evento },
       {
         headers: {

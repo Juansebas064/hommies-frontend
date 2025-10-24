@@ -7,6 +7,7 @@ import { UserDataContext } from "./Profile/UserDataProvider";
 import ErrorLogin from "./VentanaModal";
 
 const Login = () => {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   // Función para consultar info del usuario en la bd cuando se haga login
   const { userData, getUserDataFromDB } = useContext(UserDataContext);
 
@@ -29,7 +30,7 @@ const Login = () => {
     console.log(response);
     //devuelve el JWT
     await axios
-      .post("http://localhost:5000/api/login/verify/google", {
+      .post(`http://localhost:${requestPort}/api/login/verify/google`, {
         data: response,
       })
       .then((response) => {
@@ -54,7 +55,7 @@ const Login = () => {
     try {
       // Petición para buscar el usuario en la bd y generar el token JWT
       const response = await axios.post(
-        "http://localhost:5000/api/create/JWT",
+        `http://localhost:${requestPort}/api/create/JWT`,
         data
       );
 
@@ -175,7 +176,7 @@ const Login = () => {
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                   {showPassword ? (
                     <svg
-                      className={`h-6 ${showPassword ? "text-gray-700" : "text-indigo-500"
+                      className={`h - 6 ${showPassword ? "text-gray-700" : "text-indigo-500"
                         }`}
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +191,7 @@ const Login = () => {
                     </svg>
                   ) : (
                     <svg
-                      className={`h-6 ${showPassword ? "text-indigo-500" : "text-gray-700"
+                      className={`h - 6 ${showPassword ? "text-indigo-500" : "text-gray-700"
                         }`}
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"

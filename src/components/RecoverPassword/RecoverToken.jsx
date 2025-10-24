@@ -3,6 +3,7 @@ import axios from "axios";
 import { RecoverPasswordContext } from "./RecoverPasswordProvider";
 
 export const RecoverToken = ({ email, setEtapa }) => {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   const [token, setToken] = useState('');
 
   const [tokenError, setTokenError] = useState(null);
@@ -17,7 +18,7 @@ export const RecoverToken = ({ email, setEtapa }) => {
     console.log(email, token)
     // Lógica para enviar el token de recuperación de contraseña
     axios
-      .post("http://localhost:5000/api/usuario/recuperar-cuenta-token", { token_recuperacion, correo_electronico: email })
+      .post(`http://localhost:${requestPort}/api/usuario/recuperar-cuenta-token`, { token_recuperacion, correo_electronico: email })
       .then((response) => {
         console.log("Token enviado con exito");
         setEtapa('changepass')

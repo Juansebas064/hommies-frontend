@@ -3,8 +3,9 @@ import fetchPlacesFromDB from "../Places/fetchPlacesFromDB";
 import fetchEventInterestsFromDB from "./fetchEventInterestsFromDB";
 
 export default async function fetchEvents() {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   try {
-    let eventos = await axios.get('http://localhost:5000/api/evento/obtenerC', {
+    let eventos = await axios.get(`http://localhost:${requestPort}/api/evento/obtenerC`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('token')

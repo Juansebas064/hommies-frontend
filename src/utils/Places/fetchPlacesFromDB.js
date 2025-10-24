@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export default async function fetchPlacesFromDB() {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   try {
-    const lugares = await axios.get('http://localhost:5000/api/lugar/consultar', {
+    const lugares = await axios.get(`http://localhost:${requestPort}/api/lugar/consultar`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('token')

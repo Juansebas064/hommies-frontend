@@ -7,6 +7,7 @@ import axios from "axios";
 
 
 const Register = () => {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
 
   //Obtencíon de datos con react hook form
   const { register, formState: { errors }, handleSubmit } = useForm();
@@ -16,7 +17,7 @@ const Register = () => {
   const onSubmit = async (dataJson) => {
     console.log(dataJson);
 
-    await axios.post('http://localhost:5000/api/register/user', {
+    await axios.post(`http://localhost:${requestPort}/api/register/user`, {
       data: dataJson
     }).then((dataJson) => {
 
@@ -36,7 +37,7 @@ const Register = () => {
 
   // Registro con Google
   const handleLoginSuccess = (response) => {
-    axios.post('http://localhost:5000/api/register/verify/google', {
+    axios.post(`http://localhost:${requestPort}/api/register/verify/google`, {
       data: response,
       withCredentials: true
     }).then((response) => {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios'
 
 export default function ChangePass({ email }) {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
 
   // const [oldPass, setOldPass] = useState('')
 
@@ -16,7 +17,7 @@ export default function ChangePass({ email }) {
 
     if (newPass === confirmNewPass) {
       try {
-        const response = await axios.post('http://localhost:5000/api/usuario/cambiar-contrasena', { correo_electronico: email, contraseña: newPass })
+        const response = await axios.post(`http://localhost:${requestPort}/api/usuario/cambiar-contrasena`, { correo_electronico: email, contraseña: newPass })
         console.log(response)
         window.location.href = '/login'
       } catch (error) {

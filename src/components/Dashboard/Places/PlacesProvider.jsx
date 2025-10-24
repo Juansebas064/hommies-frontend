@@ -3,7 +3,7 @@ import fetchPlacesFromDB from "../../../utils/Places/fetchPlacesFromDB";
 
 const PlacesContext = createContext()
 
-function PlacesProvider({ children }) {
+function PlacesProvider( {children} ) {
 
   // Estado para almacenar los lugares
   const [places, setPlaces] = useState(null)

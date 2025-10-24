@@ -3,7 +3,7 @@ import fetchEventsFromDB from "../../../utils/Events/fetchEventsFromDB"
 
 const EventsContext = createContext()
 
-function EventsProvider({ children }) {
+function EventsProvider( {children} ) {
 
   // Estado para almacenar los eventos
   const [events, setEvents] = useState(null)

@@ -6,6 +6,7 @@ import ChangePass from "../RecoverPassword/ChangePass"
 
 
 const RecoverPassword = () => {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
 
   const [etapa, setEtapa] = useState('correo')
 
@@ -18,7 +19,7 @@ const RecoverPassword = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     // Lógica para enviar el correo electrónico de recuperación de contraseña
-    await axios.post('http://localhost:5000/api/usuario/recuperar-cuenta', { email })
+    await axios.post(`http://localhost:${requestPort}/api/usuario/recuperar-cuenta`, { email })
       .then(async (response) => {
         console.log('Correo electrónico enviado con éxito');
         setEtapa('token')
@@ -32,7 +33,7 @@ const RecoverPassword = () => {
         // Aquí puedes manejar el error de envío de correo electrónico
         setMailError("Esta cuenta no existe")
       });
-  };
+  }
 
   return (
     <>

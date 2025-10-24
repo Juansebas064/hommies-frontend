@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export default async function modifyEventToDB(codigo_evento, modifiedEventData) {
+  const requestPort = import.meta.env.VITE_BACKEND_PORT
   try {
     const response = await axios.put(
-      `http://localhost:5000/api/evento/editar/:${codigo_evento}`,
+      `http://localhost:${requestPort}/api/evento/editar/:${codigo_evento}`,
       modifiedEventData,
       {
         headers: {

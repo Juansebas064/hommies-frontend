@@ -5,7 +5,7 @@ import fetchEventUser from "../../../utils/Events/fetchEventUser"
 const EventUserContext = createContext()
 
 
-function EventUserProvider({ children }) {
+function EventUserProvider( {children} ) {
 
   const [event, setEvent] = useState(null)  
   const [user, setUser] = useState(null)

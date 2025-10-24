@@ -3,11 +3,12 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 
 function Calendar() {
+  // const requestPort = process.env.VITE_BACKEND_PORT
 
   const [message, setMessage] = useState("");
 
   // useEffect(() => {
-  //   axios.get("http://localhost:5000/asd", {
+  //   axios.get(`http://localhost:${requestPort}/asd`, {
   //     withCredentials: true
   //   })
   //     .then(response => {
